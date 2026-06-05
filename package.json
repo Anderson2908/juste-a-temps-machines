@@ -1,0 +1,10 @@
+{
+  "name": "juste-a-temps-solutions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Solutions de location machines à café — DA Juste à Temps",
+  "scripts": {
+    "dev": "npx --yes serve . -p 5173",
+    "start": "npm run dev"
+  }
+}
