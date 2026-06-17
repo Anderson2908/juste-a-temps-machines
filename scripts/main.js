@@ -239,9 +239,15 @@
     const staggerSelectors = [
       ".catalog-steps .catalog-step",
       ".services-stack .service-row",
+      ".machines-header__inner > *",
       ".machines-grid .machine-item",
+      ".machines-cta",
       ".stats-grid .stat",
       ".eco-list li",
+      ".home-bcorp__cards .home-bcorp__card",
+      ".contact-info__lead",
+      ".contact-offices .contact-office",
+      ".contact-email",
       ".logos-row .client-logo-wrap",
       ".about-pillars .about-pillar",
       ".about-commitments .about-commitment",
@@ -257,11 +263,11 @@
       ".about-section-header",
       ".about-cert__inner",
       ".about-bcorp__inner",
+      ".home-bcorp__visual",
+      ".home-bcorp__content > *",
       ".about-cta",
       ".hero-content > *",
       ".hero-visual",
-      ".services-panel",
-      ".machines-header",
       ".section-title",
       ".section-lead",
       ".testimonials",
@@ -269,7 +275,7 @@
       ".section--logos .eyebrow",
       ".section--logos .logos-row",
       ".section--cta .container > *",
-      ".contact-info",
+      ".contact-header",
       ".contact-form",
       ".footer-newsletter-band__inner",
       ".footer-brand",
@@ -295,20 +301,37 @@
       if (variant) el.classList.add(variant);
     }
 
-    function stagger(selector) {
+    function stagger(selector, step = 85, max = 480) {
       document.querySelectorAll(selector).forEach((el, i) => {
         mark(el);
-        el.style.setProperty("--reveal-delay", `${Math.min(i * 60, 300)}ms`);
+        el.style.setProperty("--reveal-delay", `${Math.min(i * step, max)}ms`);
       });
     }
 
-    staggerSelectors.forEach(stagger);
+    staggerSelectors.forEach((selector) => stagger(selector));
 
-    document.querySelectorAll(".split-section > :first-child").forEach((el) => {
-      mark(el, "reveal--left");
+    let servicesPanelIndex = 0;
+    document.querySelectorAll(".services-panel > *").forEach((el) => {
+      if (el.classList.contains("services-highlights")) {
+        el.querySelectorAll("li").forEach((li) => {
+          mark(li);
+          li.style.setProperty("--reveal-delay", `${Math.min(servicesPanelIndex * 85, 480)}ms`);
+          servicesPanelIndex += 1;
+        });
+        return;
+      }
+      mark(el);
+      el.style.setProperty("--reveal-delay", `${Math.min(servicesPanelIndex * 85, 480)}ms`);
+      servicesPanelIndex += 1;
+    });
+
+    document.querySelectorAll(".split-section > :first-child > *").forEach((el, i) => {
+      mark(el);
+      el.style.setProperty("--reveal-delay", `${Math.min(i * 85, 340)}ms`);
     });
 
     document.querySelectorAll(".split-section > :last-child:not(:first-child)").forEach((el) => {
+      if (el.matches("ul, ol")) return;
       mark(el, "reveal--right");
     });
 
@@ -327,7 +350,7 @@
           observer.unobserve(entry.target);
         });
       },
-      { root: null, rootMargin: "0px 0px -4% 0px", threshold: 0.08 }
+      { root: null, rootMargin: "0px 0px -6% 0px", threshold: 0.05 }
     );
 
     targets.forEach((el) => observer.observe(el));
@@ -481,10 +504,51 @@
     observer.observe(section);
   }
 
+  function setupAboutHeroParallax() {
+    const bg = document.querySelector(".about-hero-bg");
+    const sections = document.querySelectorAll(".page-hero--about, .about-mission");
+    if (!bg || !sections.length) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (reduceMotion || isMobile) return;
+
+    const visible = new Set();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visible.add(entry.target);
+          else visible.delete(entry.target);
+        });
+        bg.classList.toggle("is-active", visible.size > 0);
+      },
+      { threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  function setupHeaderScroll() {
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+
+    const threshold = 48;
+
+    function update() {
+      header.classList.toggle("is-scrolled", window.scrollY > threshold);
+    }
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+  }
+
   setupScrollReveal();
   setupMachineStatCounters();
   setupStatsBandCounters();
+  setupHeaderScroll();
   setupScroll();
   setupSectionParallax("#rse", ".rse-bg");
+  setupAboutHeroParallax();
   setupSectionParallax(".about-impact", ".about-impact-bg");
 })();

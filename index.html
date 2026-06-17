@@ -18,19 +18,9 @@
 
     <title>Location machine à café professionnelle | Juste à temps</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link
-
-      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap"
-
-      rel="stylesheet"
-
-    />
-
     <link rel="stylesheet" href="styles/main.css" />
+
+    <link rel="stylesheet" href="styles/editorial.css" />
 
   </head>
 
@@ -110,6 +100,8 @@
 
           <div class="hero-content">
 
+            <p class="hero-kicker">un bar plus juste<sup>®</sup></p>
+
             <h1 class="hero-title">
 
               <span class="hero-line">
@@ -150,13 +142,53 @@
 
           <div class="hero-visual" aria-hidden="true">
 
-            <div class="hero-card">
+            <div class="hero-orbit">
 
-              <div class="hero-card-badge">Livraison 24/48h</div>
+              <div class="hero-orbit__ring"></div>
 
-              <div class="hero-card-icon" aria-hidden="true"></div>
+              <ul class="hero-orbit__stats">
 
-              <p>machines à grains · fontaines · distributeurs automatiques</p>
+                <li class="hero-stat-pill">
+
+                  <span class="hero-stat-pill__value">+30</span>
+
+                  <span class="hero-stat-pill__label">ans d'expertise convivialité</span>
+
+                </li>
+
+                <li class="hero-stat-pill hero-stat-pill--accent">
+
+                  <span class="hero-stat-pill__value">24/48h</span>
+
+                  <span class="hero-stat-pill__label">livraison en véhicules propres</span>
+
+                </li>
+
+                <li class="hero-stat-pill">
+
+                  <span class="hero-stat-pill__value">0</span>
+
+                  <span class="hero-stat-pill__label">capsule jetable à la pause-café</span>
+
+                </li>
+
+                <li class="hero-stat-pill hero-stat-pill--cert">
+
+                  <img class="hero-stat-pill__logo" src="assets/bcorp-logo.png" alt="" width="48" height="48" decoding="async" />
+
+                  <span class="hero-stat-pill__label">B Corp</span>
+
+                </li>
+
+                <li class="hero-stat-pill hero-stat-pill--cert">
+
+                  <img class="hero-stat-pill__logo" src="assets/ecovadis-bronze.png" alt="" width="48" height="48" decoding="async" />
+
+                  <span class="hero-stat-pill__label">EcoVadis bronze</span>
+
+                </li>
+
+              </ul>
 
             </div>
 
@@ -685,6 +717,108 @@
 
 
 
+      <!-- B Corp -->
+
+      <section class="section home-bcorp" id="bcorp">
+
+        <div class="home-bcorp__glow" aria-hidden="true"></div>
+
+        <div class="container home-bcorp__inner">
+
+          <div class="home-bcorp__visual">
+
+            <div class="home-bcorp__ring" aria-hidden="true"></div>
+
+            <div class="home-bcorp__logo-wrap">
+
+              <span class="home-bcorp__tag">nouveau</span>
+
+              <img src="assets/bcorp-logo.png" alt="Certified B Corporation" width="160" height="160" loading="lazy" decoding="async" />
+
+            </div>
+
+          </div>
+
+          <div class="home-bcorp__content">
+
+            <span class="home-bcorp__eyebrow">certification</span>
+
+            <h2 class="home-bcorp__title">juste à temps rejoint le mouvement <span class="brand-case">B Corp</span></h2>
+
+            <p class="home-bcorp__lead">
+
+              Nous sommes fiers d'obtenir la certification B Corporation, qui reconnaît notre engagement à créer de la valeur pour nos équipes, nos clients et la planète, au-delà du seul résultat économique.
+
+            </p>
+
+            <div class="home-bcorp__cards">
+
+              <article class="home-bcorp__card">
+
+                <span class="home-bcorp__card-icon" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+
+                    <circle cx="12" cy="12" r="9" />
+
+                    <path d="M12 7v5l3 2" />
+
+                  </svg>
+
+                </span>
+
+                <p>impact mesuré sur l'ensemble de nos activités</p>
+
+              </article>
+
+              <article class="home-bcorp__card">
+
+                <span class="home-bcorp__card-icon" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+
+                  </svg>
+
+                </span>
+
+                <p>une pause-café responsable, de la machine au grain</p>
+
+              </article>
+
+              <article class="home-bcorp__card">
+
+                <span class="home-bcorp__card-icon" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+
+                    <circle cx="9" cy="7" r="4" />
+
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+
+                  </svg>
+
+                </span>
+
+                <p>transparence et exigence avec nos partenaires</p>
+
+              </article>
+
+            </div>
+
+            <a href="a-propos.html" class="btn btn-primary btn-lg">Découvrir notre engagement</a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
       <!-- Contact -->
 
       <section class="section section-contact" id="contact">
@@ -709,23 +843,67 @@
 
                 <a class="contact-office" href="tel:0820001030">
 
-                  <span class="contact-office__city">Paris</span>
+                  <span class="contact-office__icon" aria-hidden="true">
 
-                  <span class="contact-office__value">08 20 00 10 30</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+
+                    </svg>
+
+                  </span>
+
+                  <span class="contact-office__body">
+
+                    <span class="contact-office__city">Paris</span>
+
+                    <span class="contact-office__value">08 20 00 10 30</span>
+
+                  </span>
 
                 </a>
 
                 <a class="contact-office" href="tel:0451085102">
 
-                  <span class="contact-office__city">Lyon</span>
+                  <span class="contact-office__icon" aria-hidden="true">
 
-                  <span class="contact-office__value">04 51 08 51 02</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+
+                    </svg>
+
+                  </span>
+
+                  <span class="contact-office__body">
+
+                    <span class="contact-office__city">Lyon</span>
+
+                    <span class="contact-office__value">04 51 08 51 02</span>
+
+                  </span>
 
                 </a>
 
               </div>
 
-              <a class="contact-email" href="mailto:contact@justeatemps.com">contact@justeatemps.com</a>
+              <a class="contact-email" href="mailto:contact@justeatemps.com">
+
+                <span class="contact-email__icon" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+
+                  </svg>
+
+                </span>
+
+                contact@justeatemps.com
+
+              </a>
 
             </aside>
 

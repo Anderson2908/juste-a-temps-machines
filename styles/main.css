@@ -22,7 +22,7 @@
 
   --jat-bg: #faf8f6;
 
-  --font-sans: "Jost", "Century Gothic", "Futura BT", Futura, sans-serif;
+  --font-sans: "Futura BT", Futura, "Century Gothic", sans-serif;
 
   --radius: 4px;
 
@@ -2016,6 +2016,22 @@ h4,
 
   background-repeat: no-repeat;
 
+  opacity: 0;
+
+  visibility: hidden;
+
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+
+}
+
+
+
+.about-hero-bg.is-active {
+
+  opacity: 1;
+
+  visibility: visible;
+
 }
 
 
@@ -2188,7 +2204,51 @@ h4,
 
 .about-mission {
 
-  background: var(--jat-white);
+  position: relative;
+
+  z-index: 1;
+
+  background: transparent;
+
+}
+
+
+
+.about-mission::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  background:
+
+    linear-gradient(
+
+      105deg,
+
+      rgba(10, 14, 10, 0.9) 0%,
+
+      rgba(10, 14, 10, 0.72) 48%,
+
+      rgba(10, 14, 10, 0.55) 100%
+
+    );
+
+  pointer-events: none;
+
+}
+
+
+
+.about-mission .split-section {
+
+  position: relative;
+
+  z-index: 1;
 
 }
 
@@ -2198,7 +2258,7 @@ h4,
 
   margin: 0;
 
-  color: var(--jat-text-muted);
+  color: rgba(235, 230, 227, 0.82);
 
   line-height: 1.7;
 
@@ -2887,6 +2947,44 @@ h4,
     background-position: center 45%;
 
     background-repeat: no-repeat;
+
+  }
+
+
+
+  .about-mission {
+
+    background-color: #141a14;
+
+    background-image:
+
+      linear-gradient(
+
+        105deg,
+
+        rgba(10, 14, 10, 0.9) 0%,
+
+        rgba(10, 14, 10, 0.72) 48%,
+
+        rgba(10, 14, 10, 0.55) 100%
+
+      ),
+
+      url("../assets/about-hero.png");
+
+    background-size: cover;
+
+    background-position: center 45%;
+
+    background-repeat: no-repeat;
+
+  }
+
+
+
+  .about-mission::before {
+
+    display: none;
 
   }
 
@@ -4153,9 +4251,9 @@ h4,
 
   .machines-header {
 
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 
-    padding-bottom: 1.75rem;
+    padding-bottom: 0;
 
   }
 
@@ -4163,7 +4261,7 @@ h4,
 
   .machines-header__inner {
 
-    text-align: left;
+    text-align: center;
 
   }
 
@@ -4171,9 +4269,9 @@ h4,
 
   .machines-lead {
 
-    margin-left: 0;
+    margin-inline: auto;
 
-    margin-right: 0;
+    text-align: center;
 
   }
 
