@@ -582,7 +582,7 @@ h4,
 
 
 
-.main--home > :not(.hero-bg):not(.rse-bg) {
+.main--home > :not(.hero-bg):not(.rse-bg):not(.bcorp-bg) {
 
   position: relative;
 
@@ -1984,7 +1984,7 @@ h4,
 
 
 
-.main--about > :not(.about-hero-bg):not(.about-impact-bg) {
+.main--about > :not(.about-hero-bg):not(.about-impact-bg):not(.bcorp-bg) {
 
   position: relative;
 

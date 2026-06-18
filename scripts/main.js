@@ -566,6 +566,7 @@
   setupHeaderScroll();
   setupScroll();
   setupSectionParallax("#rse", ".rse-bg");
+  setupSectionParallax("#bcorp", ".bcorp-bg");
   setupAboutHeroParallax();
   setupSectionParallax(".about-impact", ".about-impact-bg");
 })();

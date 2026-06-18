@@ -92,6 +92,8 @@
 
       <div class="hero-bg" aria-hidden="true"></div>
 
+      <div class="bcorp-bg" aria-hidden="true"></div>
+
       <!-- Hero type Pleyce -->
 
       <section class="hero">
@@ -431,7 +433,7 @@
                   <img class="machine-item__img machine-item__img--hover" src="assets/machines/jura-x4-top.png" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
                 </div>
                 <div class="machine-item__content">
-                  <h3 class="machine-item__name">x4</h3>
+                  <h3 class="machine-item__name">JURA X4</h3>
                   <p class="machine-item__tagline">précision et élégance</p>
                   <p class="machine-item__desc">Design anthracite et espresso de qualité pour bureaux exigeants et salles de réunion.</p>
                   <div class="machine-item__stats">
@@ -450,20 +452,21 @@
 
             <article class="machine-item">
               <div class="machine-item__link">
-                <div class="machine-item__media">
-                  <img src="assets/machines/gaggia-milano.png" alt="Gaggia Milano" width="480" height="480" loading="lazy" decoding="async" />
+                <div class="machine-item__media machine-item__media--swap">
+                  <img class="machine-item__img machine-item__img--default" src="assets/machines/gaggia-milano.png" alt="Gaggia Milano" width="480" height="480" loading="lazy" decoding="async" />
+                  <img class="machine-item__img machine-item__img--hover" src="assets/machines/gaggia-milano-top.png" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
                 </div>
                 <div class="machine-item__content">
-                  <h3 class="machine-item__name">milano</h3>
+                  <h3 class="machine-item__name">Gaggia G300 Krea</h3>
                   <p class="machine-item__tagline">design italien d'exception</p>
                   <p class="machine-item__desc">Menu tactile intuitif et café d'exception pour une pause-café mémorable.</p>
                   <div class="machine-item__stats">
                     <div class="machine-item__stat">
-                      <span class="machine-item__stat-value">15</span>
+                      <span class="machine-item__stat-value">17</span>
                       <span class="machine-item__stat-label">boissons au choix</span>
                     </div>
                     <div class="machine-item__stat">
-                      <span class="machine-item__stat-value">100</span>
+                      <span class="machine-item__stat-value">120</span>
                       <span class="machine-item__stat-label">cafés par jour</span>
                     </div>
                   </div>
@@ -473,11 +476,12 @@
 
             <article class="machine-item">
               <div class="machine-item__link">
-                <div class="machine-item__media">
-                  <img src="assets/machines/animo.png" alt="Animo" width="480" height="480" loading="lazy" decoding="async" />
+                <div class="machine-item__media machine-item__media--swap">
+                  <img class="machine-item__img machine-item__img--default" src="assets/machines/animo.png" alt="Animo" width="480" height="480" loading="lazy" decoding="async" />
+                  <img class="machine-item__img machine-item__img--hover" src="assets/machines/animo-top.png" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
                 </div>
                 <div class="machine-item__content">
-                  <h3 class="machine-item__name">animo</h3>
+                  <h3 class="machine-item__name">ANIMO</h3>
                   <p class="machine-item__tagline">robustesse professionnelle</p>
                   <p class="machine-item__desc">Fiabilité et simplicité pour un usage intensif au quotidien en entreprise.</p>
                   <div class="machine-item__stats">
@@ -524,7 +528,7 @@
                   <img class="machine-item__img machine-item__img--hover" src="assets/machines/jura-ena-4-top.png" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
                 </div>
                 <div class="machine-item__content">
-                  <h3 class="machine-item__name">ena 4</h3>
+                  <h3 class="machine-item__name">JURA ENA 4</h3>
                   <p class="machine-item__tagline">compacte et raffinée</p>
                   <p class="machine-item__desc">Format réduit idéal pour les espaces restreints sans compromis sur la qualité en tasse.</p>
                   <div class="machine-item__stats">
@@ -691,19 +695,58 @@
 
       <!-- Simulateur CTA -->
 
-      <section class="section section--cta" id="simulateur">
+      <section class="section home-simulateur" id="simulateur">
 
-        <div class="container text-center">
+        <div class="container">
 
-          <h2 class="section-title section-title--light">Trouvez votre solution café en 30 secondes</h2>
+          <div class="simulateur-panel">
 
-          <p class="section-lead section-lead--light">
+            <div class="simulateur-panel__glow" aria-hidden="true"></div>
 
-            Répondez à quelques questions sur vos effectifs et vos habitudes nous vous orientons vers la machine adaptée.
+            <div class="simulateur-panel__content">
 
-          </p>
+              <span class="simulateur-panel__badge">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                30 secondes chrono
+              </span>
 
-          <a href="https://abonnement-cafe.justeatemps.com/" class="btn btn-primary btn-lg">Calculer le coût de mon café</a>
+              <h2 class="simulateur-panel__title">trouvez votre solution café idéale</h2>
+
+              <p class="simulateur-panel__lead">Répondez à quelques questions sur vos effectifs et vos habitudes : nous vous orientons vers la machine et le café adaptés à votre équipe.</p>
+
+              <a href="https://abonnement-cafe.justeatemps.com/" class="btn btn-lg simulateur-panel__btn">calculer le coût de mon café</a>
+
+            </div>
+
+            <ol class="simulateur-steps">
+
+              <li class="simulateur-step">
+                <span class="simulateur-step__num">1</span>
+                <span class="simulateur-step__body">
+                  <strong>vos effectifs</strong>
+                  la taille de votre équipe et le nombre de pauses
+                </span>
+              </li>
+
+              <li class="simulateur-step">
+                <span class="simulateur-step__num">2</span>
+                <span class="simulateur-step__body">
+                  <strong>vos habitudes</strong>
+                  vos goûts, vos volumes et vos envies de café
+                </span>
+              </li>
+
+              <li class="simulateur-step">
+                <span class="simulateur-step__num">3</span>
+                <span class="simulateur-step__body">
+                  <strong>notre recommandation</strong>
+                  la machine et le café faits pour vous
+                </span>
+              </li>
+
+            </ol>
+
+          </div>
 
         </div>
 
@@ -715,25 +758,11 @@
 
       <section class="section home-bcorp" id="bcorp">
 
-        <div class="home-bcorp__glow" aria-hidden="true"></div>
-
         <div class="container home-bcorp__inner">
 
-          <div class="home-bcorp__visual">
-
-            <div class="home-bcorp__ring" aria-hidden="true"></div>
-
-            <div class="home-bcorp__logo-wrap">
-
-              <span class="home-bcorp__tag">nouveau</span>
-
-              <img src="assets/bcorp-logo.png" alt="Certified B Corporation" width="160" height="160" loading="lazy" decoding="async" />
-
-            </div>
-
-          </div>
-
           <div class="home-bcorp__content">
+
+            <span class="home-bcorp__tag">nouveau</span>
 
             <span class="home-bcorp__eyebrow">certification</span>
 

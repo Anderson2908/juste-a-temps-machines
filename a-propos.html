@@ -45,6 +45,7 @@
 
     <main class="main--about">
       <div class="about-hero-bg is-active" aria-hidden="true"></div>
+      <div class="bcorp-bg" aria-hidden="true"></div>
       <section class="page-hero page-hero--about">
         <div class="container page-hero__inner">
           <nav aria-label="Fil d'Ariane">
@@ -71,7 +72,7 @@
         <div class="container split-section">
           <div>
             <span class="section-eyebrow section-eyebrow--light">notre mission</span>
-            <h2 class="section-title section-title--light">un bar plus juste®, au bureau</h2>
+            <h2 class="section-title section-title--light">Un bar plus juste®, au bureau</h2>
             <p class="section-lead section-lead--light">
               Nous croyons qu'une pause-café de qualité peut être un acte responsable : moins de déchets, des produits traçables, des machines durables et une logistique qui respecte les territoires.
             </p>
@@ -177,19 +178,19 @@
           </div>
           <div class="about-commitments">
             <article class="about-commitment">
-              <h3>machines à grains</h3>
+              <h3>Machines à grains</h3>
               <p>Fini les capsules : café fraîchement moulu, arômes préservés et bilan déchets divisé.</p>
             </article>
             <article class="about-commitment">
-              <h3>fontaines &amp; vrac</h3>
+              <h3>Fontaines &amp; vrac</h3>
               <p>Hydratation sans bouteille plastique, bonbonnes consignées et micro-filtration.</p>
             </article>
             <article class="about-commitment">
-              <h3>gobelets &amp; consommables</h3>
+              <h3>Gobelets &amp; consommables</h3>
               <p>Gammes compostables, recyclables ou réutilisables selon vos politiques internes.</p>
             </article>
             <article class="about-commitment">
-              <h3>torréfacteurs partenaires</h3>
+              <h3>Torréfacteurs partenaires</h3>
               <p>Sélection bio, équitables et locales, dégustation et traçabilité sur site.</p>
             </article>
           </div>
@@ -216,22 +217,44 @@
         </div>
       </section>
 
-      <section class="section about-bcorp">
-        <div class="container about-bcorp__inner">
-          <div class="about-bcorp__badge">
-            <img src="assets/bcorp-logo.png" alt="Certified B Corporation" width="140" height="140" loading="lazy" decoding="async" />
-          </div>
-          <div class="about-bcorp__content">
-            <span class="section-eyebrow">certification</span>
-            <h2 class="section-title">entreprise certifiée B Corp</h2>
-            <p class="section-lead">
+      <section class="section home-bcorp" id="bcorp">
+        <div class="container home-bcorp__inner">
+          <div class="home-bcorp__content">
+            <span class="home-bcorp__tag">nouveau</span>
+            <span class="home-bcorp__eyebrow">certification</span>
+            <h2 class="home-bcorp__title">entreprise certifiée <span class="brand-case">B Corp</span></h2>
+            <p class="home-bcorp__lead">
               Juste à temps rejoint la communauté mondiale des entreprises certifiées B Corporation, reconnues pour leurs performances sociales, environnementales et de gouvernance au-delà du seul critère financier.
             </p>
-            <ul class="about-cert__list">
-              <li>impact mesuré sur l'ensemble de nos activités</li>
-              <li>équilibre entre mission sociale et performance économique</li>
-              <li>engagement envers nos collaborateurs, partenaires et territoires</li>
-            </ul>
+            <div class="home-bcorp__cards">
+              <article class="home-bcorp__card">
+                <span class="home-bcorp__card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 2" />
+                  </svg>
+                </span>
+                <p>impact mesuré sur l'ensemble de nos activités</p>
+              </article>
+              <article class="home-bcorp__card">
+                <span class="home-bcorp__card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </span>
+                <p>équilibre entre mission sociale et performance économique</p>
+              </article>
+              <article class="home-bcorp__card">
+                <span class="home-bcorp__card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                </span>
+                <p>engagement envers nos collaborateurs, partenaires et territoires</p>
+              </article>
+            </div>
           </div>
         </div>
       </section>
