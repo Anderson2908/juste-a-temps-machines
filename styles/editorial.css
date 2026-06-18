@@ -905,7 +905,7 @@ h3,
 
 .stat-value {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 4.2vw, 3.1rem);
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
   color: var(--jat-cream);
   line-height: 1;
   margin-bottom: 0.35rem;
