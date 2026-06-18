@@ -94,6 +94,23 @@
       });
     });
 
+    // Bouton flottant « retour en haut »
+    const toTopBtn = document.createElement("button");
+    toTopBtn.type = "button";
+    toTopBtn.className = "back-to-top";
+    toTopBtn.setAttribute("aria-label", "Revenir en haut de la page");
+    toTopBtn.innerHTML =
+      '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
+    document.body.appendChild(toTopBtn);
+
+    toTopBtn.addEventListener("click", () => scrollToTop(false));
+
+    const toggleToTop = () => {
+      toTopBtn.classList.toggle("is-visible", window.scrollY > 400);
+    };
+    toggleToTop();
+    window.addEventListener("scroll", toggleToTop, { passive: true });
+
     const hash = location.hash;
 
     if (hash === "#top") {
