@@ -546,6 +546,40 @@
     sections.forEach((section) => observer.observe(section));
   }
 
+  function setupCafePopup() {
+    const popup = document.getElementById("cafePopup");
+    if (!popup) return;
+
+    let dismissed = false;
+    try {
+      dismissed = sessionStorage.getItem("cafePopupClosed") === "1";
+    } catch (e) {}
+    if (dismissed) return;
+
+    const closeBtn = popup.querySelector(".cafe-popup__close");
+
+    function show() {
+      popup.hidden = false;
+      popup.setAttribute("aria-hidden", "false");
+      requestAnimationFrame(() => popup.classList.add("is-visible"));
+    }
+
+    function hide() {
+      popup.classList.remove("is-visible");
+      popup.setAttribute("aria-hidden", "true");
+      try {
+        sessionStorage.setItem("cafePopupClosed", "1");
+      } catch (e) {}
+      window.setTimeout(() => {
+        popup.hidden = true;
+      }, 450);
+    }
+
+    if (closeBtn) closeBtn.addEventListener("click", hide);
+
+    window.setTimeout(show, 4500);
+  }
+
   function setupHeaderScroll() {
     const header = document.querySelector(".site-header");
     if (!header) return;
@@ -564,6 +598,7 @@
   setupMachineStatCounters();
   setupStatsBandCounters();
   setupHeaderScroll();
+  setupCafePopup();
   setupScroll();
   setupSectionParallax("#rse", ".rse-bg");
   setupSectionParallax("#bcorp", ".bcorp-bg");

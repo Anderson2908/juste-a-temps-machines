@@ -216,10 +216,7 @@ h3,
 }
 
 .hero-orbit__ring {
-  position: absolute;
-  inset: 8%;
-  border: 1px solid rgba(235, 230, 227, 0.2);
-  border-radius: 50%;
+  display: none;
 }
 
 .hero-orbit__stats {
@@ -884,7 +881,7 @@ h3,
   background: var(--jat-terracotta);
   color: var(--jat-cream);
   border-block: none;
-  padding: clamp(3rem, 6vw, 4.5rem) 0;
+  padding: clamp(1.1rem, 2.8vw, 2rem) 0;
 }
 
 .stats-grid {
@@ -1495,6 +1492,143 @@ html.js-reveal .reveal.is-visible {
 
   .ft-links {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ----------------------------------------------------------------
+   Pop-up simulateur café (discret)
+---------------------------------------------------------------- */
+.cafe-popup {
+  position: fixed;
+  left: clamp(1rem, 2vw, 1.5rem);
+  bottom: clamp(1rem, 2vw, 1.5rem);
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: min(340px, calc(100vw - 2rem));
+  padding: 0.9rem 1rem 0.9rem 0.9rem;
+  background: var(--jat-white);
+  border: 1px solid var(--jat-cream-dark);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px -18px rgba(10, 10, 10, 0.35);
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.4s var(--ease-out),
+    transform 0.4s var(--ease-out);
+}
+
+.cafe-popup.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cafe-popup__close {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--jat-text-muted);
+  cursor: pointer;
+  transition:
+    background 0.2s var(--ease-out),
+    color 0.2s var(--ease-out);
+}
+
+.cafe-popup__close:hover {
+  background: var(--jat-cream);
+  color: var(--jat-text);
+}
+
+.cafe-popup__media {
+  flex: 0 0 auto;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cafe-popup__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cafe-popup__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cafe-popup__title {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  line-height: 1.25;
+  color: var(--jat-text);
+  padding-right: 1rem;
+}
+
+.cafe-popup__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--jat-terracotta);
+  text-decoration: none;
+  border: 1px solid var(--jat-terracotta);
+  border-radius: var(--radius-pill);
+  padding: 0.45rem 0.85rem;
+  transition:
+    background 0.2s var(--ease-out),
+    color 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out);
+}
+
+.cafe-popup__btn svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.cafe-popup__btn:hover {
+  background: var(--jat-terracotta);
+  color: var(--jat-cream);
+}
+
+.cafe-popup__btn:hover svg {
+  transform: translateX(3px);
+}
+
+@media (max-width: 480px) {
+  .cafe-popup {
+    gap: 0.7rem;
+    padding: 0.8rem 0.85rem;
+  }
+
+  .cafe-popup__media {
+    width: 56px;
+    height: 56px;
+  }
+
+  .cafe-popup__title {
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cafe-popup {
+    transition: opacity 0.3s ease;
+    transform: none;
   }
 }
 
