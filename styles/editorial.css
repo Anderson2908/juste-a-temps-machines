@@ -795,7 +795,7 @@ h3,
 
 .stat-value {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-size: clamp(2.25rem, 4.2vw, 3.1rem);
   color: var(--jat-cream);
   line-height: 1;
   margin-bottom: 0.35rem;
@@ -803,6 +803,10 @@ h3,
 
 .stat-label {
   color: rgba(235, 230, 227, 0.9);
+}
+
+.about-stats .stat-value {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
 }
 
 /* Témoignages */
