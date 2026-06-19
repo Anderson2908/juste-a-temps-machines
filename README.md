@@ -1,4 +1,4 @@
-# Juste à temps — Solutions location café
+# Juste à temps : Solutions café, fontaine, distributeurs automatique 
 
 Site vitrine inspiré solution café, fontaine et DA 
 
