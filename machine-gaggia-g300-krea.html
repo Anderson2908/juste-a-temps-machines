@@ -80,12 +80,22 @@
     </header>
 
     <main class="main--machine">
+      <nav class="machine-subnav" aria-label="Navigation de la fiche produit">
+        <div class="container machine-subnav__inner">
+          <ul class="machine-subnav__links">
+            <li><a href="#presentation" class="machine-subnav__link is-active">Présentation</a></li>
+            <li><a href="#fiche-technique" class="machine-subnav__link">Fiche technique</a></li>
+            <li><a href="#tarifs" class="machine-subnav__link">Tarifs</a></li>
+            <li><a href="#similaires" class="machine-subnav__link">Modèles similaires</a></li>
+          </ul>
+        </div>
+      </nav>
       <section class="machine-stage" aria-label="Gaggia G300 Krea">
         <div class="machine-stage__bg" aria-hidden="true" style="background-image:url('assets/stage-gaggia-g300-krea.webp')"></div>
         <img class="machine-stage__img" src="assets/machines/gaggia-milano.webp" alt="Gaggia G300 Krea" width="480" height="480" decoding="async" />
       </section>
 
-      <section class="machine-detail">
+      <section class="machine-detail" id="presentation">
         <div class="container">
           <div class="machine-detail__grid">
             <div class="machine-detail__intro">
@@ -106,7 +116,7 @@
 
             <div class="machine-detail__stats">
               <div class="machine-detail__stat">
-                <span class="machine-detail__stat-value">50-100</span>
+                <span class="machine-detail__stat-value">120</span>
                 <span class="machine-detail__stat-label">utilisateurs</span>
               </div>
               <div class="machine-detail__stat">
@@ -122,7 +132,7 @@
         </div>
       </section>
 
-      <section class="section machine-specs">
+      <section class="section machine-specs" id="fiche-technique">
         <div class="container">
           <div class="machine-specs__head">
             <span class="machine-specs__eyebrow">fiche technique</span>
@@ -185,7 +195,7 @@
         </div>
       </section>
 
-      <section class="section machine-pricing">
+      <section class="section machine-pricing" id="tarifs">
         <div class="container">
           <h2 class="machine-pricing__title">Tarifs</h2>
           <div class="pricing-grid">
@@ -235,49 +245,52 @@
         </div>
       </section>
 
-      <section class="section machine-similar">
+      <section class="section machine-similar" id="similaires">
         <div class="container">
           <h2 class="machine-similar__title">Nos machines à café similaires :</h2>
           <div class="similar-grid">
             <article class="similar-card">
-              <div class="similar-card__media">
-                <img src="assets/machines/animo.webp" alt="Animo" width="240" height="210" loading="lazy" decoding="async" />
+              <div class="similar-card__media similar-card__media--swap">
+                <img class="similar-card__img similar-card__img--default" src="assets/machines/animo.webp" alt="Animo" width="240" height="210" loading="lazy" decoding="async" />
+                <img class="similar-card__img similar-card__img--hover" src="assets/machines/animo-top.webp" alt="" width="240" height="210" loading="lazy" decoding="async" aria-hidden="true" />
               </div>
               <h3 class="similar-card__name">Animo</h3>
               <p class="similar-card__tagline">robustesse professionnelle</p>
               <div class="similar-card__stats">
                 <div class="similar-card__stat">
-                  <span class="similar-card__stat-value">10</span>
+                  <span class="similar-card__stat-value">24</span>
                   <span class="similar-card__stat-label">boissons<br />au choix</span>
                 </div>
                 <div class="similar-card__stat">
-                  <span class="similar-card__stat-value">120</span>
+                  <span class="similar-card__stat-value">125</span>
                   <span class="similar-card__stat-label">cafés<br />par jour</span>
                 </div>
               </div>
               <a href="machine-animo.html" class="btn btn-primary similar-card__btn">En savoir +</a>
             </article>
             <article class="similar-card">
-              <div class="similar-card__media">
-                <img src="assets/machines/wmf.webp" alt="WMF" width="240" height="210" loading="lazy" decoding="async" />
+              <div class="similar-card__media similar-card__media--swap">
+                <img class="similar-card__img similar-card__img--default" src="assets/machines/wmf.webp" alt="WMF" width="240" height="210" loading="lazy" decoding="async" />
+                <img class="similar-card__img similar-card__img--hover" src="assets/machines/wmf-top.webp" alt="" width="240" height="210" loading="lazy" decoding="async" aria-hidden="true" />
               </div>
               <h3 class="similar-card__name">WMF</h3>
               <p class="similar-card__tagline">polyvalence et efficacité</p>
               <div class="similar-card__stats">
                 <div class="similar-card__stat">
-                  <span class="similar-card__stat-value">10</span>
+                  <span class="similar-card__stat-value">24</span>
                   <span class="similar-card__stat-label">boissons<br />au choix</span>
                 </div>
                 <div class="similar-card__stat">
-                  <span class="similar-card__stat-value">150</span>
+                  <span class="similar-card__stat-value">80</span>
                   <span class="similar-card__stat-label">cafés<br />par jour</span>
                 </div>
               </div>
               <a href="machine-wmf.html" class="btn btn-primary similar-card__btn">En savoir +</a>
             </article>
             <article class="similar-card">
-              <div class="similar-card__media">
-                <img src="assets/machines/jura-ena-4.webp" alt="Jura ENA 4" width="240" height="210" loading="lazy" decoding="async" />
+              <div class="similar-card__media similar-card__media--swap">
+                <img class="similar-card__img similar-card__img--default" src="assets/machines/jura-ena-4.webp" alt="Jura ENA 4" width="240" height="210" loading="lazy" decoding="async" />
+                <img class="similar-card__img similar-card__img--hover" src="assets/machines/jura-ena-4-top.webp" alt="" width="240" height="210" loading="lazy" decoding="async" aria-hidden="true" />
               </div>
               <h3 class="similar-card__name">Jura ENA 4</h3>
               <p class="similar-card__tagline">compacte et raffinée</p>
@@ -287,7 +300,7 @@
                   <span class="similar-card__stat-label">boissons<br />au choix</span>
                 </div>
                 <div class="similar-card__stat">
-                  <span class="similar-card__stat-value">60</span>
+                  <span class="similar-card__stat-value">100</span>
                   <span class="similar-card__stat-label">cafés<br />par jour</span>
                 </div>
               </div>

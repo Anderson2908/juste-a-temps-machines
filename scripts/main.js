@@ -649,11 +649,45 @@
     window.addEventListener("scroll", update, { passive: true });
   }
 
+  function setupMachineSubnav() {
+    const nav = document.querySelector(".machine-subnav");
+    if (!nav) return;
+
+    const links = Array.from(nav.querySelectorAll(".machine-subnav__link"));
+    const map = links
+      .map((link) => {
+        const id = link.getAttribute("href").slice(1);
+        return { link, section: document.getElementById(id) };
+      })
+      .filter((entry) => entry.section);
+    if (!map.length) return;
+
+    function setActive(activeLink) {
+      links.forEach((l) => l.classList.toggle("is-active", l === activeLink));
+    }
+
+    const offset = 120;
+
+    function update() {
+      let current = map[0];
+      for (const entry of map) {
+        if (entry.section.getBoundingClientRect().top <= offset) {
+          current = entry;
+        }
+      }
+      setActive(current.link);
+    }
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+  }
+
   setupScrollReveal();
   setupMachineStatCounters();
   setupStatsBandCounters();
   setupEcoListCounters();
   setupHeaderScroll();
+  setupMachineSubnav();
   setupCafePopup();
   setupScroll();
   setupSectionParallax("#rse", ".rse-bg");
