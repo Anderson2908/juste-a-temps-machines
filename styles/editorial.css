@@ -1632,3 +1632,233 @@ html.js-reveal .reveal.is-visible {
   }
 }
 
+/* ----------------------------------------------------------------
+   Cards étapes catalogue (fontaines) — plus de relief
+---------------------------------------------------------------- */
+.catalog-step {
+  position: relative;
+  background: var(--jat-white);
+  border: 1px solid var(--jat-cream-dark);
+  box-shadow: 0 12px 30px -18px rgba(10, 10, 10, 0.28);
+  transition:
+    transform 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+}
+
+.catalog-step::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  border-radius: calc(var(--radius) + 2px) calc(var(--radius) + 2px) 0 0;
+  background: linear-gradient(90deg, var(--jat-terracotta), var(--jat-terracotta-light));
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.catalog-step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 22px 44px -20px rgba(10, 10, 10, 0.38);
+  border-color: rgba(195, 96, 67, 0.45);
+}
+
+.catalog-step:hover::before {
+  opacity: 1;
+}
+
+.catalog-step__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin-bottom: 0.85rem;
+  border-radius: 50%;
+  background: rgba(195, 96, 67, 0.12);
+  color: var(--jat-terracotta);
+  font-size: 0.82rem;
+}
+
+/* ----------------------------------------------------------------
+   Bande CTA catalogue — design moderne
+---------------------------------------------------------------- */
+.catalog-cta-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  text-align: left;
+  padding: clamp(2.25rem, 5vw, 3.5rem);
+  margin-top: 1.5rem;
+  border-radius: 28px;
+  border: 1px solid rgba(235, 230, 227, 0.14);
+  box-shadow: 0 30px 70px -34px rgba(10, 10, 10, 0.65);
+  overflow: hidden;
+}
+
+.catalog-cta-band--fontaines {
+  background-image:
+    radial-gradient(135% 130% at 100% 0%, rgba(195, 96, 67, 0.4) 0%, transparent 55%),
+    linear-gradient(105deg, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.7) 50%, rgba(10, 10, 10, 0.5) 100%),
+    url("../assets/fontaines-cta.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.catalog-cta-band--distributeurs {
+  background-image:
+    radial-gradient(135% 130% at 100% 0%, rgba(195, 96, 67, 0.4) 0%, transparent 55%),
+    linear-gradient(105deg, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.7) 50%, rgba(10, 10, 10, 0.5) 100%),
+    url("../assets/distributeurs-cta.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.catalog-cta-band__content {
+  max-width: 36rem;
+}
+
+.catalog-cta-band__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.9rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--jat-terracotta-light);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(235, 230, 227, 0.22);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(6px);
+}
+
+.catalog-cta-band h2 {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.catalog-cta-band p {
+  margin: 0;
+  max-width: 36rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  opacity: 0.86;
+}
+
+.catalog-cta-band__actions {
+  flex-shrink: 0;
+  justify-content: flex-start;
+}
+
+/* Variante claire (page à propos) */
+.catalog-cta-band.about-cta {
+  background:
+    radial-gradient(130% 130% at 100% 0%, rgba(195, 96, 67, 0.16) 0%, transparent 55%),
+    linear-gradient(135deg, #f7f1ed 0%, #ece3dd 100%);
+  color: var(--jat-text);
+  border-color: var(--jat-cream-dark);
+  box-shadow: 0 24px 50px -30px rgba(10, 10, 10, 0.22);
+}
+
+.about-cta .catalog-cta-band__eyebrow {
+  color: var(--jat-terracotta);
+  background: rgba(195, 96, 67, 0.1);
+  border-color: rgba(195, 96, 67, 0.28);
+}
+
+.about-cta h2 {
+  color: var(--jat-text);
+}
+
+.about-cta p {
+  color: var(--jat-text-muted);
+  opacity: 1;
+}
+
+.about-cta .btn-outline {
+  color: var(--jat-terracotta);
+  border-color: var(--jat-terracotta);
+}
+
+.about-cta .btn-outline:hover {
+  color: var(--jat-cream);
+  background: var(--jat-terracotta);
+  border-color: var(--jat-terracotta);
+}
+
+@media (max-width: 640px) {
+  .catalog-cta-band {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .catalog-cta-band__actions {
+    width: 100%;
+  }
+
+  .catalog-cta-band__actions .btn {
+    width: 100%;
+  }
+}
+
+/* ----------------------------------------------------------------
+   Section contact simplifiée
+---------------------------------------------------------------- */
+.section-contact-lite .contact-header {
+  text-align: center;
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.contact-lite__lead {
+  max-width: 38rem;
+  margin: 0.85rem auto 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--jat-text-muted);
+}
+
+.contact-lite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.contact-lite__offices {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem;
+  width: 100%;
+  max-width: 58rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  color: var(--jat-cream);
+  background: linear-gradient(160deg, #1f1411 0%, var(--jat-terracotta) 100%);
+  border-radius: calc(var(--radius) + 4px);
+}
+
+.contact-lite__offices .contact-office,
+.contact-lite__offices .contact-email {
+  margin: 0;
+}
+
+.contact-lite__offices .contact-email {
+  align-self: center;
+  justify-self: start;
+}
+
+@media (max-width: 640px) {
+  .contact-lite__offices {
+    grid-template-columns: 1fr;
+  }
+}
+
+
