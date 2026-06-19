@@ -1,6 +1,6 @@
 # Juste à temps — Solutions location café
 
-Site vitrine inspiré de la structure [Pleyce](https://www.pleyce.com/) avec la direction artistique [Juste à temps](https://www.justeatemps.com/).
+Site vitrine inspiré solution café, fontaine et DA 
 
 ## Direction artistique
 
