@@ -741,9 +741,10 @@ h3,
   align-items: center;
   padding: clamp(2rem, 5vw, 3.75rem);
   border-radius: var(--radius-lg);
-  background: var(--jat-terracotta);
+  background:
+    linear-gradient(135deg, #c36043 0%, #a84a30 48%, #5c2a1c 100%);
   color: var(--jat-cream);
-  box-shadow: 0 24px 60px rgba(195, 96, 67, 0.28);
+  box-shadow: 0 28px 70px rgba(92, 42, 28, 0.38);
 }
 
 .simulateur-panel__glow {
@@ -751,8 +752,8 @@ h3,
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 50% 70% at 100% 0%, rgba(255, 255, 255, 0.16) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 80% at 0% 100%, rgba(10, 10, 10, 0.16) 0%, transparent 55%);
+    radial-gradient(ellipse 55% 75% at 92% 6%, rgba(255, 226, 200, 0.28) 0%, transparent 58%),
+    radial-gradient(ellipse 70% 90% at 4% 104%, rgba(10, 6, 4, 0.32) 0%, transparent 60%);
 }
 
 .simulateur-panel__content {

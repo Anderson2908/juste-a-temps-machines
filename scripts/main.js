@@ -502,6 +502,61 @@
     observer.observe(band);
   }
 
+  function setupEcoListCounters() {
+    const list = document.querySelector(".main--home #rse .eco-list");
+    if (!list) return;
+
+    const items = [...list.querySelectorAll("strong")];
+    if (!items.length) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const parsed = items.map((el) => {
+      const m = el.textContent.trim().match(/^(\D*?)(\d+)(.*)$/);
+      if (!m) return null;
+      return { el, prefix: m[1] || "", target: parseInt(m[2], 10), suffix: m[3] || "" };
+    });
+
+    parsed.forEach((p) => {
+      if (!p) return;
+      if (!reduceMotion && p.target > 0) {
+        p.el.textContent = `${p.prefix}0${p.suffix}`;
+      }
+    });
+
+    if (reduceMotion) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || list.dataset.statsCounted) return;
+          list.dataset.statsCounted = "true";
+
+          parsed.forEach((p, i) => {
+            if (!p || p.target === 0) return;
+            const duration = Math.min(1800, 700 + p.target * 6);
+            const run = () => {
+              const start = performance.now();
+              function tick(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                p.el.textContent = `${p.prefix}${Math.round(eased * p.target)}${p.suffix}`;
+                if (progress < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+            };
+            window.setTimeout(run, i * 130);
+          });
+
+          observer.unobserve(list);
+        });
+      },
+      { threshold: 0.25, rootMargin: "0px 0px -4% 0px" }
+    );
+
+    observer.observe(list);
+  }
+
   function setupSectionParallax(sectionSelector, bgSelector) {
     const section = document.querySelector(sectionSelector);
     const bg = document.querySelector(bgSelector);
@@ -597,6 +652,7 @@
   setupScrollReveal();
   setupMachineStatCounters();
   setupStatsBandCounters();
+  setupEcoListCounters();
   setupHeaderScroll();
   setupCafePopup();
   setupScroll();
