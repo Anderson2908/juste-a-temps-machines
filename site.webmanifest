@@ -1,0 +1,16 @@
+{
+  "name": "Juste à temps",
+  "short_name": "Juste à temps",
+  "description": "Solutions de location de machines à café, fontaines à eau et distributeurs automatiques pour entreprise.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#faf8f6",
+  "theme_color": "#c36043",
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
