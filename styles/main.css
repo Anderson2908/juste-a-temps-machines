@@ -20,7 +20,7 @@
 
   --jat-white: #ffffff;
 
-  --jat-bg: #faf8f6;
+  --jat-bg: #ffffff;
 
   --font-sans: "Futura BT", Futura, "Century Gothic", sans-serif;
 
@@ -7950,6 +7950,596 @@ html.js-reveal .reveal.is-visible {
 @media (max-width: 640px) {
   .contact-lite__offices {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ====================================================== */
+/* Page de detail machine                                 */
+/* ====================================================== */
+.main--machine {
+  background: var(--jat-bg);
+}
+
+.machine-detail {
+  padding: clamp(2.5rem, 5vw, 3.5rem) 0 clamp(2.5rem, 6vw, 4rem);
+  background: var(--jat-white);
+}
+
+.machine-detail__grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.machine-detail .breadcrumb {
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.machine-detail__name {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--jat-black);
+}
+
+.machine-detail__subtitle {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--jat-black);
+}
+
+.machine-detail__lead {
+  margin: 0 0 1.4rem;
+  max-width: 32rem;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--jat-text);
+}
+
+.machine-detail__divider {
+  height: 1px;
+  border: 0;
+  margin: 1.6rem 0;
+  max-width: 24rem;
+  background: var(--jat-cream-dark);
+}
+
+.machine-detail__text {
+  margin: 0 0 2rem;
+  max-width: 32rem;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--jat-text-muted);
+}
+
+.machine-detail__stats {
+  display: grid;
+  gap: clamp(1.4rem, 3vw, 2.1rem);
+}
+
+.machine-detail__stat {
+  padding-top: 1rem;
+  border-top: 2px solid var(--jat-black);
+}
+
+.machine-detail__stat-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--jat-black);
+}
+
+.machine-detail__stat-label {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.92rem;
+  color: var(--jat-text-muted);
+}
+
+.machine-stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--jat-bg);
+  --stage-band: clamp(260px, 36vw, 420px);
+  --stage-overhang: clamp(32px, 5vw, 70px);
+  height: calc(var(--header-h) + var(--stage-band) + var(--stage-overhang));
+}
+
+.machine-stage__bg {
+  position: absolute;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: var(--container);
+  height: var(--stage-band);
+  z-index: 0;
+  background-image: url("../assets/machine-stage-bg.webp");
+  background-size: cover;
+  background-position: center 42%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.machine-stage__img {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(10px, 2vw, 22px);
+  transform: translateX(-50%);
+  width: auto;
+  height: calc(var(--stage-band) + var(--stage-overhang) - clamp(40px, 6vw, 90px));
+  max-width: 86%;
+  z-index: 1;
+  filter: drop-shadow(0 26px 44px rgba(0, 0, 0, 0.42));
+}
+
+.machine-outro {
+  padding: clamp(2.75rem, 6vw, 4.5rem) 0;
+  text-align: center;
+}
+
+.machine-outro__title {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--jat-black);
+}
+
+.machine-outro__lead {
+  margin: 0 auto 1.85rem;
+  max-width: 38rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--jat-text-muted);
+}
+
+.machine-outro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  justify-content: center;
+}
+
+@media (max-width: 860px) {
+  .machine-detail__grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+  .machine-detail__stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .machine-stage__bg {
+    background-attachment: scroll;
+  }
+}
+
+@media (max-width: 480px) {
+  .machine-detail__stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====================================================== */
+/* Fiche technique machine                                */
+/* ====================================================== */
+.machine-specs {
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  background: var(--jat-white);
+  border-top: 1px solid var(--jat-cream-dark);
+}
+
+.machine-specs__head {
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.machine-specs__eyebrow {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--jat-terracotta);
+}
+
+.machine-specs__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--jat-black);
+}
+
+.machine-specs__grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.machine-specs__media {
+  position: sticky;
+  top: calc(var(--header-h) + 1rem);
+  display: flex;
+  justify-content: center;
+}
+
+.machine-specs__media img {
+  width: min(100%, 300px);
+  height: auto;
+}
+
+.machine-specs__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+.spec-group {
+  margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.spec-group:last-child {
+  margin-bottom: 0;
+}
+
+.spec-group h3 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--jat-black);
+}
+
+.spec-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.spec-group li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--jat-text-muted);
+}
+
+.spec-group li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--jat-terracotta);
+}
+
+.spec-group p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--jat-text-muted);
+}
+
+.machine-specs__form {
+  grid-column: 1 / -1;
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  padding-top: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--jat-cream-dark);
+}
+
+.machine-specs__form-title {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--jat-black);
+}
+
+.machine-specs__fields {
+  display: grid;
+  gap: 0.85rem;
+  max-width: 36rem;
+  margin-bottom: 1.1rem;
+}
+
+.machine-specs__fields .machine-specs__row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.machine-specs__form input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  color: var(--jat-text);
+  background: var(--jat-bg);
+  border: 1px solid var(--jat-cream-dark);
+  border-radius: 10px;
+}
+
+.machine-specs__form input:focus-visible {
+  outline: none;
+  border-color: var(--jat-terracotta);
+}
+
+@media (max-width: 860px) {
+  .machine-specs__grid {
+    grid-template-columns: 1fr;
+  }
+  .machine-specs__media {
+    position: static;
+  }
+  .machine-specs__media img {
+    width: min(60%, 240px);
+  }
+}
+
+@media (max-width: 560px) {
+  .machine-specs__cols {
+    grid-template-columns: 1fr;
+  }
+  .machine-specs__fields .machine-specs__row2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====================================================== */
+/* Tarifs machine                                         */
+/* ====================================================== */
+.machine-pricing {
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  background: var(--jat-bg);
+  border-top: 1px solid var(--jat-cream-dark);
+}
+
+.machine-pricing__title {
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--jat-black);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  align-items: start;
+}
+
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--jat-white);
+  border: 1px solid var(--jat-cream-dark);
+  border-radius: var(--radius-lg);
+}
+
+.pricing-card--featured {
+  background: var(--jat-cream);
+  border-color: transparent;
+  box-shadow: 0 24px 50px rgba(10, 10, 10, 0.12);
+}
+
+.pricing-card__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: lowercase;
+  color: var(--jat-black);
+}
+
+.pricing-card__from {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--jat-text-muted);
+}
+
+.pricing-card__price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--jat-black);
+}
+
+.pricing-card__cur {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.pricing-card__per {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--jat-text-muted);
+}
+
+.pricing-card__lead {
+  margin: 0.2rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--jat-black);
+}
+
+.pricing-card__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.pricing-card__list li {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--jat-text-muted);
+}
+
+.pricing-card__btn {
+  align-self: flex-start;
+  margin-top: 0.35rem;
+}
+
+.pricing-card__link {
+  font-size: 0.84rem;
+  color: var(--jat-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pricing-card__link:hover {
+  color: var(--jat-terracotta);
+}
+
+.machine-pricing__cta {
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+  .pricing-card--featured {
+    box-shadow: none;
+  }
+}
+
+/* ====================================================== */
+/* Machines similaires                                    */
+/* ====================================================== */
+.machine-similar {
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  background: var(--jat-bg);
+  border-top: 1px solid var(--jat-cream-dark);
+}
+
+.machine-similar__title {
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--jat-black);
+}
+
+.similar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.similar-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.similar-card__media {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 210px;
+  margin-bottom: 1.25rem;
+}
+
+.similar-card__media img {
+  max-height: 210px;
+  width: auto;
+  max-width: 100%;
+}
+
+.similar-card__name {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: lowercase;
+  color: var(--jat-black);
+}
+
+.similar-card__tagline {
+  margin: 0 0 1.1rem;
+  font-size: 0.9rem;
+  color: var(--jat-text-muted);
+}
+
+.similar-card__stats {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 1.35rem;
+}
+
+.similar-card__stat-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--jat-black);
+}
+
+.similar-card__stat-label {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  line-height: 1.25;
+  color: var(--jat-text-muted);
+}
+
+.similar-card__btn {
+  margin-top: auto;
+}
+
+.similar-card__btn::after {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .similar-grid {
+    grid-template-columns: 1fr;
+    max-width: 26rem;
+    margin-inline: auto;
+    gap: 2.5rem;
   }
 }
 
