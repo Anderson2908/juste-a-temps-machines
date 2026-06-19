@@ -1,6 +1,6 @@
-# Juste à temps — Solutions location café
+# Juste à temps : Solutions café, fontaine, distributeurs automatique 
 
-Site vitrine inspiré de la structure [Pleyce](https://www.pleyce.com/) avec la direction artistique [Juste à temps](https://www.justeatemps.com/).
+Site vitrine inspiré solution café, fontaine et DA 
 
 ## Direction artistique
 
@@ -20,7 +20,7 @@ Puis ouvrir http://localhost:5173
 
 Ou ouvrir `index.html` directement dans le navigateur.
 
-## Structure des pages (comme Pleyce)
+## Structure des pages 
 
 1. Hero animé (magnifiez / boostez / caféinez)
 2. Services (4 cartes)
