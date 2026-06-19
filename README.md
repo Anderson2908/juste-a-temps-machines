@@ -20,7 +20,7 @@ Puis ouvrir http://localhost:5173
 
 Ou ouvrir `index.html` directement dans le navigateur.
 
-## Structure des pages (comme Pleyce)
+## Structure des pages 
 
 1. Hero animé (magnifiez / boostez / caféinez)
 2. Services (4 cartes)
