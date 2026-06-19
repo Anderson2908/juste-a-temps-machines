@@ -6172,7 +6172,7 @@ h3,
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(250, 248, 246, 0.72);
+  background: rgba(250, 248, 246, 0.52);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid transparent;
   transition:
@@ -6182,7 +6182,7 @@ h3,
 }
 
 .site-header.is-scrolled {
-  background: rgba(250, 248, 246, 0.92);
+  background: rgba(250, 248, 246, 0.76);
   border-bottom-color: rgba(224, 216, 212, 0.7);
   box-shadow: 0 8px 32px rgba(10, 10, 10, 0.05);
 }
