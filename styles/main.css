@@ -7959,6 +7959,7 @@ html.js-reveal .reveal.is-visible {
 /* ====================================================== */
 .main--machine {
   background: var(--jat-bg);
+  padding-top: calc(var(--header-h) + var(--subnav-h));
 }
 
 .machine-detail {
@@ -8079,12 +8080,16 @@ html.js-reveal .reveal.is-visible {
 /* Sous-navigation fiche produit                          */
 /* ====================================================== */
 .main--machine .site-header {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
 .machine-subnav {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: var(--header-h);
   left: 0;
   right: 0;
   z-index: 90;
@@ -8149,7 +8154,7 @@ html.js-reveal .reveal.is-visible {
 .machine-specs,
 .machine-pricing,
 .machine-similar {
-  scroll-margin-top: calc(var(--subnav-h) + 8px);
+  scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + 8px);
 }
 
 @media (max-width: 640px) {
