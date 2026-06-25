@@ -6157,6 +6157,67 @@ h3,
   transform: translateX(4px);
 }
 
+.header-actions .btn-primary::after {
+  content: none;
+}
+
+.header-actions .btn-primary {
+  justify-content: center;
+}
+
+.main--legal .page-hero__inner {
+  text-align: center;
+  align-items: center;
+}
+
+.main--legal .page-hero__lead {
+  margin-inline: auto;
+}
+
+.legal {
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+  background: var(--jat-white);
+}
+
+.legal__inner {
+  max-width: 820px;
+}
+
+.legal__block + .legal__block {
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.legal__block h2 {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  margin: 0 0 0.6rem;
+  color: var(--jat-text);
+}
+
+.legal__block p {
+  margin: 0.25rem 0;
+  color: var(--jat-text-muted);
+}
+
+.legal__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.legal__list li {
+  padding: 0.22rem 0;
+  color: var(--jat-text-muted);
+}
+
+.legal__block strong {
+  color: var(--jat-text);
+  font-weight: 600;
+}
+
+.legal__block a {
+  color: var(--jat-terracotta);
+}
+
 .btn-primary:hover {
   box-shadow: 0 8px 28px rgba(195, 96, 67, 0.35);
   transform: translateY(-1px);
@@ -7293,6 +7354,73 @@ html.js-reveal .reveal.is-visible {
 
   html.js-reveal .reveal {
     transform: none;
+  }
+}
+
+/* ---------- Hero stats — variante bento (expérimental) ---------- */
+.hero-orbit {
+  width: min(100%, 460px);
+  aspect-ratio: auto;
+}
+
+.hero-orbit__stats {
+  position: static;
+  inset: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+
+.hero-orbit__stats .hero-stat-pill {
+  position: static;
+  inset: auto;
+  width: auto;
+  min-height: 0;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  gap: 0.35rem;
+  padding: 1.05rem 1.15rem;
+  animation: none;
+}
+
+.hero-orbit__stats .hero-stat-pill:nth-child(3) {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.85rem;
+}
+
+.hero-orbit__stats .hero-stat-pill--cert {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.7rem;
+}
+
+.hero-orbit__stats .hero-stat-pill__value {
+  justify-content: flex-start;
+  min-height: 0;
+  font-size: 1.75rem;
+}
+
+.hero-orbit__stats .hero-stat-pill__label {
+  text-align: left;
+}
+
+@media (hover: hover) {
+  .hero-orbit__stats .hero-stat-pill:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-orbit__stats {
+    grid-template-columns: 1fr;
+  }
+  .hero-orbit__stats .hero-stat-pill:nth-child(3) {
+    grid-column: auto;
   }
 }
 
