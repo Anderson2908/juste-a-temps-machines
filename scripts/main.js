@@ -1,4 +1,5 @@
 /* Anderson */
+console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;border-radius:999px;font-weight:700;letter-spacing:.04em");
 (function () {
   "use strict";
 
