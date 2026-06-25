@@ -91,16 +91,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.votre-domaine.com/distributeur-animo.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.votre-domaine.com/distributeur-wmf.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://www.votre-domaine.com/distributeur-necta-concerto.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -112,6 +102,21 @@
   </url>
   <url>
     <loc>https://www.votre-domaine.com/distributeur-necta-opera.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.votre-domaine.com/distributeur-necta-vivace.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.votre-domaine.com/distributeur-necta-snakky.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.votre-domaine.com/distributeur-necta-tango.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
