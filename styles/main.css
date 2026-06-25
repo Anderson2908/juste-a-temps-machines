@@ -7581,7 +7581,7 @@ html.js-reveal .reveal.is-visible {
 
 .ft-links {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(1.5rem, 4vw, 3rem);
 }
 
@@ -8826,3 +8826,26 @@ html.js-reveal .reveal.is-visible {
 }
 
 
+
+
+/* ----------------------------------------------------------------
+   Bannière d'annonce (événements, actus)
+   ---------------------------------------------------------------- */
+.site-banner { background: var(--jat-terracotta); color: #fff; font-size: 0.9rem; }
+.site-banner__inner { display: flex; align-items: center; gap: 1rem; padding: 0.6rem 0; }
+.site-banner__img { flex: 0 0 auto; width: 48px; height: 48px; border-radius: 8px; object-fit: cover; }
+.site-banner__text { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+.site-banner__title { font-weight: 700; line-height: 1.2; }
+.site-banner__desc { opacity: 0.92; line-height: 1.3; }
+.site-banner__cta { margin-left: auto; flex: 0 0 auto; display: inline-block; padding: 0.5rem 1.1rem; background: #fff; color: var(--jat-terracotta); border-radius: 999px; font-weight: 700; font-size: 0.85rem; white-space: nowrap; transition: transform 0.2s ease, color 0.2s ease; }
+.site-banner__cta:hover { color: var(--jat-terracotta-hover); transform: translateY(-1px); }
+.site-banner__close { flex: 0 0 auto; background: transparent; border: 0; color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; padding: 0.2rem 0.4rem; opacity: 0.85; }
+.site-banner__close:hover { opacity: 1; }
+@media (max-width: 600px) { .site-banner__desc { display: none; } .site-banner__img { width: 40px; height: 40px; } .site-banner__cta { padding: 0.4rem 0.8rem; } }
+
+
+/* Bannière : positionnement fixe au-dessus de l'en-tête + décalage du contenu */
+.site-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+body.has-site-banner { padding-top: var(--site-banner-h, 0px); }
+body.has-site-banner .site-header { top: var(--site-banner-h, 0px); }
+html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-banner-h, 0px)); }

@@ -682,6 +682,68 @@
     window.addEventListener("scroll", update, { passive: true });
   }
 
+  // Bannière d'annonce (événements, salons, actus). Modifiez CONFIG ci-dessous.
+  function setupSiteBanner() {
+    const CONFIG = {
+      enabled: false, // false pour masquer la bannière
+      image: "assets/hero-office.webp", // vignette ("" pour aucune)
+      title: "Salon Workspace Expo 2026", // titre court
+      text: "Rencontrez nos équipes du 12 au 14 mars — stand B24.", // message
+      ctaLabel: "En savoir +", // texte du bouton ("" pour aucun bouton)
+      ctaHref: "contact.html", // lien du bouton
+    };
+
+    if (!CONFIG.enabled) return;
+    // Pas de bannière sur les fiches produit (en-tête fixe + sous-menu)
+    if (document.querySelector(".main--machine")) return;
+
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+
+    let closed = false;
+    try {
+      closed = sessionStorage.getItem("siteBannerClosed") === "1";
+    } catch (e) {}
+    if (closed) return;
+
+    const bar = document.createElement("div");
+    bar.className = "site-banner";
+    bar.setAttribute("role", "region");
+    bar.setAttribute("aria-label", "Annonce");
+
+    const img = CONFIG.image
+      ? `<img class="site-banner__img" src="${CONFIG.image}" alt="" width="48" height="48" loading="lazy" decoding="async" />`
+      : "";
+    const cta = CONFIG.ctaLabel
+      ? `<a class="site-banner__cta" href="${CONFIG.ctaHref || "#"}">${CONFIG.ctaLabel}</a>`
+      : "";
+
+    bar.innerHTML = `<div class="container site-banner__inner">${img}<div class="site-banner__text"><strong class="site-banner__title">${CONFIG.title}</strong><span class="site-banner__desc">${CONFIG.text}</span></div>${cta}<button type="button" class="site-banner__close" aria-label="Fermer l'annonce">&times;</button></div>`;
+
+    header.insertAdjacentElement("afterend", bar);
+
+    const root = document.documentElement;
+    function applyOffset() {
+      root.style.setProperty("--site-banner-h", bar.offsetHeight + "px");
+    }
+    applyOffset();
+    root.classList.add("has-site-banner");
+    document.body.classList.add("has-site-banner");
+    window.addEventListener("resize", applyOffset, { passive: true });
+
+    bar.querySelector(".site-banner__close").addEventListener("click", () => {
+      bar.remove();
+      root.classList.remove("has-site-banner");
+      document.body.classList.remove("has-site-banner");
+      root.style.removeProperty("--site-banner-h");
+      window.removeEventListener("resize", applyOffset);
+      try {
+        sessionStorage.setItem("siteBannerClosed", "1");
+      } catch (e) {}
+    });
+  }
+
+  setupSiteBanner();
   setupScrollReveal();
   setupMachineStatCounters();
   setupStatsBandCounters();
