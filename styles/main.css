@@ -166,6 +166,44 @@ h4,
 
 
 
+/* Majuscule en début de titre (1re lettre), le reste reste en minuscules */
+
+h1::first-letter,
+h2::first-letter,
+h3::first-letter,
+h4::first-letter,
+.section-title::first-letter,
+.services-title::first-letter,
+.machines-title::first-letter,
+.page-hero__title::first-letter,
+.about-pillar__title::first-letter,
+.catalog-benefit__title::first-letter,
+.machine-item__name::first-letter,
+.home-bcorp__title::first-letter,
+.simulateur-panel__title::first-letter,
+.ft-news__title::first-letter,
+.ft-group__title::first-letter,
+.footer-col__title::first-letter,
+.pricing-card__name::first-letter,
+.similar-card__name::first-letter {
+
+  text-transform: uppercase;
+
+}
+
+
+
+/* Titres multi-lignes (spans imbriqués) : casse déjà gérée dans le HTML (1re lettre en capitale) */
+
+.hero-title,
+.machines-title {
+
+  text-transform: none;
+
+}
+
+
+
 .container {
 
   width: var(--container);
@@ -198,7 +236,7 @@ h4,
 
   font-size: 0.95rem;
 
-  text-transform: lowercase;
+  text-transform: none;
 
   border: 2px solid transparent;
 
@@ -6815,11 +6853,11 @@ h3,
 }
 
 /* B Corp — accueil */
-.home-bcorp {
+.section.home-bcorp {
   position: relative;
   z-index: 1;
   overflow: hidden;
-  padding-block: clamp(3rem, 6vw, 4.5rem);
+  padding-block: clamp(2.5rem, 5vw, 4rem);
   background: transparent;
   color: var(--jat-cream);
 }
@@ -6902,6 +6940,10 @@ h3,
   letter-spacing: -0.03em;
   text-transform: lowercase;
   color: var(--jat-cream);
+}
+
+.home-bcorp__title::first-letter {
+  text-transform: uppercase;
 }
 
 .home-bcorp__lead {
