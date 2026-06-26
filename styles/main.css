@@ -5565,6 +5565,16 @@ h4,
 
 @media (max-width: 768px) {
 
+  /* Réaffirme la colonne unique sur mobile : prioritaire sur la règle tablette (max-width:1024px) déclarée plus haut */
+  .contact-layout,
+  .split-section {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+
   .nav-main {
 
     position: fixed;
@@ -5652,6 +5662,53 @@ h4,
   .header-phone {
 
     display: none;
+
+  }
+
+
+
+  /* En-tête mobile : on resserre la grille (la colonne centrale du menu est vide)
+     pour que logo + CTA + bouton menu tiennent sans déborder */
+  .header-inner {
+
+    gap: 0.6rem;
+
+  }
+
+
+
+  .logo img {
+
+    max-width: min(160px, 36vw);
+
+  }
+
+
+
+  /* CTA d'en-tête compact sur mobile : une seule ligne, ne déborde plus à côté du menu */
+  .header-actions {
+
+    gap: 0.5rem;
+
+  }
+
+
+
+  .header-actions .btn-primary {
+
+    padding: 0.45rem 0.85rem;
+
+    font-size: 0.78rem;
+
+    white-space: nowrap;
+
+  }
+
+
+
+  .nav-toggle {
+
+    padding: 0.4rem;
 
   }
 
@@ -7287,6 +7344,14 @@ html.js-reveal .reveal.is-visible {
   will-change: auto;
 }
 
+/* Sur mobile, l'apparition latérale (translateX) provoquait un léger débordement
+   horizontal avant l'animation : on bascule sur une apparition verticale (état final identique). */
+@media (max-width: 768px) {
+  html.js-reveal .reveal.reveal--right {
+    transform: translateY(22px);
+  }
+}
+
 @media (max-width: 1024px) {
   .services-shell {
     grid-template-columns: 1fr;
@@ -8850,3 +8915,29 @@ html.js-reveal .reveal.is-visible {
 body.has-site-banner { padding-top: var(--site-banner-h, 0px); }
 body.has-site-banner .site-header { top: var(--site-banner-h, 0px); }
 html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-banner-h, 0px)); }
+
+
+/* Cartes "étapes" : plus de relief au repos */
+.catalog-step {
+  padding: 1.5rem 1.5rem 1.65rem;
+  box-shadow: 0 18px 42px -22px rgba(10, 10, 10, 0.42);
+  border-color: rgba(10, 10, 10, 0.06);
+}
+.catalog-step::before { opacity: 1; height: 4px; }
+.catalog-step__num {
+  width: 2.4rem;
+  height: 2.4rem;
+  background: var(--jat-terracotta);
+  color: #fff;
+  font-weight: 700;
+}
+.catalog-step__title { font-size: 1.08rem; font-weight: 700; color: var(--jat-black); }
+
+
+/* Section contact : fond verre dépoli pour lisibilité sur l'image fixe */
+.section-contact-lite {
+  position: relative;
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
