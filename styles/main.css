@@ -6857,6 +6857,18 @@ h3,
   max-width: 600px;
 }
 
+.home-bcorp__badge {
+  position: absolute;
+  right: clamp(0.5rem, 3vw, 3rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  width: clamp(110px, 13vw, 180px);
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(10, 10, 10, 0.45));
+  pointer-events: none;
+}
+
 .home-bcorp__tag {
   display: inline-block;
   margin-bottom: 1rem;
@@ -6973,6 +6985,15 @@ h3,
   .home-bcorp__content .btn-primary {
     width: 100%;
     max-width: 22rem;
+  }
+
+  .home-bcorp__badge {
+    position: static;
+    transform: none;
+    display: block;
+    width: 120px;
+    margin: 1.75rem auto 0;
+    filter: drop-shadow(0 6px 18px rgba(10, 10, 10, 0.4));
   }
 }
 
