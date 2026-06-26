@@ -202,17 +202,65 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     }, 6000);
   }
 
-  // Contact form (démo)
-  const form = document.querySelector(".contact-form");
-  form?.addEventListener("submit", (e) => {
+  // Formulaires : validation + ouverture du client mail pré-rempli + confirmation inline
+  const CONTACT_EMAIL = "contact@justeatemps.com";
+
+  function showFormFeedback(formEl, message) {
+    let box = formEl.querySelector(".form-feedback");
+    if (!box) {
+      box = document.createElement("p");
+      box.className = "form-feedback";
+      box.setAttribute("role", "status");
+      box.setAttribute("aria-live", "polite");
+      formEl.appendChild(box);
+    }
+    box.textContent = message;
+    box.classList.add("is-visible");
+  }
+
+  function fieldValue(formEl, name) {
+    const el = formEl.querySelector(`[name="${name}"]`);
+    return el ? el.value.trim() : "";
+  }
+
+  const contactForm = document.querySelector(".contact-form");
+  contactForm?.addEventListener("submit", (e) => {
     e.preventDefault();
-    alert("Merci ! Ceci est une démo, branchez ce formulaire à votre CRM ou backend.");
+    if (!contactForm.checkValidity()) {
+      contactForm.reportValidity();
+      return;
+    }
+    const company = fieldValue(contactForm, "company");
+    const name = fieldValue(contactForm, "name");
+    const subject = `Demande de devis – ${company || name || "site web"}`;
+    const body = [
+      `Entreprise : ${company}`,
+      `Nom & prénom : ${name}`,
+      `Email : ${fieldValue(contactForm, "email")}`,
+      `Téléphone : ${fieldValue(contactForm, "phone")}`,
+      "",
+      "Besoin :",
+      fieldValue(contactForm, "message"),
+    ].join("\n");
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    showFormFeedback(
+      contactForm,
+      `Merci ! Votre logiciel de messagerie va s'ouvrir pour finaliser l'envoi. Si rien ne se passe, écrivez-nous directement à ${CONTACT_EMAIL}.`
+    );
   });
 
-  const newsletter = document.querySelector(".newsletter-form");
-  newsletter?.addEventListener("submit", (e) => {
+  const newsletterForm = document.querySelector(".ft-news");
+  newsletterForm?.addEventListener("submit", (e) => {
     e.preventDefault();
-    alert("Inscription newsletter, à connecter à votre outil emailing.");
+    if (!newsletterForm.checkValidity()) {
+      newsletterForm.reportValidity();
+      return;
+    }
+    const emailInput = newsletterForm.querySelector('input[type="email"]');
+    const email = emailInput ? emailInput.value.trim() : "";
+    const body = `Bonjour, merci de m'inscrire à votre newsletter avec l'adresse : ${email}`;
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Inscription newsletter")}&body=${encodeURIComponent(body)}`;
+    showFormFeedback(newsletterForm, "Merci ! Votre messagerie va s'ouvrir pour confirmer votre inscription.");
   });
 
   // Filtres catalogue
@@ -463,6 +511,45 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
 
       observer.observe(item);
     });
+  }
+
+  function setupMachineDetailStatCounters() {
+    const group = document.querySelector(".machine-detail__stats");
+    if (!group) return;
+
+    const values = [...group.querySelectorAll(".machine-detail__stat-value")];
+    if (!values.length) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    values.forEach((el) => {
+      const parsed = parseCountValue(el.textContent);
+      if (!parsed) return;
+      prepareCountElement(el, parsed, reduceMotion);
+    });
+
+    if (reduceMotion) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || group.dataset.statsCounted) return;
+          group.dataset.statsCounted = "true";
+
+          values.forEach((el, i) => {
+            if (!el.dataset.countTarget) return;
+            const target = parseInt(el.dataset.countTarget, 10);
+            const duration = Math.min(1600, 700 + target * 5);
+            runCountElement(el, i * 120, duration);
+          });
+
+          observer.unobserve(group);
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -4% 0px" }
+    );
+
+    observer.observe(group);
   }
 
   function setupStatsBandCounters() {
@@ -748,6 +835,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   setupSiteBanner();
   setupScrollReveal();
   setupMachineStatCounters();
+  setupMachineDetailStatCounters();
   setupStatsBandCounters();
   setupEcoListCounters();
   setupHeaderScroll();

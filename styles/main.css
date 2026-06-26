@@ -4027,7 +4027,7 @@ h4,
 
 @media (hover: hover) {
 
-  .machine-item__link:hover .machine-item__media--swap .machine-item__img--default {
+  .machine-item__media--swap:hover .machine-item__img--default {
 
     opacity: 0;
 
@@ -4037,7 +4037,7 @@ h4,
 
 
 
-  .machine-item__link:hover .machine-item__media--swap .machine-item__img--hover {
+  .machine-item__media--swap:hover .machine-item__img--hover {
 
     opacity: 1;
 
@@ -4049,7 +4049,7 @@ h4,
 
 
 
-.machine-item__link:hover .machine-item__media:not(.machine-item__media--swap) img {
+.machine-item__media:not(.machine-item__media--swap):hover img {
 
   transform: scale(1.03);
 
@@ -5014,6 +5014,56 @@ h4,
   padding: 0.95rem 1.5rem;
 
   font-size: 1rem;
+
+}
+
+
+
+.form-feedback {
+
+  margin: 0.85rem 0 0;
+
+  padding: 0.75rem 1rem;
+
+  font-size: 0.88rem;
+
+  line-height: 1.5;
+
+  color: #2f6b39;
+
+  background: rgba(61, 122, 69, 0.1);
+
+  border: 1px solid rgba(61, 122, 69, 0.25);
+
+  border-radius: calc(var(--radius) + 2px);
+
+  opacity: 0;
+
+  transform: translateY(4px);
+
+  transition: opacity var(--transition), transform var(--transition);
+
+}
+
+
+
+.form-feedback.is-visible {
+
+  opacity: 1;
+
+  transform: none;
+
+}
+
+
+
+.ft-news .form-feedback {
+
+  color: var(--jat-cream);
+
+  background: rgba(255, 255, 255, 0.12);
+
+  border-color: rgba(255, 255, 255, 0.25);
 
 }
 
@@ -8403,9 +8453,28 @@ html.js-reveal .reveal.is-visible {
   bottom: clamp(10px, 2vw, 22px);
   transform: translateX(-50%);
   width: auto;
-  height: calc(var(--stage-band) + var(--stage-overhang) - clamp(40px, 6vw, 90px));
+  height: calc(var(--stage-band) + var(--stage-overhang) - clamp(66px, 10vw, 104px));
   max-width: 86%;
   z-index: 1;
+}
+
+.machine-stage__name {
+  position: absolute;
+  top: clamp(0.6rem, 2.2vw, 1.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  margin: 0;
+  padding: 0 1rem;
+  width: max-content;
+  max-width: 90%;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 3vw, 2.1rem);
+  letter-spacing: -0.01em;
+  color: var(--jat-white);
+  text-shadow: 0 1px 2px rgba(10, 10, 10, 0.35), 0 6px 22px rgba(10, 10, 10, 0.45);
 }
 
 .machine-outro {
@@ -8944,6 +9013,28 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
   font-weight: 700;
 }
 .catalog-step__title { font-size: 1.08rem; font-weight: 700; color: var(--jat-black); }
+
+
+/* Cartes "engagements" (piliers) : plus de relief au repos */
+.about-pillar {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(10, 10, 10, 0.06);
+  box-shadow: 0 16px 38px -20px rgba(10, 10, 10, 0.36);
+}
+.about-pillar::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--jat-terracotta), var(--jat-terracotta-light));
+}
+.about-pillar:hover {
+  transform: translateY(-5px);
+  border-color: rgba(195, 96, 67, 0.4);
+  box-shadow: 0 26px 50px -22px rgba(10, 10, 10, 0.44);
+}
+.about-pillar__title { font-weight: 700; color: var(--jat-black); }
 
 
 /* Section contact : fond verre dépoli pour lisibilité sur l'image fixe */
