@@ -4,15 +4,470 @@
   <head>
     <!-- Anderson -->
     <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, follow" />
-    <link rel="canonical" href="https://www.votre-domaine.com/" />
-    <title>Machines à café | Juste à temps</title>
-    <script>location.replace("index.html");</script>
+    <meta
+      name="description"
+      content="Catalogue Juste à temps, machines à café professionnelles pour entreprise. Machines à grains, large choix de boissons, installation, café et entretien inclus."
+    />
+    <title>Machines à café professionnelles | Juste à temps</title>
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="Juste à temps" />
+    <meta name="theme-color" content="#c36043" />
+    <link rel="canonical" href="https://www.votre-domaine.com/machines-a-cafe.html" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Juste à temps" />
+    <meta property="og:title" content="Machines à café professionnelles | Juste à temps" />
+    <meta property="og:description" content="Machines à café professionnelles pour entreprise : machines à grains, large choix de boissons, installation, café et entretien inclus." />
+    <meta property="og:url" content="https://www.votre-domaine.com/machines-a-cafe.html" />
+    <meta property="og:image" content="https://www.votre-domaine.com/assets/hero-office.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Machines à café professionnelles | Juste à temps" />
+    <meta name="twitter:description" content="Machines à café professionnelles pour entreprise : machines à grains, installation, café et entretien inclus." />
+    <meta name="twitter:image" content="https://www.votre-domaine.com/assets/hero-office.jpg" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <link rel="stylesheet" href="styles/main.min.css" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.votre-domaine.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Machines à café", "item": "https://www.votre-domaine.com/machines-a-cafe.html" }
+      ]
+    }
+    </script>
   </head>
   <body>
-    <p>Redirection vers la <a href="index.html">page d'accueil</a>…</p>
+    <header class="site-header" id="top">
+      <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="Juste à temps, accueil">
+          <img src="assets/logo.webp" alt="juste à temps" width="220" height="40" decoding="async" />
+        </a>
+        <nav class="nav-main" aria-label="Navigation principale">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a class="nav-link nav-link--active" href="machines-a-cafe.html">Machines à café</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fontaines-a-eau.html">Fontaines à eau</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="distributeurs-automatiques.html">Distributeur automatique</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="a-propos.html">à propos</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <a href="tel:0820001030" class="header-phone">08 20 00 10 30</a>
+          <a href="contact.html" class="btn btn-primary">Nous contacter</a>
+          <button type="button" class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main--machines">
+      <section class="page-hero page-hero--machines">
+        <div class="container page-hero__inner">
+          <nav aria-label="Fil d'Ariane">
+            <ol class="breadcrumb">
+              <li><a href="index.html">accueil</a></li>
+              <li>machines à café</li>
+            </ol>
+          </nav>
+          <span class="page-hero__eyebrow">notre catalogue</span>
+          <h1 class="page-hero__title">
+            des machines à café
+            <span>pour chaque espace</span>
+          </h1>
+          <p class="page-hero__lead">
+            Machines à grains professionnelles sélectionnées pour la qualité en tasse, la simplicité d'utilisation et une intégration discrète dans vos locaux. Installation, café et entretien inclus.
+          </p>
+          <div class="page-hero__actions">
+            <a href="contact.html" class="btn btn-primary">Demander un devis</a>
+            <a href="index.html#simulateur" class="btn btn-outline">Trouver ma solution</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-machines">
+        <div class="container">
+          <div class="catalog-steps">
+            <div class="catalog-step">
+              <span class="catalog-step__num">01</span>
+              <h2 class="catalog-step__title">explorez la gamme</h2>
+              <p class="catalog-step__text">Parcourez nos machines à grains, de la compacte à la haute capacité, adaptées à chaque effectif et chaque espace.</p>
+            </div>
+            <div class="catalog-step">
+              <span class="catalog-step__num">02</span>
+              <h2 class="catalog-step__title">comparez les modèles</h2>
+              <p class="catalog-step__text">Boissons, débit, encombrement : identifiez en un coup d'œil la machine qui correspond à votre équipe.</p>
+            </div>
+            <div class="catalog-step">
+              <span class="catalog-step__num">03</span>
+              <h2 class="catalog-step__title">on s'occupe de tout</h2>
+              <p class="catalog-step__text">Installation, approvisionnement en café, entretien et dépannage inclus pour une pause sans souci au quotidien.</p>
+            </div>
+          </div>
+
+          <div class="machines-grid">
+            <article class="machine-item">
+              <div class="machine-item__link">
+                <div class="machine-item__media machine-item__media--swap">
+                  <img class="machine-item__img machine-item__img--default" src="assets/machines/jura-giga-x3.webp" alt="Jura GIGA X3" width="480" height="480" loading="lazy" decoding="async" />
+                  <img class="machine-item__img machine-item__img--hover" src="assets/machines/jura-giga-x3-top.webp" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
+                </div>
+                <div class="machine-item__content">
+                  <h3 class="machine-item__name">jura giga x3</h3>
+                  <p class="machine-item__tagline">haute capacité et innovation</p>
+                  <p class="machine-item__desc">Double distributeur et écran tactile pour les sites à fort passage et les zones d'accueil.</p>
+                  <div class="machine-item__stats">
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">32</span>
+                      <span class="machine-item__stat-label">boissons au choix</span>
+                    </div>
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">150</span>
+                      <span class="machine-item__stat-label">cafés par jour</span>
+                    </div>
+                  </div>
+                  <a class="machine-item__cta" href="machine-jura-giga-x3.html">Découvrir</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="machine-item">
+              <div class="machine-item__link">
+                <div class="machine-item__media machine-item__media--swap">
+                  <img class="machine-item__img machine-item__img--default" src="assets/machines/jura-x4.webp" alt="Jura X4" width="480" height="480" loading="lazy" decoding="async" />
+                  <img class="machine-item__img machine-item__img--hover" src="assets/machines/jura-x4-top.webp" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
+                </div>
+                <div class="machine-item__content">
+                  <h3 class="machine-item__name">jura x4</h3>
+                  <p class="machine-item__tagline">précision et élégance</p>
+                  <p class="machine-item__desc">Design anthracite et espresso de qualité pour bureaux exigeants et salles de réunion.</p>
+                  <div class="machine-item__stats">
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">13</span>
+                      <span class="machine-item__stat-label">boissons au choix</span>
+                    </div>
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">100</span>
+                      <span class="machine-item__stat-label">cafés par jour</span>
+                    </div>
+                  </div>
+                  <a class="machine-item__cta" href="machine-jura-x4.html">Découvrir</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="machine-item">
+              <div class="machine-item__link">
+                <div class="machine-item__media machine-item__media--swap">
+                  <img class="machine-item__img machine-item__img--default" src="assets/machines/gaggia-milano.webp" alt="Gaggia G300 Krea" width="480" height="480" loading="lazy" decoding="async" />
+                  <img class="machine-item__img machine-item__img--hover" src="assets/machines/gaggia-milano-top.webp" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
+                </div>
+                <div class="machine-item__content">
+                  <h3 class="machine-item__name">gaggia g300 krea</h3>
+                  <p class="machine-item__tagline">design italien d'exception</p>
+                  <p class="machine-item__desc">Menu tactile intuitif et café d'exception pour une pause-café mémorable.</p>
+                  <div class="machine-item__stats">
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">17</span>
+                      <span class="machine-item__stat-label">boissons au choix</span>
+                    </div>
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">120</span>
+                      <span class="machine-item__stat-label">cafés par jour</span>
+                    </div>
+                  </div>
+                  <a class="machine-item__cta" href="machine-gaggia-g300-krea.html">Découvrir</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="machine-item">
+              <div class="machine-item__link">
+                <div class="machine-item__media machine-item__media--swap">
+                  <img class="machine-item__img machine-item__img--default" src="assets/machines/animo.webp" alt="Animo" width="480" height="480" loading="lazy" decoding="async" />
+                  <img class="machine-item__img machine-item__img--hover" src="assets/machines/animo-top.webp" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
+                </div>
+                <div class="machine-item__content">
+                  <h3 class="machine-item__name">animo</h3>
+                  <p class="machine-item__tagline">robustesse professionnelle</p>
+                  <p class="machine-item__desc">Fiabilité et simplicité pour un usage intensif au quotidien en entreprise.</p>
+                  <div class="machine-item__stats">
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">24</span>
+                      <span class="machine-item__stat-label">boissons au choix</span>
+                    </div>
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">125</span>
+                      <span class="machine-item__stat-label">cafés par jour</span>
+                    </div>
+                  </div>
+                  <a class="machine-item__cta" href="machine-animo.html">Découvrir</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="machine-item">
+              <div class="machine-item__link">
+                <div class="machine-item__media machine-item__media--swap">
+                  <img class="machine-item__img machine-item__img--default" src="assets/machines/wmf.webp" alt="WMF Peak 50" width="480" height="480" loading="lazy" decoding="async" />
+                  <img class="machine-item__img machine-item__img--hover" src="assets/machines/wmf-top.webp" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
+                </div>
+                <div class="machine-item__content">
+                  <h3 class="machine-item__name">wmf peak 50</h3>
+                  <p class="machine-item__tagline">polyvalence et efficacité</p>
+                  <p class="machine-item__desc">Grand écran tactile et large choix de boissons pour accueil et open space.</p>
+                  <div class="machine-item__stats">
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">24</span>
+                      <span class="machine-item__stat-label">boissons au choix</span>
+                    </div>
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">80</span>
+                      <span class="machine-item__stat-label">cafés par jour</span>
+                    </div>
+                  </div>
+                  <a class="machine-item__cta" href="machine-wmf.html">Découvrir</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="machine-item">
+              <div class="machine-item__link">
+                <div class="machine-item__media machine-item__media--swap">
+                  <img class="machine-item__img machine-item__img--default" src="assets/machines/jura-ena-4.webp" alt="Jura ENA 4" width="480" height="480" loading="lazy" decoding="async" />
+                  <img class="machine-item__img machine-item__img--hover" src="assets/machines/jura-ena-4-top.webp" alt="" width="480" height="480" loading="lazy" decoding="async" aria-hidden="true" />
+                </div>
+                <div class="machine-item__content">
+                  <h3 class="machine-item__name">jura ena 4</h3>
+                  <p class="machine-item__tagline">compacte et raffinée</p>
+                  <p class="machine-item__desc">Format réduit idéal pour les espaces restreints sans compromis sur la qualité en tasse.</p>
+                  <div class="machine-item__stats">
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">4</span>
+                      <span class="machine-item__stat-label">boissons au choix</span>
+                    </div>
+                    <div class="machine-item__stat">
+                      <span class="machine-item__stat-value">100</span>
+                      <span class="machine-item__stat-label">cafés par jour</span>
+                    </div>
+                  </div>
+                  <a class="machine-item__cta" href="machine-jura-ena-4.html">Découvrir</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="catalog-benefits">
+            <article class="catalog-benefit">
+              <span class="catalog-benefit__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="12" rx="6.3" ry="9" transform="rotate(45 12 12)" />
+                  <path d="M8.5 8.5C12 9.5 12 14.5 15.5 15.5" />
+                </svg>
+              </span>
+              <div class="catalog-benefit__body">
+                <h3 class="catalog-benefit__title">café en grain de qualité</h3>
+                <p class="catalog-benefit__text">Sélection de torréfacteurs, café en grain savoureux et zéro capsule jetable.</p>
+              </div>
+            </article>
+            <article class="catalog-benefit">
+              <span class="catalog-benefit__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                </svg>
+              </span>
+              <div class="catalog-benefit__body">
+                <h3 class="catalog-benefit__title">entretien &amp; dépannage inclus</h3>
+                <p class="catalog-benefit__text">Maintenance régulière et intervention rapide de nos techniciens dédiés.</p>
+              </div>
+            </article>
+            <article class="catalog-benefit">
+              <span class="catalog-benefit__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9h11v10H3zM14 12h4l3 3v4h-7v-7z" />
+                  <circle cx="7.5" cy="19" r="1.5" />
+                  <circle cx="17.5" cy="19" r="1.5" />
+                </svg>
+              </span>
+              <div class="catalog-benefit__body">
+                <h3 class="catalog-benefit__title">véhicules propres</h3>
+                <p class="catalog-benefit__text">Livraison et réapprovisionnement responsables, traçabilité des consommables.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="catalog-cta-band catalog-cta-band--machines">
+            <div class="catalog-cta-band__content">
+              <span class="catalog-cta-band__eyebrow">devis gratuit</span>
+              <h2>une machine adaptée à vos équipes ?</h2>
+              <p>Contactez-nous pour un devis personnalisé et trouvez la machine idéale pour vos locaux.</p>
+            </div>
+            <div class="catalog-cta-band__actions">
+              <a href="contact.html" class="btn btn-primary btn-lg">Nous contacter</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section section-contact-lite" id="contact">
+        <div class="container">
+          <header class="contact-header">
+            <span class="contact-eyebrow">contact</span>
+            <h2 class="contact-title">Parlons de votre projet</h2>
+            <p class="contact-lite__lead">Nos consultants à Paris &amp; Lyon vous répondent du lundi au vendredi pour étudier vos besoins en machines à café.</p>
+          </header>
+
+          <div class="contact-lite">
+            <div class="contact-lite__offices">
+              <a class="contact-office" href="tel:0820001030">
+                <span class="contact-office__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </span>
+                <span class="contact-office__body">
+                  <span class="contact-office__city">Paris</span>
+                  <span class="contact-office__value">08 20 00 10 30</span>
+                </span>
+              </a>
+
+              <a class="contact-office" href="tel:0451085102">
+                <span class="contact-office__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </span>
+                <span class="contact-office__body">
+                  <span class="contact-office__city">Lyon</span>
+                  <span class="contact-office__value">04 51 08 51 02</span>
+                </span>
+              </a>
+
+              <a class="contact-email" href="mailto:contact@justeatemps.com">
+                <span class="contact-email__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                </span>
+                contact@justeatemps.com
+              </a>
+            </div>
+
+            <a href="index.html#contact" class="btn btn-primary btn-lg">Demander un devis gratuit</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container ft-top">
+        <div class="ft-brand">
+          <a href="index.html#top" class="ft-logo" aria-label="Juste à temps, accueil">
+            <img src="assets/logo.webp" alt="juste à temps" width="200" height="28" />
+          </a>
+          <div class="ft-social">
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.5c0-.8.2-1.3 1.3-1.3h1.4V5.8c-.2 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2H8.3V14h2.5v7h2.7z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M6.94 7.5a1.94 1.94 0 11-.01-3.88 1.94 1.94 0 01.01 3.88zM5.3 9h3.28v10.5H5.3V9zm5.4 0h3.14v1.44h.05c.44-.83 1.5-1.7 3.1-1.7 3.3 0 3.9 2.17 3.9 5v5.76h-3.27v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7v5.18H10.7V9z"/></svg>
+            </a>
+          </div>
+        </div>
+        <form class="ft-news">
+          <h4 class="ft-news__title">recevoir notre newsletter caféinée</h4>
+          <div class="ft-form">
+            <input type="email" placeholder="votre email" aria-label="Email newsletter" required />
+            <button type="submit" class="btn btn-primary">S'inscrire</button>
+          </div>
+        </form>
+      </div>
+      <div class="container">
+        <hr class="ft-divider" />
+      </div>
+      <div class="container ft-body">
+        <nav class="ft-links" aria-label="Pied de page">
+          <div class="ft-group">
+            <h4 class="ft-group__title">nos services</h4>
+            <ul>
+              <li><a href="machines-a-cafe.html">machines à café</a></li>
+              <li><a href="fontaines-a-eau.html">fontaines à eau</a></li>
+              <li><a href="distributeurs-automatiques.html">distributeur automatique</a></li>
+              <li><a href="index.html#simulateur">votre solution café</a></li>
+            </ul>
+          </div>
+          <div class="ft-group">
+            <h4 class="ft-group__title">l'entreprise</h4>
+            <ul>
+              <li><a href="qui-sommes-nous.html">qui sommes-nous</a></li>
+              <li><a href="a-propos.html">démarche RSE</a></li>
+              <li><a href="index.html#bcorp">certification B Corp</a></li>
+              <li><a href="contact.html">nous contacter</a></li>
+            </ul>
+          </div>
+          <div class="ft-group">
+            <h4 class="ft-group__title">en savoir +</h4>
+            <ul>
+              <li><a href="index.html#avis">avis clients</a></li>
+              <li><a href="mentions-legales.html">mentions légales</a></li>
+              <li><a href="politique-de-confidentialite.html">politique de confidentialité</a></li>
+              <li><a href="mailto:contact@justeatemps.com">contact@justeatemps.com</a></li>
+            </ul>
+          </div>
+          <div class="ft-group">
+            <h4 class="ft-group__title">demande de catalogue</h4>
+            <ul>
+              <li><a href="https://www.justeatemps.com/machinescafe.pdf" target="_blank" rel="noopener">catalogue machines à café</a></li>
+              <li><a href="https://www.justeatemps.com/da.pdf" target="_blank" rel="noopener">catalogue distributeurs automatiques</a></li>
+            </ul>
+          </div>
+        </nav>
+        <div class="ft-trust">
+          <div class="ft-trust__badges">
+            <img src="assets/bcorp-logo.webp" alt="Certified B Corporation" width="64" height="64" loading="lazy" decoding="async" />
+            <img src="assets/ecovadis-bronze.webp" alt="EcoVadis Sustainability Rating, Bronze" width="72" height="72" loading="lazy" decoding="async" />
+          </div>
+          <div class="ft-score">
+            <span class="ft-score__stars" aria-hidden="true">★★★★★</span>
+            <span class="ft-score__value"><strong>4,8 / 5</strong> · satisfaction client</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container footer-bottom__inner">
+          <p>© 2026 Juste à temps</p>
+          <nav class="ft-legal" aria-label="Mentions légales">
+            <a href="politique-de-confidentialite.html">politique de confidentialité</a>
+            <a href="mentions-legales.html">mentions légales</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script src="scripts/lenis.min.js" defer></script>
+    <script src="scripts/main.min.js" defer></script>
   <!-- Anderson -->
   </body>
 </html>
