@@ -8358,6 +8358,18 @@ html.js-reveal .reveal.is-visible {
   .machine-subnav__inner {
     justify-content: flex-start;
   }
+  /* Sous-menu resserré sur mobile : tient sur une ligne dès ~360px ; défile si écran plus étroit */
+  .machine-subnav__links {
+    width: 100%;
+    gap: 0.05rem;
+    padding: 0.16rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .machine-subnav__link {
+    padding: 0.28rem 0.4rem;
+    font-size: 0.66rem;
+    letter-spacing: 0;
+  }
 }
 
 .machine-stage {
