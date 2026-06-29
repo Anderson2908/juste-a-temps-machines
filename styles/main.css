@@ -4120,17 +4120,9 @@ h4::first-letter,
 
 .solution-card {
 
-  position: relative;
-
   display: flex;
 
   flex-direction: column;
-
-  justify-content: flex-start;
-
-  min-height: 0;
-
-  padding: clamp(1.5rem, 3vw, 2rem);
 
   border-radius: calc(var(--radius) + 6px);
 
@@ -4142,19 +4134,35 @@ h4::first-letter,
 
   border: 1px solid var(--jat-cream-dark);
 
-  box-shadow: 0 16px 38px -20px rgba(10, 10, 10, 0.34);
+  box-shadow: 0 16px 38px -22px rgba(10, 10, 10, 0.34);
 
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 
-  isolation: isolate;
+}
+
+.solution-card:hover {
+
+  transform: translateY(-6px);
+
+  border-color: rgba(195, 96, 67, 0.35);
+
+  box-shadow: 0 30px 56px -26px rgba(10, 10, 10, 0.45);
+
+}
+
+.solution-card__media {
+
+  position: relative;
+
+  display: block;
+
+  height: 180px;
+
+  overflow: hidden;
 
 }
 
 .solution-card__img {
-
-  position: absolute;
-
-  inset: 0;
 
   width: 100%;
 
@@ -4162,55 +4170,53 @@ h4::first-letter,
 
   object-fit: cover;
 
-  z-index: -2;
-
-  transition: transform 0.5s ease;
+  transition: transform 0.6s var(--ease-out);
 
 }
 
 .solution-card:hover .solution-card__img {
 
-  transform: scale(1.05);
+  transform: scale(1.06);
 
 }
 
-.solution-card::after {
-
-  content: "";
+.solution-card__tag {
 
   position: absolute;
 
-  inset: 0 0 auto 0;
+  left: 0.9rem;
 
-  height: 4px;
+  bottom: 0.9rem;
 
-  background: linear-gradient(90deg, var(--jat-terracotta), var(--jat-terracotta-light));
+  padding: 0.35rem 0.85rem;
 
-}
+  font-size: 0.7rem;
 
-.solution-card:hover {
-
-  transform: translateY(-5px);
-
-  border-color: rgba(195, 96, 67, 0.4);
-
-  box-shadow: 0 26px 50px -22px rgba(10, 10, 10, 0.42);
-
-}
-
-.solution-card__eyebrow {
-
-  margin-bottom: 0.5rem;
-
-  font-size: 0.72rem;
-
-  font-weight: 600;
+  font-weight: 700;
 
   letter-spacing: 0.12em;
 
   text-transform: uppercase;
 
-  color: var(--jat-terracotta);
+  color: var(--jat-cream);
+
+  background: var(--jat-terracotta);
+
+  border-radius: 999px;
+
+  box-shadow: 0 6px 16px rgba(195, 96, 67, 0.4);
+
+}
+
+.solution-card__body {
+
+  display: flex;
+
+  flex-direction: column;
+
+  flex: 1;
+
+  padding: clamp(1.25rem, 2.5vw, 1.6rem);
 
 }
 
@@ -4228,7 +4234,7 @@ h4::first-letter,
 
 .solution-card__text {
 
-  margin: 0 0 1rem;
+  margin: 0 0 1.1rem;
 
   font-size: 0.92rem;
 
@@ -4245,6 +4251,8 @@ h4::first-letter,
   align-items: center;
 
   gap: 0.4rem;
+
+  margin-top: auto;
 
   font-weight: 600;
 
@@ -7170,8 +7178,8 @@ h3,
 }
 
 .main--home .section-problem,
-.main--home .section-human,
-.main--home .section-solutions {
+  .main--home .section-human,
+  .main--home .section-solutions {
   background: var(--jat-white);
 }
 
