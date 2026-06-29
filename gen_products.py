@@ -99,7 +99,6 @@ def header(active):
           </ul>
         </nav>
         <div class="header-actions">
-          <a href="tel:0820001030" class="header-phone">08 20 00 10 30</a>
           <a href="contact.html" class="btn btn-primary">nous contacter</a>
           <button type="button" class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
             <span></span><span></span><span></span>

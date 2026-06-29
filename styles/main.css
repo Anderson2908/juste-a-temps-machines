@@ -664,6 +664,16 @@ h4::first-letter,
 
   background-color: #1a1816;
 
+  background-image: url("../assets/hero-lounge.webp");
+
+  background-size: cover;
+
+  background-position: center;
+
+  background-repeat: no-repeat;
+
+  background-attachment: fixed;
+
   color: var(--jat-cream);
 
   padding: 4rem 0 5rem;
@@ -3966,6 +3976,48 @@ h4::first-letter,
 
 }
 
+.problem-grid .catalog-benefit {
+
+  position: relative;
+
+  overflow: hidden;
+
+  border-color: rgba(10, 10, 10, 0.06);
+
+  box-shadow: 0 16px 38px -20px rgba(10, 10, 10, 0.34);
+
+}
+
+.problem-grid .catalog-benefit::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0 0 auto 0;
+
+  height: 4px;
+
+  background: linear-gradient(90deg, var(--jat-terracotta), var(--jat-terracotta-light));
+
+}
+
+.problem-grid .catalog-benefit:hover {
+
+  transform: translateY(-5px);
+
+  border-color: rgba(195, 96, 67, 0.4);
+
+  box-shadow: 0 26px 50px -22px rgba(10, 10, 10, 0.42);
+
+}
+
+.problem-grid .catalog-benefit__title {
+
+  font-weight: 700;
+
+}
+
 .problem-accroche {
 
   margin: clamp(2rem, 4vw, 2.75rem) auto 0;
@@ -4004,6 +4056,58 @@ h4::first-letter,
 
 }
 
+.human-gallery {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 0.6rem;
+
+}
+
+.human-gallery img {
+
+  height: auto;
+
+  display: block;
+
+}
+
+.human-gallery img:first-child {
+
+  grid-column: 1 / -1;
+
+  aspect-ratio: 16 / 9;
+
+}
+
+.human-gallery img:nth-child(2),
+
+.human-gallery img:nth-child(3) {
+
+  aspect-ratio: 4 / 3;
+
+}
+
+#humain .services-highlights li {
+
+  color: var(--jat-text);
+
+}
+
+#humain .services-highlights strong {
+
+  color: var(--jat-terracotta);
+
+}
+
+#humain .services-highlights + .btn {
+
+  margin-top: 1.75rem;
+
+}
+
 .solutions-grid {
 
   display: grid;
@@ -4022,19 +4126,25 @@ h4::first-letter,
 
   flex-direction: column;
 
-  justify-content: flex-end;
+  justify-content: flex-start;
 
-  min-height: clamp(260px, 32vw, 340px);
+  min-height: 0;
 
-  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  padding: clamp(1.5rem, 3vw, 2rem);
 
   border-radius: calc(var(--radius) + 6px);
 
   overflow: hidden;
 
-  color: var(--jat-cream);
+  color: var(--jat-text);
 
-  background: #1a1816;
+  background: var(--jat-white);
+
+  border: 1px solid var(--jat-cream-dark);
+
+  box-shadow: 0 16px 38px -20px rgba(10, 10, 10, 0.34);
+
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 
   isolation: isolate;
 
@@ -4070,21 +4180,21 @@ h4::first-letter,
 
   position: absolute;
 
-  inset: 0;
+  inset: 0 0 auto 0;
 
-  z-index: -1;
+  height: 4px;
 
-  background: linear-gradient(
+  background: linear-gradient(90deg, var(--jat-terracotta), var(--jat-terracotta-light));
 
-    180deg,
+}
 
-    rgba(10, 10, 10, 0.1) 0%,
+.solution-card:hover {
 
-    rgba(10, 10, 10, 0.55) 55%,
+  transform: translateY(-5px);
 
-    rgba(10, 10, 10, 0.85) 100%
+  border-color: rgba(195, 96, 67, 0.4);
 
-  );
+  box-shadow: 0 26px 50px -22px rgba(10, 10, 10, 0.42);
 
 }
 
@@ -4100,7 +4210,7 @@ h4::first-letter,
 
   text-transform: uppercase;
 
-  color: var(--jat-terracotta-light);
+  color: var(--jat-terracotta);
 
 }
 
@@ -4110,9 +4220,9 @@ h4::first-letter,
 
   font-size: clamp(1.15rem, 2.2vw, 1.4rem);
 
-  font-weight: 600;
+  font-weight: 700;
 
-  color: var(--jat-cream);
+  color: var(--jat-black);
 
 }
 
@@ -4124,7 +4234,7 @@ h4::first-letter,
 
   line-height: 1.55;
 
-  color: rgba(235, 230, 227, 0.86);
+  color: var(--jat-text-muted);
 
 }
 
@@ -4140,7 +4250,7 @@ h4::first-letter,
 
   font-size: 0.9rem;
 
-  color: var(--jat-cream);
+  color: var(--jat-terracotta);
 
 }
 
@@ -6356,6 +6466,8 @@ h4::first-letter,
 
     background-color: #1a1816;
 
+    background-attachment: scroll;
+
   }
 
 
@@ -7051,10 +7163,16 @@ h3,
 
 .main--home #services {
   background-color: #1a1816;
-  background-image: url("../assets/hero-office.webp");
+  background-image: url("../assets/services-office.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.main--home .section-problem,
+.main--home .section-human,
+.main--home .section-solutions {
+  background: var(--jat-white);
 }
 
 .services-shell {
