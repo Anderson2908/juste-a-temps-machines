@@ -4483,32 +4483,7 @@ h4::first-letter,
 
 .solution-card__cta svg {
 
-  width: 1.9rem;
-
-  height: 1.9rem;
-
-  padding: 0.45rem;
-
-  border-radius: 50%;
-
-  background: rgba(195, 96, 67, 0.1);
-
-  color: var(--jat-terracotta);
-
-  transition:
-    transform 0.35s var(--ease-out),
-    background 0.35s var(--ease-out),
-    color 0.35s var(--ease-out);
-
-}
-
-.solution-card:hover .solution-card__cta svg {
-
-  background: var(--jat-terracotta);
-
-  color: var(--jat-white);
-
-  transform: translateX(3px);
+  display: none;
 
 }
 
@@ -7047,18 +7022,7 @@ h3,
     box-shadow 0.2s var(--ease-out);
 }
 
-.btn-primary:not(.btn-block)::after {
-  content: "→";
-  margin-left: 0.15em;
-  transition: transform 0.25s var(--ease-out);
-}
-
-.btn-primary:not(.btn-block):hover::after {
-  transform: translateX(4px);
-}
-
-.header-actions .btn-primary::after,
-.btn-primary.btn-no-arrow::after {
+.btn-primary::after {
   content: none;
 }
 
@@ -7536,16 +7500,7 @@ h3,
 }
 
 .service-row__arrow {
-  align-self: flex-end;
-  margin-top: auto;
-  font-size: 1.25rem;
-  opacity: 0.35;
-  color: var(--jat-text-muted);
-  transform: none;
-  transition:
-    opacity 0.35s var(--ease-out),
-    color 0.35s var(--ease-out),
-    transform 0.35s var(--ease-out);
+  display: none;
 }
 
 /* Machines éditorial */
@@ -7835,9 +7790,10 @@ h3,
   padding: clamp(2rem, 5vw, 3.75rem);
   border-radius: var(--radius-lg);
   background:
-    linear-gradient(135deg, #c8704f 0%, #bb5e3e 100%);
+    linear-gradient(135deg, #1f1411 0%, var(--jat-black) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--jat-cream);
-  box-shadow: 0 16px 40px rgba(92, 42, 28, 0.18);
+  box-shadow: 0 30px 60px -28px rgba(10, 10, 10, 0.6);
 }
 
 .simulateur-panel__glow {
@@ -7845,8 +7801,8 @@ h3,
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 55% 75% at 92% 6%, rgba(255, 226, 200, 0.16) 0%, transparent 58%),
-    radial-gradient(ellipse 70% 90% at 4% 104%, rgba(10, 6, 4, 0.14) 0%, transparent 60%);
+    radial-gradient(ellipse 55% 75% at 92% 6%, rgba(195, 96, 67, 0.28) 0%, transparent 58%),
+    radial-gradient(ellipse 70% 90% at 4% 104%, rgba(195, 96, 67, 0.12) 0%, transparent 60%);
 }
 
 .simulateur-panel__content {
@@ -7890,8 +7846,8 @@ h3,
 }
 
 .simulateur-panel__btn {
-  background: var(--jat-cream);
-  color: var(--jat-terracotta);
+  background: var(--jat-terracotta);
+  color: var(--jat-white);
   border: none;
 }
 
@@ -7900,8 +7856,8 @@ h3,
 }
 
 .simulateur-panel__btn:hover {
-  background: var(--jat-white);
-  color: var(--jat-terracotta);
+  background: #cf7048;
+  color: var(--jat-white);
   transform: translateY(-2px);
 }
 
