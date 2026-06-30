@@ -665,6 +665,43 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     observer.observe(section);
   }
 
+  // Plusieurs fonds fixes adjacents : un seul actif à la fois (celui dont la
+  // section occupe le plus l'écran), pour éviter qu'une image déborde sur la suivante.
+  function setupExclusiveParallax(pairs) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (reduceMotion || isMobile) return;
+
+    const items = pairs
+      .map(([sectionSelector, bgSelector]) => ({
+        section: document.querySelector(sectionSelector),
+        bg: document.querySelector(bgSelector),
+        visible: 0,
+      }))
+      .filter((it) => it.section && it.bg);
+    if (!items.length) return;
+
+    const update = () => {
+      let best = null;
+      items.forEach((it) => {
+        if (it.visible > 0 && (!best || it.visible > best.visible)) best = it;
+      });
+      items.forEach((it) => it.bg.classList.toggle("is-active", it === best));
+    };
+
+    const thresholds = [0, 0.1, 0.25, 0.4, 0.5, 0.6, 0.75, 0.9, 1];
+    items.forEach((it) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          it.visible = entry.isIntersecting ? entry.intersectionRect.height : 0;
+          update();
+        },
+        { threshold: thresholds }
+      );
+      observer.observe(it.section);
+    });
+  }
+
   function setupAboutHeroParallax() {
     const bg = document.querySelector(".about-hero-bg");
     const sections = document.querySelectorAll(".page-hero--about, .about-mission");
@@ -842,8 +879,10 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   setupMachineSubnav();
   setupCafePopup();
   setupScroll();
-  setupSectionParallax("#rse", ".rse-bg");
-  setupSectionParallax("#bcorp", ".bcorp-bg");
+  setupExclusiveParallax([
+    ["#rse", ".rse-bg"],
+    ["#bcorp", ".bcorp-bg"],
+  ]);
   setupAboutHeroParallax();
   setupSectionParallax(".about-impact", ".about-impact-bg");
 })();

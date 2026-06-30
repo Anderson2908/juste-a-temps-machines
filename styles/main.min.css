@@ -7378,6 +7378,13 @@ h3,
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  .main--home #services {
+    background-attachment: scroll;
+  }
 }
 
 .main--home .section-problem,
