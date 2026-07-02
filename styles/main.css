@@ -8358,6 +8358,41 @@ html.js-reveal .reveal.is-visible {
     grid-template-columns: 1fr;
   }
 
+  .main--home .hero::before {
+    display: block;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 10, 10, 0.9) 0%,
+        rgba(10, 10, 10, 0.72) 45%,
+        rgba(10, 10, 10, 0.88) 100%
+      );
+  }
+
+  .main--home .hero-title {
+    text-shadow: 0 2px 20px rgba(10, 10, 10, 0.5);
+  }
+
+  .main--home .hero-verb,
+  .main--home .hero-object {
+    color: #e07a5a;
+  }
+
+  .main--home .hero-line--muted .hero-target {
+    color: var(--jat-white);
+    opacity: 1;
+  }
+
+  .main--home .hero-lead {
+    color: rgba(255, 255, 255, 0.94);
+    opacity: 1;
+    text-shadow: 0 1px 14px rgba(10, 10, 10, 0.4);
+  }
+
+  .main--home .hero-kicker {
+    color: #f0b8a4;
+  }
+
   .hero-orbit {
     width: min(100%, 320px);
     margin-top: 1rem;
@@ -9977,4 +10012,113 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
   background: rgba(255, 255, 255, 0.55);
   -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
+}
+
+/* Mobile — textes et CTA des sections centrés */
+@media (max-width: 768px) {
+  .hero-content,
+  .home-problem__head,
+  .services-panel,
+  .split-section > div:not(.human-media):not(.human-gallery),
+  .home-bcorp__content,
+  .simulateur-panel__content,
+  .contact-header,
+  .about-section-header,
+  .page-hero__inner,
+  .catalog-hero__inner,
+  .about-mission .split-section > div:first-child {
+    text-align: center;
+  }
+
+  .hero-content,
+  .split-section > div:not(.human-media):not(.human-gallery),
+  .simulateur-panel__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-lead,
+  .section-lead,
+  .services-lead,
+  .page-hero__lead,
+  .catalog-hero__lead,
+  .home-bcorp__lead {
+    margin-inline: auto;
+  }
+
+  .hero-cta {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-cta .btn,
+  .services-panel .btn,
+  .split-section > div:not(.human-media):not(.human-gallery) .btn,
+  .home-bcorp__content > .btn,
+  .simulateur-panel__content .btn,
+  .page-hero__actions .btn,
+  .catalog-hero__actions .btn,
+  .about-mission .split-section > div:first-child .btn {
+    margin-inline: auto;
+  }
+
+  .page-hero__actions,
+  .catalog-hero__actions {
+    justify-content: center;
+  }
+
+  .services-highlights,
+  .services-highlights li,
+  #humain .services-highlights,
+  #humain .services-highlights li {
+    text-align: center;
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .services-highlights li,
+  #humain .services-highlights li {
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+  }
+
+  .services-panel .services-highlights li {
+    border-bottom-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .services-highlights li:last-child,
+  #humain .services-highlights li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .eco-list,
+  .eco-list li {
+    text-align: center;
+  }
+
+  .home-bcorp__cards {
+    width: 100%;
+  }
+
+  .home-bcorp__card {
+    text-align: center;
+  }
+
+  .section-contact .contact-info,
+  .section-contact .contact-form,
+  .section-contact-lite .contact-layout,
+  .section-contact-lite .contact-form {
+    text-align: left;
+    align-items: stretch;
+  }
+
+  .problem-grid .catalog-benefit,
+  .service-row,
+  .solution-card,
+  .machine-item,
+  .about-pillar {
+    text-align: left;
+  }
 }
