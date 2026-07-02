@@ -1,6 +1,6 @@
 # Juste à temps : Solutions café, fontaine, distributeurs automatique 
 
-Site vitrine inspiré solution café, fontaine et DA 
+Site vitrine solution café, fontaine et DA 
 
 ## Direction artistique
 
