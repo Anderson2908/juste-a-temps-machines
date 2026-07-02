@@ -9254,6 +9254,7 @@ html.js-reveal .reveal.is-visible {
 }
 
 .machine-stage__name {
+  display: none;
   position: absolute;
   top: clamp(0.6rem, 2.2vw, 1.4rem);
   left: 50%;
