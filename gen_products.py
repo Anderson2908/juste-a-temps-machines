@@ -268,20 +268,16 @@ def build(p, cat_items):
 
     pricing_cards = ""
     for nm, frm, price, cur, per, items, feat in c["pricing"]:
-        per_html = ('<span class="pricing-card__per">%s</span>' % per) if per else ""
         items_html = "\n".join('                  <li>%s</li>' % x for x in items)
         featcls = " pricing-card--featured" if feat else ""
         pricing_cards += '''            <article class="pricing-card%s">
               <h3 class="pricing-card__name">%s</h3>
-              <p class="pricing-card__from">%s</p>
-              <p class="pricing-card__price">%s<span class="pricing-card__cur">%s</span>%s</p>
               <ul class="pricing-card__list">
 %s
               </ul>
-              <a href="contact.html" class="btn btn-outline pricing-card__btn">Choisir</a>
-              <a href="contact.html" class="pricing-card__link">En savoir plus sur notre offre de %s</a>
+              <a href="contact.html" class="btn btn-primary pricing-card__btn">En savoir plus</a>
             </article>
-''' % (featcls, nm, frm, price, cur, per_html, items_html, nm)
+''' % (featcls, nm, items_html)
 
     # similar = 3 autres de la même catégorie (rotation)
     idx = cat_items.index(slug)
@@ -467,7 +463,7 @@ def build(p, cat_items):
 
       <section class="section machine-pricing">
         <div class="container">
-          <h2 class="machine-pricing__title">Tarifs</h2>
+          <h2 class="machine-pricing__title">Nos offres</h2>
           <div class="pricing-grid">
 %s          </div>
           <div class="machine-pricing__cta">
