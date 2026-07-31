@@ -729,7 +729,8 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
 
   function setupCafePopup() {
     const popup = document.getElementById("cafePopup");
-    if (!popup) return;
+    const toggle = document.getElementById("cafePopupToggle");
+    if (!popup || !toggle) return;
 
     let dismissed = false;
     try {
@@ -738,16 +739,36 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     if (dismissed) return;
 
     const closeBtn = popup.querySelector(".cafe-popup__close");
+    const SHOW_DELAY_MS = 4500;
+    const VISIBLE_MS = 5000;
+    let autoHideTimer = null;
 
-    function show() {
+    function showPopup() {
+      window.clearTimeout(autoHideTimer);
+      toggle.hidden = true;
+      toggle.setAttribute("aria-expanded", "true");
       popup.hidden = false;
       popup.setAttribute("aria-hidden", "false");
       requestAnimationFrame(() => popup.classList.add("is-visible"));
     }
 
-    function hide() {
+    function collapsePopup() {
       popup.classList.remove("is-visible");
       popup.setAttribute("aria-hidden", "true");
+      toggle.hidden = false;
+      toggle.removeAttribute("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+      window.setTimeout(() => {
+        popup.hidden = true;
+      }, 450);
+    }
+
+    function dismissPopup() {
+      window.clearTimeout(autoHideTimer);
+      popup.classList.remove("is-visible");
+      popup.setAttribute("aria-hidden", "true");
+      toggle.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
       try {
         sessionStorage.setItem("cafePopupClosed", "1");
       } catch (e) {}
@@ -756,9 +777,18 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       }, 450);
     }
 
-    if (closeBtn) closeBtn.addEventListener("click", hide);
+    function scheduleAutoHide() {
+      window.clearTimeout(autoHideTimer);
+      autoHideTimer = window.setTimeout(collapsePopup, VISIBLE_MS);
+    }
 
-    window.setTimeout(show, 4500);
+    if (closeBtn) closeBtn.addEventListener("click", dismissPopup);
+    toggle.addEventListener("click", showPopup);
+
+    window.setTimeout(() => {
+      showPopup();
+      scheduleAutoHide();
+    }, SHOW_DELAY_MS);
   }
 
   function setupHeaderScroll() {
