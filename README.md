@@ -13,12 +13,31 @@ Site vitrine solution café, fontaine et DA
 
 ```bash
 cd "C:\Users\Anderson BANAKISSA\Projects\juste-a-temps-solutions"
+cp .env.example .env   # puis renseignez CONTACT_WEBHOOK_URL
+npm install
 npm run dev
 ```
 
 Puis ouvrir http://localhost:5173
 
-Ou ouvrir `index.html` directement dans le navigateur.
+Le serveur sert le site **et** l’API `POST /api/contact` pour le formulaire de contact.
+
+### Formulaire de contact (.env)
+
+Copiez `.env.example` vers `.env` et configurez :
+
+| Variable | Rôle |
+|----------|------|
+| `CONTACT_WEBHOOK_URL` | URL de votre API qui reçoit les leads (JSON POST) |
+| `CONTACT_API_KEY` | Clé / token (optionnel) |
+| `CONTACT_API_HEADER` | Header d’auth (défaut : `Authorization`) |
+| `CONTACT_FALLBACK_MODE` | `log` sans API (dev) ou `error` |
+
+Sans API configurée, les demandes sont loguées en console (mode développement).
+
+Site statique seul (sans API) : `npm run dev:static`
+
+Ou ouvrir `index.html` directement dans le navigateur (formulaire non fonctionnel sans serveur).
 
 ## Structure des pages 
 

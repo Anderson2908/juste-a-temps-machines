@@ -4,7 +4,12 @@
   "private": true,
   "description": "Solutions de location machines à café — DA Juste à Temps",
   "scripts": {
-    "dev": "npx --yes serve . -p 5173",
-    "start": "npm run dev"
+    "dev": "node server/index.js",
+    "start": "node server/index.js",
+    "dev:static": "npx --yes serve . -p 5173"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
   }
 }

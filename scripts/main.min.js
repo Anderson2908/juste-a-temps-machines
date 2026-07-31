@@ -202,10 +202,11 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     }, 6000);
   }
 
-  // Formulaires : validation + ouverture du client mail pré-rempli + confirmation inline
+  // Formulaires contact : envoi vers /api/contact (voir server/ et .env.example)
   const CONTACT_EMAIL = "contact@justeatemps.com";
+  const CONTACT_API_URL = "/api/contact";
 
-  function showFormFeedback(formEl, message) {
+  function showFormFeedback(formEl, message, isError = false) {
     let box = formEl.querySelector(".form-feedback");
     if (!box) {
       box = document.createElement("p");
@@ -215,6 +216,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       formEl.appendChild(box);
     }
     box.textContent = message;
+    box.classList.toggle("is-error", isError);
     box.classList.add("is-visible");
   }
 
@@ -223,30 +225,61 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     return el ? el.value.trim() : "";
   }
 
-  const contactForm = document.querySelector(".contact-form");
-  contactForm?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!contactForm.checkValidity()) {
-      contactForm.reportValidity();
+  function setFormBusy(formEl, busy) {
+    const submitBtn = formEl.querySelector('[type="submit"]');
+    if (!submitBtn) return;
+    submitBtn.disabled = busy;
+    submitBtn.setAttribute("aria-busy", busy ? "true" : "false");
+  }
+
+  async function submitContactForm(formEl) {
+    if (!formEl.checkValidity()) {
+      formEl.reportValidity();
       return;
     }
-    const company = fieldValue(contactForm, "company");
-    const name = fieldValue(contactForm, "name");
-    const subject = `Demande de devis – ${company || name || "site web"}`;
-    const body = [
-      `Entreprise : ${company}`,
-      `Nom & prénom : ${name}`,
-      `Email : ${fieldValue(contactForm, "email")}`,
-      `Téléphone : ${fieldValue(contactForm, "phone")}`,
-      "",
-      "Besoin :",
-      fieldValue(contactForm, "message"),
-    ].join("\n");
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    showFormFeedback(
-      contactForm,
-      `Merci ! Votre logiciel de messagerie va s'ouvrir pour finaliser l'envoi. Si rien ne se passe, écrivez-nous directement à ${CONTACT_EMAIL}.`
-    );
+
+    const payload = {
+      company: fieldValue(formEl, "company"),
+      name: fieldValue(formEl, "name"),
+      email: fieldValue(formEl, "email"),
+      phone: fieldValue(formEl, "phone"),
+      message: fieldValue(formEl, "message"),
+      source: window.location.pathname.split("/").pop() || "index.html",
+    };
+
+    setFormBusy(formEl, true);
+
+    try {
+      const response = await fetch(CONTACT_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Une erreur est survenue lors de l'envoi.");
+      }
+
+      showFormFeedback(formEl, data.message || "Merci ! Votre demande a bien été envoyée.");
+      formEl.reset();
+    } catch (error) {
+      showFormFeedback(
+        formEl,
+        `${error.message} Vous pouvez aussi nous écrire à ${CONTACT_EMAIL}.`,
+        true
+      );
+    } finally {
+      setFormBusy(formEl, false);
+    }
+  }
+
+  document.querySelectorAll(".contact-form").forEach((formEl) => {
+    formEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+      submitContactForm(formEl);
+    });
   });
 
   const newsletterForm = document.querySelector(".ft-news");

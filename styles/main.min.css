@@ -5854,6 +5854,12 @@ h4::first-letter,
 
 }
 
+.form-feedback.is-error {
+  color: #b42318;
+  background: rgba(180, 35, 24, 0.08);
+  border-color: rgba(180, 35, 24, 0.22);
+}
+
 
 
 .ft-news .form-feedback {
