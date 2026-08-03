@@ -205,6 +205,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   // Formulaires contact : envoi vers /api/contact (voir server/ et .env.example)
   const CONTACT_EMAIL = "contact@justeatemps.com";
   const CONTACT_API_URL = "/api/contact";
+  const NEWSLETTER_API_URL = "/api/newsletter";
 
   function showFormFeedback(formEl, message, isError = false) {
     let box = formEl.querySelector(".form-feedback");
@@ -282,18 +283,52 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     });
   });
 
-  const newsletterForm = document.querySelector(".ft-news");
-  newsletterForm?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!newsletterForm.checkValidity()) {
-      newsletterForm.reportValidity();
+  // Newsletter (footer) : envoi vers /api/newsletter — liste Sarbacane dédiée.
+  async function submitNewsletterForm(formEl) {
+    if (!formEl.checkValidity()) {
+      formEl.reportValidity();
       return;
     }
-    const emailInput = newsletterForm.querySelector('input[type="email"]');
-    const email = emailInput ? emailInput.value.trim() : "";
-    const body = `Bonjour, merci de m'inscrire à votre newsletter avec l'adresse : ${email}`;
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Inscription newsletter")}&body=${encodeURIComponent(body)}`;
-    showFormFeedback(newsletterForm, "Merci ! Votre messagerie va s'ouvrir pour confirmer votre inscription.");
+
+    const emailInput = formEl.querySelector('input[type="email"]');
+    const payload = {
+      email: emailInput ? emailInput.value.trim() : "",
+      source: window.location.pathname.split("/").pop() || "index.html",
+    };
+
+    setFormBusy(formEl, true);
+
+    try {
+      const response = await fetch(NEWSLETTER_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Une erreur est survenue lors de l'inscription.");
+      }
+
+      showFormFeedback(formEl, data.message || "Merci ! Votre inscription est bien enregistrée.");
+      formEl.reset();
+    } catch (error) {
+      showFormFeedback(
+        formEl,
+        `${error.message} Vous pouvez aussi nous écrire à ${CONTACT_EMAIL}.`,
+        true
+      );
+    } finally {
+      setFormBusy(formEl, false);
+    }
+  }
+
+  document.querySelectorAll(".ft-news").forEach((formEl) => {
+    formEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+      submitNewsletterForm(formEl);
+    });
   });
 
   // Filtres catalogue
