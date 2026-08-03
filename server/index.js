@@ -1,13 +1,16 @@
 const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
-const { handleContactSubmission } = require("./handlers/contact");
+const { handleContactSubmission, checkContactHealth } = require("./handlers/contact");
 
+// En local, .env fournit la configuration. En production (Dokploy), les
+// variables sont injectées par la plateforme : dotenv ne les écrase jamais.
 dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
 const app = express();
 const rootDir = path.join(__dirname, "..");
 const port = Number(process.env.PORT) || 5173;
+const host = process.env.HOST || "0.0.0.0";
 
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:5173,http://127.0.0.1:5173")
   .split(",")
@@ -33,12 +36,37 @@ app.use((req, res, next) => {
   next();
 });
 
+// Sonde de vie pour le reverse proxy / Dokploy.
+app.get("/healthz", (req, res) => {
+  res.json({ ok: true, uptime: process.uptime() });
+});
+
+// Diagnostic de la chaîne de contact (aucune écriture chez Sarbacane).
+app.get("/api/contact/health", async (req, res) => {
+  try {
+    const health = await checkContactHealth();
+    res.status(health.ok ? 200 : 503).json(health);
+  } catch (error) {
+    res.status(500).json({ ok: false, error: error.message });
+  }
+});
+
 app.post("/api/contact", async (req, res) => {
-  const result = await handleContactSubmission({
-    ...req.body,
-    source: req.body?.source || req.get("referer") || "site-web",
-  });
-  res.status(result.status).json(result.body);
+  // Express 4 ne rattrape pas les rejets asynchrones : sans ce try/catch la
+  // requête resterait pendante et le reverse proxy renverrait un 502.
+  try {
+    const result = await handleContactSubmission({
+      ...req.body,
+      source: req.body?.source || req.get("referer") || "site-web",
+    });
+    res.status(result.status).json(result.body);
+  } catch (error) {
+    console.error("[contact] Erreur inattendue :", error);
+    res.status(500).json({
+      ok: false,
+      error: "Une erreur inattendue est survenue. Réessayez dans quelques instants.",
+    });
+  }
 });
 
 app.use(express.static(rootDir, { extensions: ["html"] }));
@@ -57,9 +85,16 @@ app.use((req, res, next) => {
   res.sendFile(path.join(rootDir, "404.html"));
 });
 
-app.listen(port, () => {
-  console.log(`Juste à temps — http://localhost:${port}`);
+app.listen(port, host, () => {
+  console.log(`Juste à temps — écoute sur ${host}:${port}`);
+
   if (!process.env.CONTACT_WEBHOOK_URL) {
-    console.log("Contact API : mode log (définissez CONTACT_WEBHOOK_URL dans .env)");
+    console.log("Contact API : mode log (définissez CONTACT_WEBHOOK_URL)");
+  } else if (!process.env.SARBACANE_ACCOUNT_ID || !process.env.SARBACANE_API_KEY) {
+    console.warn(
+      "Contact API : SARBACANE_ACCOUNT_ID / SARBACANE_API_KEY manquants — les envois seront refusés (401)."
+    );
+  } else {
+    console.log("Contact API : Sarbacane configuré (vérifiez avec GET /api/contact/health)");
   }
 });
