@@ -30,6 +30,88 @@ function validatePayload(payload) {
   return null;
 }
 
+function isSarbacaneMode() {
+  const provider = (process.env.CONTACT_PROVIDER || "").toLowerCase();
+  const webhookUrl = (process.env.CONTACT_WEBHOOK_URL || "").toLowerCase();
+  return (
+    provider === "sarbacane" ||
+    webhookUrl.includes("sarbacaneapis.com") ||
+    Boolean(process.env.SARBACANE_LIST_ID)
+  );
+}
+
+function getSarbacaneConfig() {
+  const listId = process.env.SARBACANE_LIST_ID || "";
+  const accountId = process.env.SARBACANE_ACCOUNT_ID || "";
+  const apiKey = process.env.CONTACT_API_KEY || "";
+
+  let url = (process.env.CONTACT_WEBHOOK_URL || "").replace(/\/+$/, "");
+  if (listId) {
+    url = `https://sarbacaneapis.com/v1/lists/${listId}/contacts`;
+  } else if (url && !url.includes("/lists/")) {
+    url = `${url}/lists/REPLACE_BY_LIST_ID/contacts`;
+  }
+
+  return { url, accountId, apiKey, listId };
+}
+
+function buildSarbacaneBody(payload) {
+  const body = {
+    email: payload.email,
+  };
+
+  if (payload.phone) {
+    body.phone = payload.phone;
+  }
+
+  const noteParts = [
+    payload.company && `Entreprise : ${payload.company}`,
+    payload.name && `Nom : ${payload.name}`,
+    payload.message && `Besoin : ${payload.message}`,
+    payload.source && `Source : ${payload.source}`,
+  ].filter(Boolean);
+
+  if (noteParts.length) {
+    body.comment = noteParts.join("\n");
+  }
+
+  return body;
+}
+
+async function forwardToSarbacane(payload) {
+  const { url, accountId, apiKey, listId } = getSarbacaneConfig();
+
+  if (!listId || url.includes("REPLACE_BY_LIST_ID")) {
+    throw new Error("SARBACANE_LIST_ID manquant dans .env");
+  }
+  if (!accountId) {
+    throw new Error("SARBACANE_ACCOUNT_ID manquant dans .env");
+  }
+  if (!apiKey) {
+    throw new Error("CONTACT_API_KEY manquant dans .env");
+  }
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      accountId,
+      apiKey,
+    },
+    body: JSON.stringify(buildSarbacaneBody(payload)),
+  });
+
+  if (!response.ok) {
+    const detail = await response.text().catch(() => "");
+    throw new Error(
+      `Sarbacane a répondu ${response.status}${detail ? ` : ${detail.slice(0, 200)}` : ""}`
+    );
+  }
+
+  return response;
+}
+
 async function forwardToWebhook(payload) {
   const url = process.env.CONTACT_WEBHOOK_URL;
   if (!url) return null;
@@ -73,14 +155,21 @@ async function handleContactSubmission(body) {
     return { status: 400, body: { ok: false, error: validationError } };
   }
 
-  if (process.env.CONTACT_WEBHOOK_URL) {
+  const useSarbacane = isSarbacaneMode();
+  const hasWebhook = Boolean(process.env.CONTACT_WEBHOOK_URL) || Boolean(process.env.SARBACANE_LIST_ID);
+
+  if (hasWebhook) {
     try {
-      await forwardToWebhook(payload);
+      if (useSarbacane) {
+        await forwardToSarbacane(payload);
+      } else {
+        await forwardToWebhook(payload);
+      }
       return {
         status: 200,
         body: {
           ok: true,
-          mode: "webhook",
+          mode: useSarbacane ? "sarbacane" : "webhook",
           message: "Votre demande a bien été envoyée. Nous vous recontacterons rapidement.",
         },
       };
@@ -102,12 +191,12 @@ async function handleContactSubmission(body) {
       status: 503,
       body: {
         ok: false,
-        error: "Le service de contact n'est pas encore configuré (CONTACT_WEBHOOK_URL).",
+        error: "Le service de contact n'est pas encore configuré.",
       },
     };
   }
 
-  console.info("[contact] Demande reçue (mode log — configurez CONTACT_WEBHOOK_URL) :", payload);
+  console.info("[contact] Demande reçue (mode log) :", payload);
   return {
     status: 200,
     body: {
@@ -118,4 +207,9 @@ async function handleContactSubmission(body) {
   };
 }
 
-module.exports = { handleContactSubmission, buildPayload, validatePayload };
+module.exports = {
+  handleContactSubmission,
+  buildPayload,
+  validatePayload,
+  isSarbacaneMode,
+};
