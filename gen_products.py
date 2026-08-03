@@ -38,7 +38,7 @@ FOOTER = '''    <footer class="site-footer">
               <li><a href="index.html">machines à café</a></li>
               <li><a href="fontaines-a-eau.html">fontaines à eau</a></li>
               <li><a href="distributeurs-automatiques.html">distributeur automatique</a></li>
-              <li><a href="index.html#simulateur">votre solution café</a></li>
+              <li><a href="https://abonnement-cafe.justeatemps.com/" target="_blank" rel="noopener noreferrer">votre solution café</a></li>
             </ul>
           </div>
           <div class="ft-group">
