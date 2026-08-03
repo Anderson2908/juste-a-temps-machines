@@ -33,78 +33,6 @@ function validatePayload(payload) {
   return null;
 }
 
-<<<<<<< HEAD
-function isSarbacaneMode() {
-  const provider = (process.env.CONTACT_PROVIDER || "").toLowerCase();
-  const webhookUrl = (process.env.CONTACT_WEBHOOK_URL || "").toLowerCase();
-  return (
-    provider === "sarbacane" ||
-    webhookUrl.includes("sarbacaneapis.com") ||
-    Boolean(process.env.SARBACANE_LIST_ID)
-  );
-}
-
-function getSarbacaneConfig() {
-  const listId = process.env.SARBACANE_LIST_ID || "";
-  const accountId = process.env.SARBACANE_ACCOUNT_ID || "";
-  const apiKey = process.env.CONTACT_API_KEY || "";
-
-  let url = (process.env.CONTACT_WEBHOOK_URL || "").replace(/\/+$/, "");
-  if (listId) {
-    url = `https://sarbacaneapis.com/v1/lists/${listId}/contacts`;
-  } else if (url && !url.includes("/lists/")) {
-    url = `${url}/lists/REPLACE_BY_LIST_ID/contacts`;
-  }
-
-  return { url, accountId, apiKey, listId };
-}
-
-function buildSarbacaneBody(payload) {
-  const body = {
-    email: payload.email,
-  };
-
-  if (payload.phone) {
-    body.phone = payload.phone;
-  }
-
-  const noteParts = [
-    payload.company && `Entreprise : ${payload.company}`,
-    payload.name && `Nom : ${payload.name}`,
-    payload.message && `Besoin : ${payload.message}`,
-    payload.source && `Source : ${payload.source}`,
-  ].filter(Boolean);
-
-  if (noteParts.length) {
-    body.comment = noteParts.join("\n");
-  }
-
-  return body;
-}
-
-async function forwardToSarbacane(payload) {
-  const { url, accountId, apiKey, listId } = getSarbacaneConfig();
-
-  if (!listId || url.includes("REPLACE_BY_LIST_ID")) {
-    throw new Error("SARBACANE_LIST_ID manquant dans .env");
-  }
-  if (!accountId) {
-    throw new Error("SARBACANE_ACCOUNT_ID manquant dans .env");
-  }
-  if (!apiKey) {
-    throw new Error("CONTACT_API_KEY manquant dans .env");
-  }
-
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      accountId,
-      apiKey,
-    },
-    body: JSON.stringify(buildSarbacaneBody(payload)),
-=======
 /* ------------------------------------------------------------------ *
  * Journal local des leads : filet de sécurité.
  * Une demande enregistrée ici n'est jamais perdue, même si Sarbacane
@@ -138,7 +66,7 @@ function storeLead(payload, delivery) {
 
 function sarbacaneCredentials() {
   const accountId = (process.env.SARBACANE_ACCOUNT_ID || "").trim();
-  const apiKey = (process.env.SARBACANE_API_KEY || "").trim();
+  const apiKey = (process.env.SARBACANE_API_KEY || process.env.CONTACT_API_KEY || "").trim();
   return accountId && apiKey ? { accountId, apiKey } : null;
 }
 
@@ -261,21 +189,10 @@ async function pushToSarbacane(payload) {
   const response = await sarbacaneFetch(url, config, {
     method: "POST",
     body: JSON.stringify(contact),
->>>>>>> 86495ebee93fa7bde290e4f77d4c833cd05c26ec
   });
 
   if (!response.ok) {
     const detail = await response.text().catch(() => "");
-<<<<<<< HEAD
-    throw new Error(
-      `Sarbacane a répondu ${response.status}${detail ? ` : ${detail.slice(0, 200)}` : ""}`
-    );
-  }
-
-  return response;
-}
-
-=======
     const error = new Error(
       `Sarbacane a répondu ${response.status}${detail ? ` : ${detail.slice(0, 200)}` : ""}`
     );
@@ -290,7 +207,6 @@ async function pushToSarbacane(payload) {
  * Webhook générique (si l'endpoint n'est pas Sarbacane)
  * ------------------------------------------------------------------ */
 
->>>>>>> 86495ebee93fa7bde290e4f77d4c833cd05c26ec
 async function forwardToWebhook(payload) {
   const url = process.env.CONTACT_WEBHOOK_URL;
   if (!url) return null;
@@ -340,25 +256,6 @@ async function handleContactSubmission(body) {
     return { status: 400, body: { ok: false, error: validationError } };
   }
 
-<<<<<<< HEAD
-  const useSarbacane = isSarbacaneMode();
-  const hasWebhook = Boolean(process.env.CONTACT_WEBHOOK_URL) || Boolean(process.env.SARBACANE_LIST_ID);
-
-  if (hasWebhook) {
-    try {
-      if (useSarbacane) {
-        await forwardToSarbacane(payload);
-      } else {
-        await forwardToWebhook(payload);
-      }
-      return {
-        status: 200,
-        body: {
-          ok: true,
-          mode: useSarbacane ? "sarbacane" : "webhook",
-          message: "Votre demande a bien été envoyée. Nous vous recontacterons rapidement.",
-        },
-=======
   const useSarbacane = Boolean(sarbacaneConfig());
   const hasWebhook = Boolean(process.env.CONTACT_WEBHOOK_URL);
 
@@ -374,7 +271,6 @@ async function handleContactSubmission(body) {
       return {
         status: 200,
         body: { ok: true, mode: useSarbacane ? "sarbacane" : "webhook", message: SUCCESS_MESSAGE },
->>>>>>> 86495ebee93fa7bde290e4f77d4c833cd05c26ec
       };
     } catch (error) {
       console.error("[contact] Échec de transmission :", error.message);
@@ -387,9 +283,6 @@ async function handleContactSubmission(body) {
       });
       const strict = process.env.CONTACT_STRICT === "true";
 
-      // Le lead est conservé localement : inutile d'afficher une erreur au
-      // visiteur, sa demande est bien enregistrée. CONTACT_STRICT=true force
-      // le comportement inverse.
       if (stored && !strict) {
         return { status: 200, body: { ok: true, mode: "stored", message: SUCCESS_MESSAGE } };
       }
@@ -416,12 +309,8 @@ async function handleContactSubmission(body) {
     };
   }
 
-<<<<<<< HEAD
-  console.info("[contact] Demande reçue (mode log) :", payload);
-=======
   storeLead(payload, { status: "stored", provider: "none" });
   console.info("[contact] Demande reçue (mode log — configurez CONTACT_WEBHOOK_URL) :", payload);
->>>>>>> 86495ebee93fa7bde290e4f77d4c833cd05c26ec
   return {
     status: 200,
     body: {
@@ -432,15 +321,6 @@ async function handleContactSubmission(body) {
   };
 }
 
-<<<<<<< HEAD
-module.exports = {
-  handleContactSubmission,
-  buildPayload,
-  validatePayload,
-  isSarbacaneMode,
-=======
-// Diagnostic : vérifie la configuration et les identifiants sans rien écrire
-// dans Sarbacane. Utilisé par GET /api/contact/health.
 async function checkContactHealth() {
   const config = sarbacaneConfig();
   const result = {
@@ -481,5 +361,4 @@ module.exports = {
   buildPayload,
   validatePayload,
   buildSarbacaneContact,
->>>>>>> 86495ebee93fa7bde290e4f77d4c833cd05c26ec
 };
