@@ -2,6 +2,11 @@ const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
 const { handleContactSubmission, checkContactHealth } = require("./handlers/contact");
+const {
+  handleNewsletterSubmission,
+  checkNewsletterHealth,
+  newsletterConfig,
+} = require("./handlers/newsletter");
 
 // En local, .env fournit la configuration. En production (Dokploy), les
 // variables sont injectées par la plateforme : dotenv ne les écrase jamais.
@@ -69,6 +74,33 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
+// Diagnostic de la liste newsletter (aucune écriture chez Sarbacane).
+app.get("/api/newsletter/health", async (req, res) => {
+  try {
+    const health = await checkNewsletterHealth();
+    res.status(health.ok ? 200 : 503).json(health);
+  } catch (error) {
+    res.status(500).json({ ok: false, error: error.message });
+  }
+});
+
+// Inscription newsletter (footer) : liste Sarbacane dédiée.
+app.post("/api/newsletter", async (req, res) => {
+  try {
+    const result = await handleNewsletterSubmission({
+      ...req.body,
+      source: req.body?.source || req.get("referer") || "newsletter-footer",
+    });
+    res.status(result.status).json(result.body);
+  } catch (error) {
+    console.error("[newsletter] Erreur inattendue :", error);
+    res.status(500).json({
+      ok: false,
+      error: "Une erreur inattendue est survenue. Réessayez dans quelques instants.",
+    });
+  }
+});
+
 app.use(express.static(rootDir, { extensions: ["html"] }));
 
 app.use((req, res, next) => {
@@ -96,5 +128,14 @@ app.listen(port, host, () => {
     );
   } else {
     console.log("Contact API : Sarbacane configuré (vérifiez avec GET /api/contact/health)");
+  }
+
+  const newsletter = newsletterConfig();
+  if (newsletter) {
+    console.log(
+      `Newsletter API : Sarbacane configuré — liste ${newsletter.listId} (vérifiez avec GET /api/newsletter/health)`
+    );
+  } else {
+    console.log("Newsletter API : mode log (SARBACANE_ACCOUNT_ID / SARBACANE_API_KEY manquants)");
   }
 });

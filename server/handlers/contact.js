@@ -1,7 +1,15 @@
 const fs = require("fs");
 const path = require("path");
 
-const SARBACANE_TIMEOUT_MS = Number(process.env.SARBACANE_TIMEOUT_MS) || 10000;
+const {
+  SARBACANE_TIMEOUT_MS,
+  sarbacaneCredentials,
+  sarbacaneApiBase,
+  resolveFieldMap,
+  buildSarbacaneContact,
+  pushContact,
+  checkList,
+} = require("../sarbacane");
 
 function sanitizeString(value, maxLength = 500) {
   if (typeof value !== "string") return "";
@@ -56,19 +64,9 @@ function storeLead(payload, delivery) {
 }
 
 /* ------------------------------------------------------------------ *
- * Sarbacane
- * Auth : DEUX en-têtes `accountId` + `apiKey` (jamais Authorization/Bearer).
- * Ajout d'un contact : POST /v1/lists/{listId}/contacts
- * Corps : un OBJET { email, phone, "<idChampPerso>": "valeur" }.
- * Les champs autres qu'email/phone sont identifiés par leur ID, pas
- * par leur nom : on les découvre via GET /v1/lists/{listId}/fields.
+ * Sarbacane — liste des leads du formulaire de contact.
+ * Le client HTTP est partagé avec la newsletter (voir ../sarbacane.js).
  * ------------------------------------------------------------------ */
-
-function sarbacaneCredentials() {
-  const accountId = (process.env.SARBACANE_ACCOUNT_ID || "").trim();
-  const apiKey = (process.env.SARBACANE_API_KEY || process.env.CONTACT_API_KEY || "").trim();
-  return accountId && apiKey ? { accountId, apiKey } : null;
-}
 
 function listIdFromWebhookUrl(url) {
   const match = /\/lists\/([^/]+)\/contacts/.exec(url || "");
@@ -83,124 +81,17 @@ function sarbacaneConfig() {
   const listId = (process.env.SARBACANE_LIST_ID || listIdFromWebhookUrl(url)).trim();
   if (!listId) return null;
 
-  const base = (process.env.SARBACANE_API_BASE || "https://sarbacaneapis.com/v1").replace(/\/+$/, "");
-  return { ...credentials, listId, base };
-}
-
-async function sarbacaneFetch(url, { accountId, apiKey }, options = {}) {
-  return fetch(url, {
-    ...options,
-    headers: {
-      accountId,
-      apiKey,
-      Accept: "application/json",
-      ...(options.body ? { "Content-Type": "application/json" } : {}),
-      ...options.headers,
-    },
-    signal: AbortSignal.timeout(SARBACANE_TIMEOUT_MS),
-  });
-}
-
-// Alias de noms de champs Sarbacane -> clés de notre formulaire.
-const FIELD_ALIASES = {
-  company: ["societe", "société", "company", "entreprise", "organisation", "organization"],
-  name: ["nom", "name", "lastname", "nom complet", "fullname", "contact"],
-  message: ["message", "commentaire", "demande", "besoin", "comment"],
-  source: ["source", "origine", "provenance", "page"],
-};
-
-function normalizeLabel(value) {
-  return String(value || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim()
-    .toLowerCase();
-}
-
-let cachedFieldMap = null;
-
-function fieldMapFromEnv() {
-  const raw = process.env.SARBACANE_FIELDS;
-  if (!raw) return null;
-  try {
-    const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === "object" ? parsed : null;
-  } catch (error) {
-    console.error("[contact] SARBACANE_FIELDS n'est pas un JSON valide :", error.message);
-    return null;
-  }
-}
-
-async function resolveFieldMap(config) {
-  const fromEnv = fieldMapFromEnv();
-  if (fromEnv) return fromEnv;
-  if (cachedFieldMap) return cachedFieldMap;
-
-  try {
-    const response = await sarbacaneFetch(`${config.base}/lists/${config.listId}/fields`, config);
-    if (!response.ok) {
-      console.warn(
-        `[contact] Champs Sarbacane illisibles (HTTP ${response.status}) : seuls email et téléphone seront transmis.`
-      );
-      return {};
-    }
-
-    const body = await response.json();
-    const fields = Array.isArray(body) ? body : body.items || body.fields || [];
-    const map = {};
-
-    for (const [key, aliases] of Object.entries(FIELD_ALIASES)) {
-      const match = fields.find((field) => {
-        const label = normalizeLabel(field.name || field.label || field.title);
-        return aliases.some((alias) => label === normalizeLabel(alias));
-      });
-      if (match && match.id) map[key] = match.id;
-    }
-
-    cachedFieldMap = map;
-    return map;
-  } catch (error) {
-    console.warn("[contact] Découverte des champs Sarbacane impossible :", error.message);
-    return {};
-  }
-}
-
-function buildSarbacaneContact(payload, fieldMap) {
-  const contact = {};
-  if (payload.email) contact.email = payload.email;
-  if (payload.phone) contact.phone = payload.phone;
-
-  for (const key of ["company", "name", "message", "source"]) {
-    const fieldId = fieldMap[key];
-    if (fieldId && payload[key]) contact[fieldId] = payload[key];
-  }
-
-  return contact;
+  return { ...credentials, listId, base: sarbacaneApiBase() };
 }
 
 async function pushToSarbacane(payload) {
   const config = sarbacaneConfig();
   if (!config) return { ok: false, reason: "not-configured" };
 
-  const fieldMap = await resolveFieldMap(config);
+  const fieldMap = await resolveFieldMap(config, "SARBACANE_FIELDS");
   const contact = buildSarbacaneContact(payload, fieldMap);
-  const url = `${config.base}/lists/${config.listId}/contacts?upsert=true`;
 
-  const response = await sarbacaneFetch(url, config, {
-    method: "POST",
-    body: JSON.stringify(contact),
-  });
-
-  if (!response.ok) {
-    const detail = await response.text().catch(() => "");
-    const error = new Error(
-      `Sarbacane a répondu ${response.status}${detail ? ` : ${detail.slice(0, 200)}` : ""}`
-    );
-    error.status = response.status;
-    throw error;
-  }
-
-  return { ok: true };
+  return pushContact(config, contact);
 }
 
 /* ------------------------------------------------------------------ *
@@ -336,21 +227,9 @@ async function checkContactHealth() {
     return result;
   }
 
-  try {
-    const response = await sarbacaneFetch(`${config.base}/lists/${config.listId}/fields`, config);
-    if (response.ok) {
-      result.sarbacane = "ok";
-    } else if (response.status === 401 || response.status === 403) {
-      result.ok = false;
-      result.sarbacane = "identifiants refusés (401) — régénérez la clé API Sarbacane";
-    } else {
-      result.ok = false;
-      result.sarbacane = `réponse inattendue (HTTP ${response.status})`;
-    }
-  } catch (error) {
-    result.ok = false;
-    result.sarbacane = `injoignable : ${error.message}`;
-  }
+  const check = await checkList(config);
+  result.ok = check.ok;
+  result.sarbacane = check.status;
 
   return result;
 }

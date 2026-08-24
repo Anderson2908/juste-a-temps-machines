@@ -320,10 +320,10 @@
             </a>
           </div>
         </div>
-        <form class="ft-news">
+        <form class="ft-news" action="/api/newsletter" method="post" novalidate>
           <h4 class="ft-news__title">recevoir notre newsletter caféinée</h4>
           <div class="ft-form">
-            <input type="email" placeholder="votre email" aria-label="Email newsletter" required />
+            <input type="email" name="email" placeholder="votre email" aria-label="Email newsletter" autocomplete="email" required />
             <button type="submit" class="btn btn-primary">S'inscrire</button>
           </div>
         </form>
