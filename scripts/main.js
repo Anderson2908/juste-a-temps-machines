@@ -770,31 +770,6 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     });
   }
 
-  function setupAboutHeroParallax() {
-    const bg = document.querySelector(".about-hero-bg");
-    const sections = document.querySelectorAll(".page-hero--about");
-    if (!bg || !sections.length) return;
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (reduceMotion || isMobile) return;
-
-    const visible = new Set();
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) visible.add(entry.target);
-          else visible.delete(entry.target);
-        });
-        bg.classList.toggle("is-active", visible.size > 0);
-      },
-      { threshold: 0 }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-  }
-
   function setupCafePopup() {
     const popup = document.getElementById("cafePopup");
     const toggle = document.getElementById("cafePopupToggle");
@@ -981,6 +956,5 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     ["#rse", ".rse-bg"],
     ["#bcorp", ".bcorp-bg"],
   ]);
-  setupAboutHeroParallax();
   setupSectionParallax(".about-impact", ".about-impact-bg");
 })();

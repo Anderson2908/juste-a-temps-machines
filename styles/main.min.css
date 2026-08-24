@@ -2208,180 +2208,81 @@ h4::first-letter,
 
 
 
-.main--about > :not(.about-hero-bg):not(.about-impact-bg):not(.bcorp-bg) {
+.main--about > :not(.about-impact-bg):not(.bcorp-bg) {
 
   position: relative;
 
   z-index: 1;
-
-}
-
-
-
-.about-hero-bg {
-
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 0;
-
-  height: 100vh;
-
-  pointer-events: none;
-
-  background-color: #141a14;
-
-  background-image: url("../assets/about-hero.webp");
-
-  background-size: cover;
-
-  background-position: center 45%;
-
-  background-repeat: no-repeat;
-
-  opacity: 0;
-
-  visibility: hidden;
-
-  transition: opacity 0.45s ease, visibility 0.45s ease;
-
-}
-
-
-
-.about-hero-bg.is-active {
-
-  opacity: 1;
-
-  visibility: visible;
 
 }
 
 
 
 .page-hero--about {
-
   position: relative;
-
   background: transparent;
-
   border-bottom: none;
-
 }
-
-
 
 .page-hero--about::before {
-
   content: "";
-
   position: absolute;
-
   inset: 0;
-
   z-index: 0;
-
   background:
-
     linear-gradient(
-
       105deg,
-
-      rgba(10, 14, 10, 0.9) 0%,
-
-      rgba(10, 14, 10, 0.65) 42%,
-
-      rgba(10, 14, 10, 0.4) 100%
-
-    );
-
+      rgba(10, 14, 10, 0.88) 0%,
+      rgba(10, 14, 10, 0.68) 45%,
+      rgba(10, 14, 10, 0.52) 100%
+    ),
+    url("../assets/about-hero-equipe.png");
+  background-size: cover;
+  background-position: center 42%;
+  background-repeat: no-repeat;
   pointer-events: none;
-
 }
-
-
 
 .page-hero--about .page-hero__inner {
-
   position: relative;
-
   z-index: 1;
-
 }
-
-
 
 .page-hero--about .breadcrumb,
-
 .page-hero--about .breadcrumb a {
-
   color: rgba(235, 230, 227, 0.72);
-
 }
-
-
 
 .page-hero--about .breadcrumb a:hover {
-
   color: var(--jat-cream);
-
 }
-
-
 
 .page-hero--about .page-hero__eyebrow {
-
-  color: #a8d4a0;
-
-  background: rgba(255, 255, 255, 0.1);
-
+  color: var(--jat-terracotta-light);
+  background: rgba(255, 255, 255, 0.12);
 }
-
-
 
 .page-hero--about .page-hero__title {
-
   color: var(--jat-cream);
-
 }
-
-
 
 .page-hero--about .page-hero__title span {
-
-  color: #b8ddb0;
-
+  color: var(--jat-terracotta-light);
 }
-
-
 
 .page-hero--about .page-hero__lead {
-
   color: rgba(235, 230, 227, 0.88);
-
 }
-
-
 
 .page-hero--about .btn-outline {
-
   color: var(--jat-cream);
-
   border-color: rgba(255, 255, 255, 0.5);
-
 }
 
-
-
 .page-hero--about .btn-outline:hover {
-
   color: var(--jat-black);
-
   background: var(--jat-cream);
-
   border-color: var(--jat-cream);
-
 }
 
 
@@ -3084,8 +2985,6 @@ h4::first-letter,
 
 @media (max-width: 768px), (prefers-reduced-motion: reduce) {
 
-  .about-hero-bg,
-
   .about-impact-bg {
 
     display: none;
@@ -3134,7 +3033,7 @@ h4::first-letter,
 
   .page-hero--about {
 
-    background-color: #141a14;
+    background-color: #1a1816;
 
     background-image:
 
@@ -3142,39 +3041,21 @@ h4::first-letter,
 
         105deg,
 
-        rgba(10, 14, 10, 0.9) 0%,
+        rgba(10, 14, 10, 0.88) 0%,
 
-        rgba(10, 14, 10, 0.65) 42%,
+        rgba(10, 14, 10, 0.68) 45%,
 
-        rgba(10, 14, 10, 0.4) 100%
+        rgba(10, 14, 10, 0.52) 100%
 
       ),
 
-      url("../assets/about-hero.webp");
+      url("../assets/about-hero-equipe.png");
 
     background-size: cover;
 
-    background-position: center 45%;
+    background-position: center 42%;
 
     background-repeat: no-repeat;
-
-  }
-
-
-
-  .about-mission {
-
-    background-color: var(--jat-bg);
-
-    background-image: none;
-
-  }
-
-
-
-  .about-mission::before {
-
-    display: none;
 
   }
 
