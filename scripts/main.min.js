@@ -772,7 +772,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
 
   function setupAboutHeroParallax() {
     const bg = document.querySelector(".about-hero-bg");
-    const sections = document.querySelectorAll(".page-hero--about, .about-mission");
+    const sections = document.querySelectorAll(".page-hero--about");
     if (!bg || !sections.length) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

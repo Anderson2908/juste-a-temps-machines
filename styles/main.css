@@ -2432,7 +2432,7 @@ h4::first-letter,
 
   z-index: 1;
 
-  background: transparent;
+  background: var(--jat-bg);
 
 }
 
@@ -2440,29 +2440,7 @@ h4::first-letter,
 
 .about-mission::before {
 
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 0;
-
-  background:
-
-    linear-gradient(
-
-      105deg,
-
-      rgba(10, 14, 10, 0.9) 0%,
-
-      rgba(10, 14, 10, 0.72) 48%,
-
-      rgba(10, 14, 10, 0.55) 100%
-
-    );
-
-  pointer-events: none;
+  display: none;
 
 }
 
@@ -2482,9 +2460,17 @@ h4::first-letter,
 
   margin: 0;
 
-  color: rgba(235, 230, 227, 0.82);
+  color: var(--jat-text);
 
   line-height: 1.7;
+
+}
+
+
+
+.about-mission .eco-list li {
+
+  border-bottom-color: var(--jat-cream-dark);
 
 }
 
@@ -3178,29 +3164,9 @@ h4::first-letter,
 
   .about-mission {
 
-    background-color: #141a14;
+    background-color: var(--jat-bg);
 
-    background-image:
-
-      linear-gradient(
-
-        105deg,
-
-        rgba(10, 14, 10, 0.9) 0%,
-
-        rgba(10, 14, 10, 0.72) 48%,
-
-        rgba(10, 14, 10, 0.55) 100%
-
-      ),
-
-      url("../assets/about-hero.webp");
-
-    background-size: cover;
-
-    background-position: center 45%;
-
-    background-repeat: no-repeat;
+    background-image: none;
 
   }
 
@@ -10233,13 +10199,15 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
 
 .about-story__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
+  grid-template-columns: minmax(0, 36rem) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: start;
 }
 
 .about-story__media {
   margin: 0;
+  max-width: 36rem;
+  width: 100%;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow);
@@ -10249,6 +10217,9 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
   display: block;
   width: 100%;
   height: auto;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
 }
 
 .about-story__content p + p {
@@ -10305,7 +10276,41 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
 }
 
 .about-team {
-  background: var(--jat-bg);
+  background: var(--jat-cream);
+}
+
+.about-team__gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  max-width: 52rem;
+  margin-inline: auto;
+}
+
+.about-team__gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+}
+
+.about-team__gallery img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 18px 40px -18px rgba(10, 10, 10, 0.35);
+}
+
+.about-team__gallery img:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+  max-height: 16rem;
+}
+
+.about-team__gallery img:not(:first-child) {
+  aspect-ratio: 4 / 3;
+  max-height: 9.5rem;
 }
 
 .about-team__figure {
@@ -10330,13 +10335,24 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
 }
 
 .about-responsible {
+  position: relative;
+  z-index: 1;
   background: var(--jat-bg);
+}
+
+.about-responsible .container {
+  position: relative;
+  z-index: 1;
 }
 
 .about-responsible__intro {
   max-width: 44rem;
   margin: 0 auto clamp(2rem, 4vw, 3rem);
   text-align: center;
+}
+
+.about-responsible__intro .section-lead {
+  color: var(--jat-text-muted);
 }
 
 .about-responsible__grid {
@@ -10400,11 +10416,11 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
 .about-disclaimer {
   margin-top: clamp(2rem, 4vw, 2.5rem);
   padding: 1rem 1.25rem;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--jat-cream);
   border-radius: 10px;
   text-align: center;
   font-size: 0.88rem;
-  color: rgba(235, 230, 227, 0.75);
+  color: var(--jat-text-muted);
   font-style: italic;
 }
 
@@ -10417,7 +10433,26 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
     grid-template-columns: 1fr;
   }
 
+  .about-story__media {
+    max-width: min(100%, 28rem);
+    margin-inline: auto;
+  }
+
+  .about-story__media img {
+    max-height: none;
+  }
+
   .about-responsible__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-team__gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .about-team__gallery {
     grid-template-columns: 1fr;
   }
 }
