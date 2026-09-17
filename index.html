@@ -948,16 +948,19 @@
               <form class="problematique-form" id="problematiquePhoneForm" novalidate>
                 <div class="problematique-form__card">
                   <label class="problematique-form__label" for="problematiquePhone">Votre numéro de téléphone</label>
-                  <div class="problematique-form__row">
-                    <div class="problematique-form__field">
+                  <div class="problematique-form__combo">
+                    <div class="problematique-form__input-wrap">
                       <span class="problematique-form__icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                         </svg>
                       </span>
                       <input type="tel" id="problematiquePhone" name="phone" class="problematique-form__input" inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78" required />
                     </div>
-                    <button type="submit" class="btn btn-lg btn-primary simulateur-panel__btn problematique-form__submit">Me faire accompagner</button>
+                    <button type="submit" class="btn btn-lg btn-primary simulateur-panel__btn problematique-form__submit">
+                      <span>Me faire accompagner</span>
+                      <svg class="problematique-form__submit-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </button>
                   </div>
                   <p class="problematique-form__hint">Un expert vous rappelle rapidement · sans engagement</p>
                 </div>
