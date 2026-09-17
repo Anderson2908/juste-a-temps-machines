@@ -131,7 +131,7 @@
 
         <div class="header-actions">
 
-          <a href="contact.html" class="btn btn-primary">Nous contacter</a>
+          <a href="contact.html" class="btn btn-primary">Parler à un expert</a>
 
           <button type="button" class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
 
@@ -191,7 +191,7 @@
 
             <div class="hero-cta">
 
-              <a href="#contact" class="btn btn-primary btn-lg btn-no-arrow">Créer mon devis</a>
+              <a href="#contact" class="btn btn-primary btn-lg btn-no-arrow">Me faire accompagner</a>
 
               <a href="#solutions" class="btn btn-outline btn-lg">Découvrir nos solutions</a>
 
@@ -941,29 +941,76 @@
                 30 secondes chrono
               </span>
 
-              <h2 class="simulateur-panel__title">trouvez votre solution café idéale</h2>
+              <h2 class="simulateur-panel__title">quel est votre problématique&nbsp;?</h2>
 
-              <p class="simulateur-panel__lead">Répondez à quelques questions sur vos effectifs et vos habitudes : nous vous orientons vers la machine et le café adaptés à votre équipe.</p>
+              <p class="simulateur-panel__lead">Sélectionnez ce qui vous correspond : un expert vous rappelle rapidement pour étudier votre besoin et vous orienter vers la solution adaptée.</p>
 
-              <a href="https://abonnement-cafe.justeatemps.com/" class="btn btn-lg simulateur-panel__btn">Calculer le coût de mon café</a>
+              <div class="problematique-wizard" id="problematiqueWizard">
+
+                <div class="problematique-wizard__step problematique-wizard__step--choices" data-step="choices">
+                  <div class="problematique-wizard__choices">
+                    <button type="button" class="problematique-choice" data-problem="panne">
+                      <strong>Machine en panne</strong>
+                      <span>Dépannage et continuité de service</span>
+                    </button>
+                    <button type="button" class="problematique-choice" data-problem="stock">
+                      <strong>Plus de café ni de gobelets</strong>
+                      <span>Réapprovisionnement anticipé</span>
+                    </button>
+                    <button type="button" class="problematique-choice" data-problem="interlocuteurs">
+                      <strong>Trop d'interlocuteurs</strong>
+                      <span>Un seul contact dédié</span>
+                    </button>
+                    <button type="button" class="problematique-choice" data-problem="entretien">
+                      <strong>Pas le temps d'entretenir</strong>
+                      <span>Maintenance incluse</span>
+                    </button>
+                    <button type="button" class="problematique-choice" data-problem="machine">
+                      <strong>Trouver la bonne machine</strong>
+                      <span>Conseil personnalisé selon vos effectifs</span>
+                    </button>
+                    <button type="button" class="problematique-choice" data-problem="qualite">
+                      <strong>Améliorer la qualité en tasse</strong>
+                      <span>Café en grain et recettes adaptées</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="problematique-wizard__step problematique-wizard__step--phone is-hidden" data-step="phone" hidden>
+                  <p class="problematique-wizard__phone-lead">Laissez-nous votre numéro, un expert vous rappelle rapidement pour étudier votre besoin — pas pour vous vendre quelque chose.</p>
+                  <form class="problematique-wizard__form" id="problematiquePhoneForm" novalidate>
+                    <label class="problematique-wizard__label" for="problematiquePhone">Votre numéro de téléphone</label>
+                    <input type="tel" id="problematiquePhone" name="phone" class="problematique-wizard__input" inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78" required />
+                    <p class="problematique-wizard__error is-hidden" id="problematiquePhoneError" role="alert"></p>
+                    <button type="submit" class="btn btn-lg btn-primary problematique-wizard__submit">Recevoir mon conseil personnalisé</button>
+                  </form>
+                </div>
+
+                <div class="problematique-wizard__step problematique-wizard__step--result is-hidden" data-step="result" hidden>
+                  <div class="problematique-wizard__result" id="problematiqueResult"></div>
+                  <p class="problematique-wizard__confirm">Nous allons vous recontacter rapidement pour vous trouver la solution la plus adaptée.</p>
+                  <a href="machines-a-cafe.html" class="btn btn-outline btn-lg">Découvrir nos machines</a>
+                </div>
+
+              </div>
 
             </div>
 
-            <ol class="simulateur-steps">
+            <ol class="simulateur-steps" aria-hidden="true">
 
               <li class="simulateur-step">
                 <span class="simulateur-step__num">1</span>
                 <span class="simulateur-step__body">
-                  <strong>vos effectifs</strong>
-                  la taille de votre équipe et le nombre de pauses
+                  <strong>votre problématique</strong>
+                  ce qui vous freine au quotidien
                 </span>
               </li>
 
               <li class="simulateur-step">
                 <span class="simulateur-step__num">2</span>
                 <span class="simulateur-step__body">
-                  <strong>vos habitudes</strong>
-                  vos goûts, vos volumes et vos envies de café
+                  <strong>votre numéro</strong>
+                  pour qu'un expert vous rappelle
                 </span>
               </li>
 
@@ -971,7 +1018,7 @@
                 <span class="simulateur-step__num">3</span>
                 <span class="simulateur-step__body">
                   <strong>notre recommandation</strong>
-                  la machine et le café faits pour vous
+                  une solution pensée pour vous
                 </span>
               </li>
 
@@ -1081,7 +1128,7 @@
 
             <form class="contact-form" action="/api/contact" method="post" novalidate>
 
-              <p class="contact-form__title">demandez votre devis gratuit</p>
+              <p class="contact-form__title">échangez avec un expert</p>
 
               <div class="contact-form__row">
 
@@ -1194,7 +1241,7 @@
               <li><a href="qui-sommes-nous.html">qui sommes-nous</a></li>
               <li><a href="a-propos.html">démarche RSE</a></li>
               <li><a href="#bcorp">certification B Corp</a></li>
-              <li><a href="contact.html">nous contacter</a></li>
+              <li><a href="contact.html">Parler à un expert</a></li>
             </ul>
           </div>
 
@@ -1267,9 +1314,9 @@
       </div>
 
       <div class="cafe-popup__body">
-        <p class="cafe-popup__title">Trouvez votre solution café en 30 secondes</p>
-        <a class="cafe-popup__btn" href="https://abonnement-cafe.justeatemps.com/">
-          Calculer le coût de mon café
+        <p class="cafe-popup__title">Identifiez votre problématique en 30 secondes</p>
+        <a class="cafe-popup__btn" href="#simulateur">
+          Me faire accompagner
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>

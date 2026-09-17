@@ -770,6 +770,149 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     });
   }
 
+  const PROBLEMATIQUE_SOLUTIONS = {
+    panne: {
+      title: "Continuité de service garantie",
+      text: "Nos techniciens interviennent rapidement pour limiter l'arrêt de votre pause-café. Vous gardez un interlocuteur unique pour le suivi.",
+    },
+    stock: {
+      title: "Réapprovisionnement anticipé",
+      text: "Nous pilotons café, gobelets et consommables selon vos volumes réels. Plus besoin de gérer les commandes au quotidien.",
+    },
+    interlocuteurs: {
+      title: "Un seul contact dédié",
+      text: "Commandes, maintenance, dépannage : un consultant convivialité centralise tout pour simplifier votre organisation.",
+    },
+    entretien: {
+      title: "Maintenance incluse",
+      text: "Nettoyage préventif et entretien régulier de la machine : une pause-café impeccable, sans charge pour vos équipes.",
+    },
+    machine: {
+      title: "La machine adaptée à vos effectifs",
+      text: "Nous dimensionnons la solution selon votre espace, vos volumes et vos habitudes — pas selon un catalogue générique.",
+    },
+    qualite: {
+      title: "Qualité en tasse optimisée",
+      text: "Café en grain sélectionné, recettes calibrées et machines professionnelles pour une expérience constante.",
+    },
+  };
+
+  function normalizeFrenchPhone(phone) {
+    const digits = String(phone || "").replace(/\D/g, "");
+    if (digits.length === 11 && digits.startsWith("33")) return "0" + digits.slice(2);
+    return digits;
+  }
+
+  function isValidFrenchPhone(phone) {
+    const digits = normalizeFrenchPhone(phone);
+    return digits.length === 10 && /^0[1-9]/.test(digits);
+  }
+
+  function setupMachinesCatalogSort() {
+    const grid = document.querySelector(".machines-grid");
+    if (!grid) return;
+
+    const items = Array.from(grid.querySelectorAll(".machine-item[data-power-kwh]"));
+    if (items.length < 2) return;
+
+    items.sort(
+      (a, b) =>
+        parseFloat(a.getAttribute("data-power-kwh") || "0") -
+        parseFloat(b.getAttribute("data-power-kwh") || "0")
+    );
+
+    items.forEach((item) => grid.appendChild(item));
+  }
+
+  function setupProblematiqueWizard() {
+    const wizard = document.getElementById("problematiqueWizard");
+    if (!wizard) return;
+
+    const stepChoices = wizard.querySelector('[data-step="choices"]');
+    const stepPhone = wizard.querySelector('[data-step="phone"]');
+    const stepResult = wizard.querySelector('[data-step="result"]');
+    const form = document.getElementById("problematiquePhoneForm");
+    const phoneInput = document.getElementById("problematiquePhone");
+    const errorEl = document.getElementById("problematiquePhoneError");
+    const resultEl = document.getElementById("problematiqueResult");
+
+    if (!stepChoices || !stepPhone || !stepResult || !form || !phoneInput || !resultEl) return;
+
+    let selectedProblem = null;
+
+    function showStep(step) {
+      [stepChoices, stepPhone, stepResult].forEach((el) => {
+        const active = el === step;
+        el.classList.toggle("is-hidden", !active);
+        el.hidden = !active;
+      });
+    }
+
+    wizard.querySelectorAll(".problematique-choice").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectedProblem = btn.getAttribute("data-problem");
+        wizard.querySelectorAll(".problematique-choice").forEach((b) => {
+          b.classList.toggle("is-selected", b === btn);
+        });
+        if (errorEl) errorEl.classList.add("is-hidden");
+        phoneInput.value = "";
+        showStep(stepPhone);
+        phoneInput.focus();
+      });
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!selectedProblem) return;
+
+      const phone = phoneInput.value.trim();
+      if (!isValidFrenchPhone(phone)) {
+        if (errorEl) {
+          errorEl.textContent = "Veuillez saisir un numéro de téléphone français valide (10 chiffres).";
+          errorEl.classList.remove("is-hidden");
+        }
+        phoneInput.focus();
+        return;
+      }
+
+      if (errorEl) errorEl.classList.add("is-hidden");
+
+      const solution = PROBLEMATIQUE_SOLUTIONS[selectedProblem];
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phone: normalizeFrenchPhone(phone),
+            source: "problematique-rappel",
+            message: `Problématique : ${selectedProblem}`,
+          }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.ok) {
+          throw new Error(data.error || "Envoi impossible");
+        }
+      } catch (e) {
+        if (errorEl) {
+          errorEl.textContent =
+            "Impossible d'enregistrer votre numéro pour le moment. Réessayez ou appelez-nous directement.";
+          errorEl.classList.remove("is-hidden");
+        }
+        if (submitBtn) submitBtn.disabled = false;
+        return;
+      }
+
+      if (solution) {
+        resultEl.innerHTML = `<strong>${solution.title}</strong>${solution.text}`;
+      }
+      showStep(stepResult);
+      if (submitBtn) submitBtn.disabled = false;
+    });
+  }
+
   function setupCafePopup() {
     const popup = document.getElementById("cafePopup");
     const toggle = document.getElementById("cafePopupToggle");
@@ -951,6 +1094,8 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   setupHeaderScroll();
   setupMachineSubnav();
   setupCafePopup();
+  setupProblematiqueWizard();
+  setupMachinesCatalogSort();
   setupScroll();
   setupExclusiveParallax([
     ["#rse", ".rse-bg"],

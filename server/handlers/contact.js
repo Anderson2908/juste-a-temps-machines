@@ -28,7 +28,26 @@ function buildPayload(body, source) {
   };
 }
 
+function isValidFrenchPhone(phone) {
+  const digits = String(phone || "").replace(/\D/g, "");
+  if (digits.length === 10 && /^0[1-9]/.test(digits)) return true;
+  if (digits.length === 11 && digits.startsWith("33") && /^33[1-9]/.test(digits)) return true;
+  return false;
+}
+
 function validatePayload(payload) {
+  const isCallback = payload.source === "problematique-rappel";
+
+  if (isCallback) {
+    if (!payload.phone) {
+      return "Le numéro de téléphone est obligatoire.";
+    }
+    if (!isValidFrenchPhone(payload.phone)) {
+      return "Veuillez saisir un numéro de téléphone français valide (10 chiffres).";
+    }
+    return null;
+  }
+
   if (!payload.email) {
     return "L'adresse e-mail est obligatoire.";
   }

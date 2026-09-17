@@ -47,7 +47,7 @@ FOOTER = '''    <footer class="site-footer">
               <li><a href="a-propos.html">à propos</a></li>
               <li><a href="a-propos.html">démarche RSE</a></li>
               <li><a href="index.html#bcorp">certification B Corp</a></li>
-              <li><a href="contact.html">nous contacter</a></li>
+              <li><a href="contact.html">Parler à un expert</a></li>
             </ul>
           </div>
           <div class="ft-group">
@@ -99,7 +99,7 @@ def header(active):
           </ul>
         </nav>
         <div class="header-actions">
-          <a href="contact.html" class="btn btn-primary">nous contacter</a>
+          <a href="contact.html" class="btn btn-primary">Parler à un expert</a>
           <button type="button" class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -384,7 +384,7 @@ def build(p, cat_items):
               <p class="machine-detail__lead">%s</p>
               <hr class="machine-detail__divider" />
               <p class="machine-detail__text">%s</p>
-              <a href="contact.html" class="btn btn-primary">Voir nos offres</a>
+              <a href="contact.html" class="btn btn-primary">Trouver ma solution</a>
             </div>
 
             <div class="machine-detail__stats">
@@ -451,7 +451,7 @@ def build(p, cat_items):
 
       <section class="section machine-pricing">
         <div class="container">
-          <h2 class="machine-pricing__title">Nos offres</h2>
+          <h2 class="machine-pricing__title">Nos solutions d'accompagnement</h2>
           <div class="pricing-grid">
 %s          </div>
           <div class="machine-pricing__cta">
@@ -473,7 +473,7 @@ def build(p, cat_items):
           <h2 class="machine-outro__title">Intéressé par la %s ?</h2>
           <p class="machine-outro__lead">%s</p>
           <div class="machine-outro__actions">
-            <a href="contact.html" class="btn btn-primary">Demander un devis</a>
+            <a href="contact.html" class="btn btn-primary">Me faire accompagner</a>
             <a href="%s" class="btn btn-outline">Voir les autres modèles</a>
           </div>
         </div>
