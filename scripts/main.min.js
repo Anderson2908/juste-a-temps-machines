@@ -770,33 +770,6 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     });
   }
 
-  const PROBLEMATIQUE_SOLUTIONS = {
-    panne: {
-      title: "Continuité de service garantie",
-      text: "Nos techniciens interviennent rapidement pour limiter l'arrêt de votre pause-café. Vous gardez un interlocuteur unique pour le suivi.",
-    },
-    stock: {
-      title: "Réapprovisionnement anticipé",
-      text: "Nous pilotons café, gobelets et consommables selon vos volumes réels. Plus besoin de gérer les commandes au quotidien.",
-    },
-    interlocuteurs: {
-      title: "Un seul contact dédié",
-      text: "Commandes, maintenance, dépannage : un consultant convivialité centralise tout pour simplifier votre organisation.",
-    },
-    entretien: {
-      title: "Maintenance incluse",
-      text: "Nettoyage préventif et entretien régulier de la machine : une pause-café impeccable, sans charge pour vos équipes.",
-    },
-    machine: {
-      title: "La machine adaptée à vos effectifs",
-      text: "Nous dimensionnons la solution selon votre espace, vos volumes et vos habitudes — pas selon un catalogue générique.",
-    },
-    qualite: {
-      title: "Qualité en tasse optimisée",
-      text: "Café en grain sélectionné, recettes calibrées et machines professionnelles pour une expérience constante.",
-    },
-  };
-
   function normalizeFrenchPhone(phone) {
     const digits = String(phone || "").replace(/\D/g, "");
     if (digits.length === 11 && digits.startsWith("33")) return "0" + digits.slice(2);
@@ -825,45 +798,14 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   }
 
   function setupProblematiqueWizard() {
-    const wizard = document.getElementById("problematiqueWizard");
-    if (!wizard) return;
-
-    const stepChoices = wizard.querySelector('[data-step="choices"]');
-    const stepPhone = wizard.querySelector('[data-step="phone"]');
-    const stepResult = wizard.querySelector('[data-step="result"]');
     const form = document.getElementById("problematiquePhoneForm");
     const phoneInput = document.getElementById("problematiquePhone");
     const errorEl = document.getElementById("problematiquePhoneError");
-    const resultEl = document.getElementById("problematiqueResult");
-
-    if (!stepChoices || !stepPhone || !stepResult || !form || !phoneInput || !resultEl) return;
-
-    let selectedProblem = null;
-
-    function showStep(step) {
-      [stepChoices, stepPhone, stepResult].forEach((el) => {
-        const active = el === step;
-        el.classList.toggle("is-hidden", !active);
-        el.hidden = !active;
-      });
-    }
-
-    wizard.querySelectorAll(".problematique-choice").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        selectedProblem = btn.getAttribute("data-problem");
-        wizard.querySelectorAll(".problematique-choice").forEach((b) => {
-          b.classList.toggle("is-selected", b === btn);
-        });
-        if (errorEl) errorEl.classList.add("is-hidden");
-        phoneInput.value = "";
-        showStep(stepPhone);
-        phoneInput.focus();
-      });
-    });
+    const successEl = document.getElementById("problematiqueSuccess");
+    if (!form || !phoneInput) return;
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      if (!selectedProblem) return;
 
       const phone = phoneInput.value.trim();
       if (!isValidFrenchPhone(phone)) {
@@ -871,13 +813,13 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
           errorEl.textContent = "Veuillez saisir un numéro de téléphone français valide (10 chiffres).";
           errorEl.classList.remove("is-hidden");
         }
+        if (successEl) successEl.classList.add("is-hidden");
         phoneInput.focus();
         return;
       }
 
       if (errorEl) errorEl.classList.add("is-hidden");
 
-      const solution = PROBLEMATIQUE_SOLUTIONS[selectedProblem];
       const submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) submitBtn.disabled = true;
 
@@ -888,7 +830,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
           body: JSON.stringify({
             phone: normalizeFrenchPhone(phone),
             source: "problematique-rappel",
-            message: `Problématique : ${selectedProblem}`,
+            message: "Demande de rappel — section problématique",
           }),
         });
         const data = await response.json().catch(() => ({}));
@@ -905,11 +847,9 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
         return;
       }
 
-      if (solution) {
-        resultEl.innerHTML = `<strong>${solution.title}</strong>${solution.text}`;
-      }
-      showStep(stepResult);
-      if (submitBtn) submitBtn.disabled = false;
+      form.classList.add("is-hidden");
+      form.hidden = true;
+      if (successEl) successEl.classList.remove("is-hidden");
     });
   }
 
