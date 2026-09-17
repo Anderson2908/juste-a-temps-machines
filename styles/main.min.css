@@ -4897,105 +4897,142 @@ h4::first-letter,
 /* Formulaire rappel — section problématique (accueil) */
 .problematique-form {
   width: 100%;
-  max-width: 36rem;
+  max-width: none;
   margin-top: 0.25rem;
 }
 
 .problematique-form__card {
-  padding: clamp(1.1rem, 2.5vw, 1.35rem);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.15rem, 2.2vw, 1.65rem);
+  border-radius: calc(var(--radius-lg) + 2px);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 18px 40px -24px rgba(10, 10, 10, 0.55);
+}
+
+.problematique-form__card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--jat-terracotta), var(--jat-terracotta-light));
+  opacity: 0.95;
 }
 
 .problematique-form__label {
   display: block;
-  margin-bottom: 0.65rem;
-  font-size: 0.78rem;
+  margin-bottom: 0.75rem;
+  font-size: clamp(0.76rem, 1.6vw, 0.82rem);
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: lowercase;
-  color: rgba(235, 230, 227, 0.82);
+  color: rgba(235, 230, 227, 0.88);
 }
 
 .problematique-form__row {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: stretch;
-  gap: 0.65rem;
+  gap: clamp(0.55rem, 1.5vw, 0.85rem);
 }
 
 .problematique-form__field {
   position: relative;
-  flex: 1 1 12rem;
   min-width: 0;
 }
 
 .problematique-form__icon {
   position: absolute;
-  left: 1rem;
+  left: clamp(0.85rem, 2vw, 1.1rem);
   top: 50%;
   transform: translateY(-50%);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
   color: var(--jat-terracotta);
   pointer-events: none;
 }
 
 .problematique-form__input {
   width: 100%;
-  min-height: 3.25rem;
-  padding: 0.85rem 1rem 0.85rem 2.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  min-height: 3.35rem;
+  padding: 0.9rem 1.1rem 0.9rem clamp(2.65rem, 5vw, 3rem);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.97);
   color: var(--jat-text);
-  font-size: 1rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   letter-spacing: 0.02em;
-  box-shadow: 0 8px 24px -12px rgba(10, 10, 10, 0.45);
+  box-shadow: 0 10px 28px -16px rgba(10, 10, 10, 0.5);
   transition:
     border-color var(--transition),
-    box-shadow var(--transition);
+    box-shadow var(--transition),
+    transform 0.2s var(--ease-out);
 }
 
 .problematique-form__input::placeholder {
-  color: rgba(10, 10, 10, 0.42);
+  color: rgba(10, 10, 10, 0.4);
 }
 
 .problematique-form__input:focus {
   outline: none;
-  border-color: rgba(195, 96, 67, 0.55);
+  border-color: rgba(195, 96, 67, 0.6);
   box-shadow:
-    0 0 0 3px rgba(195, 96, 67, 0.22),
-    0 8px 24px -12px rgba(10, 10, 10, 0.45);
+    0 0 0 3px rgba(195, 96, 67, 0.24),
+    0 12px 28px -14px rgba(10, 10, 10, 0.5);
 }
 
 .problematique-form__submit {
-  flex: 0 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   align-self: stretch;
-  min-height: 3.25rem;
-  padding-inline: clamp(1.25rem, 3vw, 1.75rem);
+  min-height: 3.35rem;
+  width: auto;
+  max-width: none;
+  padding-inline: clamp(1.15rem, 2.5vw, 1.85rem);
+  font-size: clamp(0.92rem, 1.8vw, 1rem);
   white-space: nowrap;
-  box-shadow: 0 10px 28px -10px rgba(195, 96, 67, 0.75);
+  box-shadow: 0 12px 32px -12px rgba(195, 96, 67, 0.8);
 }
 
 .problematique-form__hint {
-  margin: 0.75rem 0 0;
-  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.85rem 0 0;
+  font-size: clamp(0.72rem, 1.6vw, 0.8rem);
   line-height: 1.45;
-  color: rgba(235, 230, 227, 0.62);
+  color: rgba(235, 230, 227, 0.68);
+}
+
+.problematique-form__hint::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--jat-terracotta-light);
+  box-shadow: 0 0 0 3px rgba(195, 96, 67, 0.22);
 }
 
 .problematique-form__error {
-  margin: 0.65rem 0 0;
-  padding: 0.65rem 0.85rem;
+  margin: 0.75rem 0 0;
+  padding: 0.7rem 0.9rem;
   font-size: 0.85rem;
   line-height: 1.45;
   color: #ffd4cc;
-  background: rgba(195, 96, 67, 0.18);
-  border: 1px solid rgba(255, 180, 168, 0.35);
+  background: rgba(195, 96, 67, 0.2);
+  border: 1px solid rgba(255, 180, 168, 0.38);
   border-radius: var(--radius-md);
 }
 
@@ -5006,8 +5043,8 @@ h4::first-letter,
 }
 
 .problematique-form__success {
+  width: 100%;
   margin: 0.75rem 0 0;
-  max-width: 36rem;
   padding: 1rem 1.15rem;
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.1);
@@ -5017,18 +5054,73 @@ h4::first-letter,
   line-height: 1.65;
 }
 
-@media (max-width: 640px) {
+/* Tablette étroite : bouton sous le champ */
+@media (max-width: 720px) {
   .problematique-form__row {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
-  .problematique-form__field,
   .problematique-form__submit {
+    width: 100%;
+    min-height: 3.15rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .problematique-form,
+  .problematique-form__success {
+    width: 100%;
+    max-width: min(100%, 26rem);
+  }
+
+  .problematique-form__card {
+    text-align: left;
     width: 100%;
   }
 
+  .problematique-form__hint {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .problematique-form__card {
+    padding: 1rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .problematique-form__input,
   .problematique-form__submit {
-    justify-content: center;
+    min-height: 3rem;
+  }
+
+  .problematique-form__submit {
+    font-size: 0.9rem;
+    padding-inline: 1rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+  }
+}
+
+/* Grand écran : formulaire plus aéré dans la colonne */
+@media (min-width: 1024px) {
+  .simulateur-panel__content .problematique-form__card {
+    padding: 1.65rem 1.75rem 1.5rem;
+  }
+
+  .problematique-form__row {
+    gap: 0.9rem;
+  }
+
+  .problematique-form__input {
+    min-height: 3.5rem;
+  }
+
+  .problematique-form__submit {
+    min-height: 3.5rem;
+    padding-inline: 2rem;
   }
 }
 
@@ -7992,7 +8084,7 @@ h3,
     gap: 2rem;
   }
 
-  .simulateur-panel__btn {
+  .simulateur-panel__btn:not(.problematique-form__submit) {
     width: 100%;
     max-width: 24rem;
   }
@@ -10191,6 +10283,8 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
   .problematique-form,
   .problematique-form__success {
     margin-inline: auto;
+    width: 100%;
+    max-width: min(100%, 26rem);
   }
 
   .simulateur-panel__content .btn,
