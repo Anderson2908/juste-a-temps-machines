@@ -948,7 +948,7 @@ h4::first-letter,
 
   background-color: var(--jat-black);
 
-  background-image: url("../assets/rse-recolte.jpg");
+  background-image: url("../assets/rse-recolte.webp");
 
   background-size: cover;
 
@@ -2236,7 +2236,7 @@ h4::first-letter,
       rgba(10, 14, 10, 0.68) 45%,
       rgba(10, 14, 10, 0.52) 100%
     ),
-    url("../assets/about-hero-equipe.png");
+    url("../assets/about-hero-equipe.webp");
   background-size: cover;
   background-position: center 42%;
   background-repeat: no-repeat;
@@ -2533,7 +2533,7 @@ h4::first-letter,
 
   background-color: var(--jat-black);
 
-  background-image: url("../assets/rse-recolte.jpg");
+  background-image: url("../assets/rse-recolte.webp");
 
   background-size: cover;
 
@@ -3011,7 +3011,7 @@ h4::first-letter,
 
       ),
 
-      url("../assets/rse-recolte.jpg");
+      url("../assets/rse-recolte.webp");
 
     background-size: cover;
 
@@ -3049,7 +3049,7 @@ h4::first-letter,
 
       ),
 
-      url("../assets/about-hero-equipe.png");
+      url("../assets/about-hero-equipe.webp");
 
     background-size: cover;
 
@@ -7159,7 +7159,7 @@ h4::first-letter,
 
       ),
 
-      url("../assets/rse-recolte.jpg");
+      url("../assets/rse-recolte.webp");
 
     background-size: cover;
 
@@ -7321,7 +7321,7 @@ h4::first-letter,
 
       ),
 
-      url("../assets/rse-recolte.jpg");
+      url("../assets/rse-recolte.webp");
 
     background-size: cover;
 

@@ -222,7 +222,7 @@ PRODUCTS = [
     "Grand écran tactile et large choix de boissons pour accueil, open space et zones à fort passage.",
     "La WMF combine grand écran tactile et large carte de boissons pour offrir une expérience moderne dans les espaces les plus fréquentés.",
     [("10", "boissons au choix"), ("150", "services par jour"), ("tactile", "grand écran")]),
-  ("distributeurs", "distributeur-necta-concerto", "Necta Concerto", "Necta", "assets/machines/necta-concerto.png", "assets/machine-stage-bg.webp",
+  ("distributeurs", "distributeur-necta-concerto", "Necta Concerto", "Necta", "assets/machines/necta-concerto.webp", "assets/machine-stage-bg.webp",
     "fiabilité au quotidien",
     "Distributeur de boissons chaudes compact et robuste, avec sélection intuitive pour un usage intensif en entreprise.",
     "Compact et robuste, le Necta Concerto délivre un large choix de boissons chaudes avec une sélection intuitive, idéal pour les espaces réduits.",
