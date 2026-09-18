@@ -960,9 +960,11 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   function setupCafePopup() {
     const popup = document.getElementById("cafePopup");
     const toggle = document.getElementById("cafePopupToggle");
+    const simulateur = document.getElementById("simulateur");
     if (!popup || !toggle) return;
 
     let dismissed = false;
+    let simulateurInView = false;
     try {
       dismissed = sessionStorage.getItem("cafePopupClosed") === "1";
     } catch (e) {}
@@ -973,7 +975,17 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     const VISIBLE_MS = 5000;
     let autoHideTimer = null;
 
+    function hidePopupUi() {
+      window.clearTimeout(autoHideTimer);
+      popup.classList.remove("is-visible");
+      popup.setAttribute("aria-hidden", "true");
+      popup.hidden = true;
+      toggle.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+    }
+
     function showPopup() {
+      if (simulateurInView) return;
       window.clearTimeout(autoHideTimer);
       toggle.hidden = true;
       toggle.setAttribute("aria-expanded", "true");
@@ -985,8 +997,10 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     function collapsePopup() {
       popup.classList.remove("is-visible");
       popup.setAttribute("aria-hidden", "true");
-      toggle.hidden = false;
-      toggle.removeAttribute("hidden");
+      if (!simulateurInView) {
+        toggle.hidden = false;
+        toggle.removeAttribute("hidden");
+      }
       toggle.setAttribute("aria-expanded", "false");
       window.setTimeout(() => {
         popup.hidden = true;
@@ -994,17 +1008,11 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     }
 
     function dismissPopup() {
-      window.clearTimeout(autoHideTimer);
-      popup.classList.remove("is-visible");
-      popup.setAttribute("aria-hidden", "true");
-      toggle.hidden = true;
-      toggle.setAttribute("aria-expanded", "false");
+      dismissed = true;
+      hidePopupUi();
       try {
         sessionStorage.setItem("cafePopupClosed", "1");
       } catch (e) {}
-      window.setTimeout(() => {
-        popup.hidden = true;
-      }, 450);
     }
 
     function scheduleAutoHide() {
@@ -1012,10 +1020,29 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       autoHideTimer = window.setTimeout(collapsePopup, VISIBLE_MS);
     }
 
+    if (simulateur && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            simulateurInView = entry.isIntersecting;
+            if (simulateurInView) {
+              hidePopupUi();
+            } else if (!dismissed) {
+              toggle.hidden = false;
+              toggle.removeAttribute("hidden");
+            }
+          });
+        },
+        { root: null, rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+      );
+      observer.observe(simulateur);
+    }
+
     if (closeBtn) closeBtn.addEventListener("click", dismissPopup);
     toggle.addEventListener("click", showPopup);
 
     window.setTimeout(() => {
+      if (simulateurInView) return;
       showPopup();
       scheduleAutoHide();
     }, SHOW_DELAY_MS);

@@ -4965,7 +4965,7 @@ h4::first-letter,
   font-weight: 600;
   line-height: 1.35;
   text-align: left;
-  text-transform: lowercase;
+  text-transform: none;
   cursor: pointer;
   transition:
     border-color 0.2s var(--ease-out),
