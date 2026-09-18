@@ -8303,22 +8303,51 @@ h3,
 .simulateur-panel {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: center;
   padding: clamp(2rem, 5vw, 3.75rem);
   border-radius: var(--radius-lg);
-  background:
-    linear-gradient(135deg, #1f1411 0%, var(--jat-black) 100%);
+  background: linear-gradient(135deg, #1f1411 0%, var(--jat-black) 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--jat-cream);
   box-shadow: 0 30px 60px -28px rgba(10, 10, 10, 0.6);
 }
 
+.simulateur-panel::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  z-index: 0;
+  pointer-events: none;
+  background: url("../assets/simulateur-panel-bg.webp") center 30% / cover no-repeat;
+  filter: blur(4px);
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .simulateur-panel::before {
+    filter: none;
+    transform: none;
+  }
+}
+
+.simulateur-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(31, 20, 17, 0.84) 0%, rgba(10, 10, 10, 0.8) 52%, rgba(10, 10, 10, 0.9) 100%);
+}
+
 .simulateur-panel__glow {
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
   background:
     radial-gradient(ellipse 55% 75% at 92% 6%, rgba(195, 96, 67, 0.28) 0%, transparent 58%),
@@ -8327,7 +8356,7 @@ h3,
 
 .simulateur-panel__content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .simulateur-panel__badge {
@@ -8383,7 +8412,7 @@ h3,
 
 .simulateur-steps {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   margin: 0;
   padding: 0;
   list-style: none;
