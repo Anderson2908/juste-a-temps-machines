@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-DOMAIN = "https://www.votre-domaine.com"
+DOMAIN = "https://abonnement.justeatemps.com"
 
 FOOTER = '''    <footer class="site-footer">
       <div class="container ft-top">

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.votre-domaine.com/sitemap.xml
+Sitemap: https://abonnement.justeatemps.com/sitemap.xml
