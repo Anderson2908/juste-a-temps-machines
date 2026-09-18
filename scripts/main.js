@@ -1104,6 +1104,25 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   }
 
   // Bannière d'annonce (événements, salons, actus). Modifiez CONFIG ci-dessous.
+  /** Téléchargement fiche technique — événement gtag (remarketing) sans bloquer le lien */
+  function setupSpecSheetDownloads() {
+    document.querySelectorAll(".js-spec-sheet-download").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (typeof window.gtag !== "function") return;
+
+        const category = link.dataset.specCategory || "";
+        const page = location.pathname.split("/").pop() || "index.html";
+
+        window.gtag("event", "fiche_technique_download", {
+          event_category: "engagement",
+          event_label: category,
+          product_page: page,
+          file_url: link.getAttribute("href") || "",
+        });
+      });
+    });
+  }
+
   function setupSiteBanner() {
     const CONFIG = {
       enabled: false, // false pour masquer la bannière
@@ -1165,6 +1184,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   }
 
   setupSiteBanner();
+  setupSpecSheetDownloads();
   setupScrollReveal();
   setupMachineStatCounters();
   setupMachineDetailStatCounters();

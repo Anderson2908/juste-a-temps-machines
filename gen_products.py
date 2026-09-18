@@ -107,6 +107,12 @@ def header(active):
       </div>
     </header>''' % (cls('cafe'), cls('fontaines'), cls('distributeurs'))
 
+# PDF catalogue par catégorie (téléchargement direct fiche technique)
+SPEC_SHEET_PDF = {
+  "fontaines": "https://www.justeatemps.com/fontaines.pdf",
+  "distributeurs": "https://www.justeatemps.com/da.pdf",
+}
+
 # ----- catégories : specs + pricing communs -----
 CAT = {
   "fontaines": {
@@ -432,17 +438,10 @@ def build(p, cat_items):
                     <p>%s</p>
                   </div>
                 </div>
-                <form class="machine-specs__form" action="#" method="post">
-                  <p class="machine-specs__form-title">Recevoir la fiche technique</p>
-                  <div class="machine-specs__fields">
-                    <input type="email" name="email" placeholder="e-mail*" required autocomplete="email" aria-label="E-mail" />
-                    <div class="machine-specs__row2">
-                      <input type="text" name="firstname" placeholder="prénom" autocomplete="given-name" aria-label="Prénom" />
-                      <input type="text" name="lastname" placeholder="nom" autocomplete="family-name" aria-label="Nom" />
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Recevoir la fiche technique par e-mail</button>
-                </form>
+                <div class="machine-specs__download">
+                  <p class="machine-specs__download-title">Télécharger la fiche technique</p>
+                  <a href="%s" class="btn btn-primary js-spec-sheet-download" target="_blank" rel="noopener" data-spec-category="%s">Télécharger la fiche technique</a>
+                </div>
               </div>
             </div>
           </div>
@@ -492,6 +491,7 @@ def build(p, cat_items):
        c["index"], c["label"], name, name, subtitle, lead, text, stats_html,
        img, name,
        sp["g1t"], g1, sp["g2t"], g2, sp["g3t"], g3, sp["g4t"], sp["g4"],
+       SPEC_SHEET_PDF[cat], cat,
        pricing_cards, c["similar_title"], sim_html,
        name, c["outro_lead"], c["index"], FOOTER)
     return html
