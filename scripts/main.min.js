@@ -798,11 +798,110 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   }
 
   function setupProblematiqueWizard() {
+    const wizard = document.getElementById("problematiqueWizard");
     const form = document.getElementById("problematiquePhoneForm");
     const phoneInput = document.getElementById("problematiquePhone");
     const errorEl = document.getElementById("problematiquePhoneError");
-    const successEl = document.getElementById("problematiqueSuccess");
-    if (!form || !phoneInput) return;
+    const successTextEl = document.getElementById("problematiqueSuccessText");
+    const recapEl = document.getElementById("problematiqueRecap");
+    const nextBtn = document.getElementById("problematiqueNextBtn");
+    const backBtn = document.getElementById("problematiqueBackBtn");
+    const otherField = document.getElementById("problematiqueOtherField");
+    const otherInput = document.getElementById("problematiqueOtherText");
+    const leadEl = document.getElementById("simulateurPanelLead");
+    const secondaryLink = document.getElementById("simulateurSecondaryLink");
+    const stepsNav = document.getElementById("simulateurStepsNav");
+    if (!wizard || !form || !phoneInput) return;
+
+    const stepEls = wizard.querySelectorAll(".problematique-wizard__step");
+    const choiceBtns = wizard.querySelectorAll(".problematique-choice");
+    const stepIndicators = stepsNav
+      ? stepsNav.querySelectorAll("[data-step-indicator]")
+      : [];
+
+    const LEAD_BY_STEP = {
+      1: "Sélectionnez ce qui vous correspond : un expert vous rappelle sous 24h pour étudier votre besoin et vous orienter vers la solution adaptée.",
+      2: "Laissez-nous votre numéro : un expert vous rappelle sous 24h pour étudier votre besoin.",
+    };
+
+    let selectedProblem = "";
+    let selectedLabel = "";
+
+    function showStep(step) {
+      stepEls.forEach((el) => {
+        const active = Number(el.dataset.step) === step;
+        el.classList.toggle("is-hidden", !active);
+        el.hidden = !active;
+      });
+
+      stepIndicators.forEach((el) => {
+        el.classList.toggle("is-active", Number(el.dataset.stepIndicator) === step);
+        el.classList.toggle("is-done", Number(el.dataset.stepIndicator) < step);
+      });
+
+      if (leadEl) {
+        if (step === 3) {
+          leadEl.classList.add("is-hidden");
+        } else {
+          leadEl.classList.remove("is-hidden");
+          leadEl.textContent = LEAD_BY_STEP[step] || LEAD_BY_STEP[1];
+        }
+      }
+
+      if (secondaryLink) {
+        secondaryLink.classList.toggle("is-hidden", step === 3);
+      }
+
+      if (step === 2) {
+        phoneInput.focus();
+      }
+    }
+
+    function getNeedSummary() {
+      const extra = otherInput?.value.trim();
+      if (selectedProblem === "autre" && extra) {
+        return `${selectedLabel} — ${extra}`;
+      }
+      return selectedLabel;
+    }
+
+    choiceBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectedProblem = btn.dataset.problem || "";
+        selectedLabel = btn.dataset.label || btn.textContent.trim();
+
+        choiceBtns.forEach((b) => {
+          b.classList.toggle("is-selected", b === btn);
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        });
+
+        const isOther = selectedProblem === "autre";
+        if (otherField) {
+          otherField.classList.toggle("is-hidden", !isOther);
+          otherField.hidden = !isOther;
+          if (isOther && otherInput) {
+            otherInput.focus();
+          }
+        }
+
+        if (nextBtn) nextBtn.disabled = !selectedProblem;
+      });
+    });
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (!selectedProblem) return;
+        if (recapEl) recapEl.textContent = getNeedSummary();
+        showStep(2);
+      });
+    }
+
+    if (backBtn) {
+      backBtn.addEventListener("click", () => {
+        if (errorEl) errorEl.classList.add("is-hidden");
+        showStep(1);
+      });
+    }
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -813,7 +912,6 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
           errorEl.textContent = "Veuillez saisir un numéro de téléphone français valide (10 chiffres).";
           errorEl.classList.remove("is-hidden");
         }
-        if (successEl) successEl.classList.add("is-hidden");
         phoneInput.focus();
         return;
       }
@@ -823,6 +921,8 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       const submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) submitBtn.disabled = true;
 
+      const needSummary = getNeedSummary();
+
       try {
         const response = await fetch("/api/contact", {
           method: "POST",
@@ -830,7 +930,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
           body: JSON.stringify({
             phone: normalizeFrenchPhone(phone),
             source: "problematique-rappel",
-            message: "Demande de rappel — section problématique",
+            message: `Demande de rappel — ${needSummary}`,
           }),
         });
         const data = await response.json().catch(() => ({}));
@@ -847,10 +947,14 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
         return;
       }
 
-      form.classList.add("is-hidden");
-      form.hidden = true;
-      if (successEl) successEl.classList.remove("is-hidden");
+      if (successTextEl) {
+        successTextEl.textContent = `Merci ! Un expert vous rappelle sous 24h pour vous aider avec : ${needSummary}.`;
+      }
+
+      showStep(3);
     });
+
+    showStep(1);
   }
 
   function setupCafePopup() {

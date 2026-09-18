@@ -3887,6 +3887,46 @@ h4::first-letter,
 
 }
 
+.problem-capture {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+  padding: clamp(1.1rem, 2.5vw, 1.35rem) clamp(1.25rem, 3vw, 1.75rem);
+  background: linear-gradient(135deg, rgba(195, 96, 67, 0.08) 0%, rgba(195, 96, 67, 0.04) 100%);
+  border: 1px solid rgba(195, 96, 67, 0.22);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 32px -20px rgba(195, 96, 67, 0.35);
+}
+
+.problem-capture__text {
+  margin: 0;
+  flex: 1 1 14rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--jat-text);
+}
+
+.problem-capture .btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 540px) {
+  .problem-capture {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .problem-capture .btn {
+    width: 100%;
+  }
+}
+
 .problem-accroche {
 
   position: relative;
@@ -4894,6 +4934,204 @@ h4::first-letter,
   letter-spacing: 0.04em;
 }
 
+/* Tunnel problématique — 3 étapes (#simulateur) */
+.problematique-wizard {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.problematique-wizard__step.is-hidden {
+  display: none !important;
+}
+
+.problematique-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.55rem, 1.5vw, 0.75rem);
+  margin-bottom: 0.85rem;
+}
+
+.problematique-choice {
+  display: flex;
+  align-items: center;
+  min-height: 3.25rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--jat-cream);
+  font-family: inherit;
+  font-size: clamp(0.88rem, 1.8vw, 0.96rem);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition:
+    border-color 0.2s var(--ease-out),
+    background 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out),
+    box-shadow 0.2s var(--ease-out);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.problematique-choice--wide {
+  grid-column: 1 / -1;
+}
+
+.problematique-choice:hover {
+  border-color: rgba(195, 96, 67, 0.45);
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.problematique-choice.is-selected {
+  border-color: rgba(195, 96, 67, 0.75);
+  background: rgba(195, 96, 67, 0.2);
+  box-shadow:
+    0 0 0 2px rgba(195, 96, 67, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.problematique-other {
+  margin-bottom: 0.85rem;
+}
+
+.problematique-other.is-hidden {
+  display: none !important;
+}
+
+.problematique-other__label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: rgba(235, 230, 227, 0.82);
+}
+
+.problematique-other__input {
+  width: 100%;
+  min-height: 2.85rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--jat-text);
+  font-size: 0.95rem;
+}
+
+.problematique-other__input:focus {
+  outline: none;
+  border-color: rgba(195, 96, 67, 0.55);
+  box-shadow: 0 0 0 3px rgba(195, 96, 67, 0.22);
+}
+
+.problematique-wizard__next {
+  width: 100%;
+  max-width: none;
+}
+
+.problematique-wizard__next:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.problematique-wizard__recap {
+  margin: 0 0 0.85rem;
+  padding: 0.75rem 0.95rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(235, 230, 227, 0.88);
+}
+
+.problematique-wizard__recap strong {
+  color: var(--jat-cream);
+  font-weight: 700;
+  text-transform: lowercase;
+}
+
+.problematique-wizard__back {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.85rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: rgba(235, 230, 227, 0.72);
+  font-family: inherit;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+  transition: color 0.2s var(--ease-out);
+}
+
+.problematique-wizard__back:hover {
+  color: var(--jat-cream);
+}
+
+.simulateur-panel__secondary {
+  margin: 1rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(235, 230, 227, 0.62);
+}
+
+.simulateur-panel__secondary a {
+  color: rgba(235, 230, 227, 0.82);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  transition: color 0.2s var(--ease-out);
+}
+
+.simulateur-panel__secondary a:hover {
+  color: var(--jat-cream);
+}
+
+.simulateur-panel__secondary.is-hidden,
+.simulateur-panel__lead.is-hidden {
+  display: none !important;
+}
+
+.simulateur-step.is-active {
+  border-color: rgba(195, 96, 67, 0.55);
+  background: rgba(195, 96, 67, 0.14);
+}
+
+.simulateur-step.is-done {
+  opacity: 0.72;
+}
+
+.simulateur-step.is-done .simulateur-step__num {
+  background: rgba(235, 230, 227, 0.92);
+  color: var(--jat-terracotta);
+}
+
+@media (max-width: 640px) {
+  .problematique-choices {
+    grid-template-columns: 1fr;
+  }
+
+  .problematique-choice--wide {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .problematique-wizard {
+    align-self: stretch;
+    width: 100%;
+    max-width: min(100%, 28rem);
+  }
+}
+
 /* Formulaire rappel — section problématique (accueil) */
 .problematique-form {
   width: 100%;
@@ -5095,15 +5333,55 @@ h4::first-letter,
 }
 
 .problematique-form__success {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
   width: 100%;
-  margin: 0.75rem 0 0;
-  padding: 1rem 1.15rem;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(235, 230, 227, 0.22);
+  margin: 0;
+  padding: clamp(1rem, 2.5vw, 1.25rem) clamp(1.1rem, 2.5vw, 1.35rem);
+  border-radius: calc(var(--radius-lg) + 2px);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.06) 100%);
+  border: 1px solid rgba(235, 230, 227, 0.28);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 16px 36px -24px rgba(10, 10, 10, 0.55);
+  animation: problematique-success-in 0.45s var(--ease-out) both;
+}
+
+.problematique-form__success-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(195, 96, 67, 0.22);
+  color: var(--jat-terracotta-light);
+}
+
+.problematique-form__success-text {
+  margin: 0;
+  padding-top: 0.35rem;
+  font-size: clamp(0.98rem, 2vw, 1.08rem);
+  font-weight: 600;
+  line-height: 1.55;
   color: var(--jat-cream);
-  font-size: 0.95rem;
-  line-height: 1.65;
+}
+
+@keyframes problematique-success-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 720px) {
@@ -8148,7 +8426,6 @@ h3,
 .simulateur-step__body strong {
   font-size: 0.95rem;
   font-weight: 700;
-  text-transform: lowercase;
   color: var(--jat-cream);
 }
 
@@ -10354,6 +10631,7 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
   .services-panel .btn,
   .split-section > div:not(.human-media):not(.human-gallery) .btn,
   .home-bcorp__content > .btn,
+  .problematique-wizard,
   .problematique-form,
   .problematique-form__success {
     align-self: stretch;
