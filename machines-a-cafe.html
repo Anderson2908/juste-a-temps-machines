@@ -70,7 +70,7 @@
           </ul>
         </nav>
         <div class="header-actions">
-          <a href="index.html#simulateur" class="btn btn-primary">Parler à un expert</a>
+          <a href="#contact" class="btn btn-primary">Parler à un expert</a>
           <button type="button" class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -96,8 +96,8 @@
             Machines à grains professionnelles sélectionnées pour la qualité en tasse, la simplicité d'utilisation et une intégration discrète dans vos locaux. Installation, café et entretien inclus.
           </p>
           <div class="page-hero__actions">
-            <a href="index.html#simulateur" class="btn btn-primary">Me faire accompagner</a>
-            <a href="https://abonnement-cafe.justeatemps.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Trouver ma solution</a>
+            <a href="#simulateur" class="btn btn-primary">Me faire accompagner</a>
+            <a href="#simulateur" class="btn btn-outline">Trouver ma solution</a>
           </div>
         </div>
       </section>
@@ -316,6 +316,126 @@
             </article>
           </div>
 
+      <!-- CONVERSION-SIMULATEUR:START -->
+<!-- CONVERSION-SECTIONS — synchroniser avec partials/ via: node scripts/sync-conversion-sections.js -->
+<!-- Simulateur CTA -->
+
+      <section class="section home-simulateur" id="simulateur">
+
+        <div class="container">
+
+          <div class="simulateur-panel">
+
+            <div class="simulateur-panel__glow" aria-hidden="true"></div>
+
+            <div class="simulateur-panel__content">
+
+              <span class="simulateur-panel__badge">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                30 secondes chrono
+              </span>
+
+              <h2 class="simulateur-panel__title">quel est votre problématique&nbsp;?</h2>
+
+              <p class="simulateur-panel__lead" id="simulateurPanelLead">Sélectionnez ce qui vous correspond : un expert vous rappelle sous 24h pour étudier votre besoin et vous orienter vers la solution adaptée.</p>
+
+              <div class="problematique-wizard" id="problematiqueWizard">
+
+                <div class="problematique-wizard__step" data-step="1" id="problematiqueStepChoices">
+                  <div class="problematique-choices" role="group" aria-label="Votre problématique">
+                    <button type="button" class="problematique-choice" data-problem="panne" data-label="Une machine en panne">Une machine en panne&nbsp;?</button>
+                    <button type="button" class="problematique-choice" data-problem="stock" data-label="Plus de café ni de gobelets">Plus de café ni de gobelets&nbsp;?</button>
+                    <button type="button" class="problematique-choice" data-problem="interlocuteurs" data-label="Trop d'interlocuteurs">Trop d'interlocuteurs&nbsp;?</button>
+                    <button type="button" class="problematique-choice" data-problem="entretien" data-label="Pas le temps d'entretenir">Pas le temps d'entretenir&nbsp;?</button>
+                    <button type="button" class="problematique-choice problematique-choice--wide" data-problem="autre" data-label="Autre besoin">Autre besoin</button>
+                  </div>
+                  <div class="problematique-other is-hidden" id="problematiqueOtherField" hidden>
+                    <label class="problematique-other__label" for="problematiqueOtherText">Précisez votre besoin (optionnel)</label>
+                    <input type="text" id="problematiqueOtherText" class="problematique-other__input" maxlength="200" placeholder="Ex. trouver la bonne machine pour 80 collaborateurs" autocomplete="off" />
+                  </div>
+                  <button type="button" class="btn btn-lg btn-primary simulateur-panel__btn problematique-wizard__next" id="problematiqueNextBtn" disabled>Continuer</button>
+                </div>
+
+                <div class="problematique-wizard__step is-hidden" data-step="2" id="problematiqueStepPhone" hidden>
+                  <p class="problematique-wizard__recap">Vous avez sélectionné&nbsp;: <strong id="problematiqueRecap"></strong></p>
+                  <form class="problematique-form" id="problematiquePhoneForm" novalidate>
+                    <div class="problematique-form__card">
+                      <label class="problematique-form__label" for="problematiquePhone">Votre numéro de téléphone</label>
+                      <div class="problematique-form__combo">
+                        <div class="problematique-form__input-wrap">
+                          <span class="problematique-form__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                          </span>
+                          <input type="tel" id="problematiquePhone" name="phone" class="problematique-form__input" inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78" required />
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary simulateur-panel__btn problematique-form__submit">
+                          <span>Me faire accompagner</span>
+                          <svg class="problematique-form__submit-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                        </button>
+                      </div>
+                      <p class="problematique-form__hint">Un expert vous rappelle sous 24h · sans engagement</p>
+                    </div>
+                    <p class="problematique-form__error is-hidden" id="problematiquePhoneError" role="alert"></p>
+                  </form>
+                  <button type="button" class="problematique-wizard__back" id="problematiqueBackBtn">← Modifier mon besoin</button>
+                </div>
+
+                <div class="problematique-wizard__step is-hidden" data-step="3" id="problematiqueStepSuccess" hidden>
+                  <div class="problematique-form__success" id="problematiqueSuccess" role="status">
+                    <span class="problematique-form__success-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+                    </span>
+                    <p class="problematique-form__success-text" id="problematiqueSuccessText"></p>
+                  </div>
+                </div>
+
+              </div>
+
+              <p class="simulateur-panel__secondary" id="simulateurSecondaryLink">
+                <a href="#contact">Besoin d'échanger plus en détail avec un consultant&nbsp;?</a>
+              </p>
+
+            </div>
+
+            <ol class="simulateur-steps" id="simulateurStepsNav" aria-label="Comment ça marche">
+
+              <li class="simulateur-step is-active" data-step-indicator="1">
+                <span class="simulateur-step__num">1</span>
+                <span class="simulateur-step__body">
+                  <strong>Votre besoin</strong>
+                  décrivez votre problème en un clic
+                </span>
+              </li>
+
+              <li class="simulateur-step" data-step-indicator="2">
+                <span class="simulateur-step__num">2</span>
+                <span class="simulateur-step__body">
+                  <strong>Notre solution</strong>
+                  on identifie la meilleure réponse pour vous
+                </span>
+              </li>
+
+              <li class="simulateur-step" data-step-indicator="3">
+                <span class="simulateur-step__num">3</span>
+                <span class="simulateur-step__body">
+                  <strong>On vous recontacte</strong>
+                  un expert dédié vous rappelle sous 24h
+                </span>
+              </li>
+
+            </ol>
+
+          </div>
+
+        </div>
+
+      </section>
+<!-- CONVERSION-SIMULATEUR:END -->
+
+
+
           <div class="catalog-cta-band catalog-cta-band--machines">
             <div class="catalog-cta-band__content">
               <span class="catalog-cta-band__eyebrow">conseil gratuit</span>
@@ -323,62 +443,162 @@
               <p>Parlez à un expert pour être conseillé et trouver la machine idéale pour vos locaux.</p>
             </div>
             <div class="catalog-cta-band__actions">
-              <a href="index.html#simulateur" class="btn btn-primary btn-lg">Parler à un expert</a>
+              <a href="#contact" class="btn btn-primary btn-lg">Parler à un expert</a>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Contact -->
-      <section class="section section-contact-lite" id="contact">
+      
+
+
+
+      <!-- CONVERSION-CONTACT:START -->
+<!-- Contact -->
+
+      <section class="section section-contact" id="contact">
+
         <div class="container">
+
           <header class="contact-header">
+
             <span class="contact-eyebrow">contact</span>
-            <h2 class="contact-title">Parlons de votre projet</h2>
-            <p class="contact-lite__lead">Nos consultants à Paris &amp; Lyon vous répondent du lundi au vendredi pour étudier vos besoins en machines à café.</p>
+
+            <h2 class="contact-title">Parlons des besoins de vos collaborateurs</h2>
+
           </header>
 
-          <div class="contact-lite">
-            <div class="contact-lite__offices">
-              <a class="contact-office" href="tel:0820001030">
-                <span class="contact-office__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                </span>
-                <span class="contact-office__body">
-                  <span class="contact-office__city">Paris</span>
-                  <span class="contact-office__value">08 20 00 10 30</span>
-                </span>
-              </a>
+          <div class="contact-layout">
 
-              <a class="contact-office" href="tel:0451085102">
-                <span class="contact-office__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                </span>
-                <span class="contact-office__body">
-                  <span class="contact-office__city">Lyon</span>
-                  <span class="contact-office__value">04 51 08 51 02</span>
-                </span>
-              </a>
+            <aside class="contact-info">
+
+              <p class="contact-info__lead">Paris &amp; Lyon consultants à votre écoute du lundi au vendredi.</p>
+
+              <div class="contact-offices">
+
+                <a class="contact-office" href="tel:0820001030">
+
+                  <span class="contact-office__icon" aria-hidden="true">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+
+                    </svg>
+
+                  </span>
+
+                  <span class="contact-office__body">
+
+                    <span class="contact-office__city">Paris</span>
+
+                    <span class="contact-office__value">08 20 00 10 30</span>
+
+                  </span>
+
+                </a>
+
+                <a class="contact-office" href="tel:0451085102">
+
+                  <span class="contact-office__icon" aria-hidden="true">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+
+                    </svg>
+
+                  </span>
+
+                  <span class="contact-office__body">
+
+                    <span class="contact-office__city">Lyon</span>
+
+                    <span class="contact-office__value">04 51 08 51 02</span>
+
+                  </span>
+
+                </a>
+
+              </div>
+
+              <p class="contact-info__note">
+                0820 00 10 30 * (0,095&nbsp;€ HT/min)<br />
+                Du lundi au jeudi de 9h à 18h<br />
+                et le vendredi de 9h à 17h
+              </p>
 
               <a class="contact-email" href="mailto:contact@justeatemps.com">
-                <span class="contact-email__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                  </svg>
-                </span>
-                contact@justeatemps.com
-              </a>
-            </div>
 
-            <a href="index.html#simulateur" class="btn btn-primary btn-lg">Me faire accompagner</a>
+                <span class="contact-email__icon" aria-hidden="true">
+
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+
+                  </svg>
+
+                </span>
+
+                contact@justeatemps.com
+
+              </a>
+
+            </aside>
+
+            <form class="contact-form" action="/api/contact" method="post" novalidate>
+
+              <p class="contact-form__title">échangez avec un expert</p>
+
+              <div class="contact-form__row">
+
+                <label class="contact-field">
+
+                  <span>entreprise</span>
+
+                  <input type="text" name="company" required autocomplete="organization" />
+
+                </label>
+
+                <label class="contact-field">
+
+                  <span>email</span>
+
+                  <input type="email" name="email" required autocomplete="email" />
+
+                </label>
+
+              </div>
+
+              <label class="contact-field">
+
+                <span>téléphone</span>
+
+                <input type="tel" name="phone" autocomplete="tel" />
+
+              </label>
+
+              <label class="contact-field">
+
+                <span>votre besoin</span>
+
+                <textarea name="message" rows="4" placeholder="machines, fontaine, café…"></textarea>
+
+              </label>
+
+              <button type="submit" class="btn btn-primary btn-block">Envoyer ma demande</button>
+
+            </form>
+
           </div>
+
         </div>
+
       </section>
+<!-- CONVERSION-CONTACT:END -->
+
     </main>
 
     <footer class="site-footer">
@@ -418,7 +638,7 @@
               <li><a href="machines-a-cafe.html">machines à café</a></li>
               <li><a href="fontaines-a-eau.html">fontaines à eau</a></li>
               <li><a href="distributeurs-automatiques.html">distributeur automatique</a></li>
-              <li><a href="https://abonnement-cafe.justeatemps.com/" target="_blank" rel="noopener noreferrer">votre solution café</a></li>
+              <li><a href="#simulateur">votre solution café</a></li>
             </ul>
           </div>
           <div class="ft-group">
@@ -427,7 +647,7 @@
               <li><a href="qui-sommes-nous.html">qui sommes-nous</a></li>
               <li><a href="a-propos.html">démarche RSE</a></li>
               <li><a href="index.html#bcorp">certification B Corp</a></li>
-              <li><a href="index.html#simulateur">Parler à un expert</a></li>
+              <li><a href="#contact">Parler à un expert</a></li>
             </ul>
           </div>
           <div class="ft-group">
@@ -468,6 +688,37 @@
         </div>
       </div>
     </footer>
+
+    <!-- CONVERSION-POPUP:START -->
+
+    <!-- Pop-up simulateur café -->
+
+    <button class="cafe-popup__toggle" id="cafePopupToggle" type="button" aria-label="Afficher le simulateur café" aria-controls="cafePopup" aria-expanded="false" hidden>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
+
+    <aside class="cafe-popup" id="cafePopup" aria-hidden="true" hidden>
+
+      <button class="cafe-popup__close" type="button" aria-label="Fermer">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div class="cafe-popup__media" aria-hidden="true">
+        <img src="assets/machines/wmf.webp" alt="" width="120" height="120" loading="lazy" decoding="async" />
+      </div>
+
+      <div class="cafe-popup__body">
+        <p class="cafe-popup__title">Identifiez votre problématique en 30 secondes</p>
+        <a class="cafe-popup__btn" href="#simulateur">
+          Me faire accompagner
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- CONVERSION-POPUP:END -->
+
 
     <script src="scripts/lenis.min.js" defer></script>
     <script src="scripts/main.min.js" defer></script>

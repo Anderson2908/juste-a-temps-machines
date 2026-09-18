@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node server/index.js",
     "start": "node server/index.js",
-    "dev:static": "npx --yes serve . -p 5173"
+    "dev:static": "npx --yes serve . -p 5173",
+    "sync:conversion": "node scripts/sync-conversion-sections.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
