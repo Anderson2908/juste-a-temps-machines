@@ -8,7 +8,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   // Scroll fluide : Lenis sur desktop, natif sur mobile
   function setupScroll() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isDesktop = window.matchMedia("(pointer: fine) and (min-width: 769px)").matches;
+    const isDesktop = window.matchMedia("(pointer: fine) and (min-width: 1281px)").matches;
     const useLenis = !reduceMotion && isDesktop && typeof Lenis !== "undefined";
 
     if ("scrollRestoration" in history) {
@@ -107,11 +107,20 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
 
     toTopBtn.addEventListener("click", () => scrollToTop(false));
 
-    const toggleToTop = () => {
-      toTopBtn.classList.toggle("is-visible", window.scrollY > 400);
-    };
-    toggleToTop();
-    window.addEventListener("scroll", toggleToTop, { passive: true });
+    const header = document.querySelector(".site-header");
+    const headerThreshold = 48;
+
+    function onPageScroll(scrollY) {
+      toTopBtn.classList.toggle("is-visible", scrollY > 400);
+      header?.classList.toggle("is-scrolled", scrollY > headerThreshold);
+    }
+
+    if (lenis) {
+      lenis.on("scroll", ({ scroll }) => onPageScroll(scroll));
+    } else {
+      window.addEventListener("scroll", () => onPageScroll(window.scrollY), { passive: true });
+    }
+    onPageScroll(lenis ? lenis.scroll : window.scrollY);
 
     const hash = location.hash;
 
@@ -124,10 +133,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
 
     if (hashTarget) {
       requestAnimationFrame(() => scrollToTarget(hashTarget, true));
-      return;
     }
-
-    requestAnimationFrame(() => scrollToTop(true));
   }
 
   // Menu mobile
@@ -157,6 +163,18 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
 
     const words = (el.dataset.rotate || "").split("|").filter(Boolean);
     if (words.length < 2) return;
+
+    const line = el.closest(".hero-line");
+    if (line) {
+      let maxHeight = 0;
+      const previous = el.textContent;
+      words.forEach((word) => {
+        el.textContent = word;
+        maxHeight = Math.max(maxHeight, el.offsetHeight);
+      });
+      el.textContent = previous;
+      line.style.minHeight = `${maxHeight}px`;
+    }
 
     let index = 0;
     setInterval(() => {
@@ -1024,16 +1042,20 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            simulateurInView = entry.isIntersecting;
-            if (simulateurInView) {
+            const ratio = entry.intersectionRatio;
+            if (!simulateurInView && ratio >= 0.15) {
+              simulateurInView = true;
               hidePopupUi();
-            } else if (!dismissed) {
-              toggle.hidden = false;
-              toggle.removeAttribute("hidden");
+            } else if (simulateurInView && ratio <= 0.04) {
+              simulateurInView = false;
+              if (!dismissed) {
+                toggle.hidden = false;
+                toggle.removeAttribute("hidden");
+              }
             }
           });
         },
-        { root: null, rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+        { root: null, rootMargin: "0px 0px -8% 0px", threshold: [0, 0.04, 0.15, 0.3] }
       );
       observer.observe(simulateur);
     }
@@ -1046,20 +1068,6 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       showPopup();
       scheduleAutoHide();
     }, SHOW_DELAY_MS);
-  }
-
-  function setupHeaderScroll() {
-    const header = document.querySelector(".site-header");
-    if (!header) return;
-
-    const threshold = 48;
-
-    function update() {
-      header.classList.toggle("is-scrolled", window.scrollY > threshold);
-    }
-
-    update();
-    window.addEventListener("scroll", update, { passive: true });
   }
 
   function setupMachineSubnav() {
@@ -1162,7 +1170,6 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   setupMachineDetailStatCounters();
   setupStatsBandCounters();
   setupEcoListCounters();
-  setupHeaderScroll();
   setupMachineSubnav();
   setupCafePopup();
   setupProblematiqueWizard();

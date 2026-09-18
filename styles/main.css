@@ -5698,7 +5698,7 @@ h4::first-letter,
 
   position: relative;
 
-  min-height: 140px;
+  display: grid;
 
   max-width: 720px;
 
@@ -5710,9 +5710,7 @@ h4::first-letter,
 
 .testimonial {
 
-  position: absolute;
-
-  inset: 0;
+  grid-area: 1 / 1;
 
   margin: 0;
 
@@ -5720,7 +5718,11 @@ h4::first-letter,
 
   opacity: 0;
 
-  transition: opacity 0.5s ease;
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 
 }
 
@@ -5730,7 +5732,9 @@ h4::first-letter,
 
   opacity: 1;
 
-  position: relative;
+  visibility: visible;
+
+  pointer-events: auto;
 
 }
 
