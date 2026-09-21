@@ -5016,7 +5016,7 @@ h4::first-letter,
   min-height: 2.85rem;
   padding: 0.75rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.96);
   color: var(--jat-text);
   font-size: 0.95rem;
