@@ -36,7 +36,8 @@ function isValidFrenchPhone(phone) {
 }
 
 function validatePayload(payload) {
-  const isCallback = payload.source === "problematique-rappel";
+  const isCallback =
+    payload.source === "problematique-rappel" || payload.source === "hero-rappel";
 
   if (isCallback) {
     if (!payload.phone) {

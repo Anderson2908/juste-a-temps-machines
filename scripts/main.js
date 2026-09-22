@@ -815,6 +815,61 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     items.forEach((item) => grid.appendChild(item));
   }
 
+  function setupHeroPhoneForm() {
+    const form = document.getElementById("heroPhoneForm");
+    const phoneInput = document.getElementById("heroPhone");
+    const errorEl = document.getElementById("heroPhoneError");
+    const successEl = document.getElementById("heroPhoneSuccess");
+    if (!form || !phoneInput) return;
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const phone = phoneInput.value.trim();
+      if (!isValidFrenchPhone(phone)) {
+        if (errorEl) {
+          errorEl.textContent = "Veuillez saisir un numéro de téléphone français valide (10 chiffres).";
+          errorEl.classList.remove("is-hidden");
+        }
+        if (successEl) successEl.classList.add("is-hidden");
+        phoneInput.focus();
+        return;
+      }
+
+      if (errorEl) errorEl.classList.add("is-hidden");
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phone: normalizeFrenchPhone(phone),
+            source: "hero-rappel",
+            message: "Demande de rappel — hero accueil",
+          }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.ok) {
+          throw new Error(data.error || "Envoi impossible");
+        }
+      } catch (e) {
+        if (errorEl) {
+          errorEl.textContent =
+            "Impossible d'enregistrer votre numéro pour le moment. Réessayez ou appelez-nous directement.";
+          errorEl.classList.remove("is-hidden");
+        }
+        if (submitBtn) submitBtn.disabled = false;
+        return;
+      }
+
+      form.querySelector(".hero-phone-form__combo, .problematique-form__combo")?.classList.add("is-hidden");
+      if (successEl) successEl.classList.remove("is-hidden");
+    });
+  }
+
   function setupProblematiqueWizard() {
     const wizard = document.getElementById("problematiqueWizard");
     const form = document.getElementById("problematiquePhoneForm");
@@ -1192,6 +1247,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   setupEcoListCounters();
   setupMachineSubnav();
   setupCafePopup();
+  setupHeroPhoneForm();
   setupProblematiqueWizard();
   setupMachinesCatalogSort();
   setupScroll();

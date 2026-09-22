@@ -46,7 +46,7 @@
     <link rel="manifest" href="site.webmanifest" />
 
     <link rel="preload" as="image" href="assets/hero-office.webp" fetchpriority="high" />
-    <link rel="stylesheet" href="styles/main.min.css" />
+    <link rel="stylesheet" href="styles/main.min.css?v=20260922b" />
 
 
     <script type="application/ld+json">
@@ -193,7 +193,26 @@
 
               <a href="#simulateur" class="btn btn-primary btn-lg btn-no-arrow">Me faire accompagner</a>
 
-              <a href="#solutions" class="btn btn-outline btn-lg">Découvrir nos solutions</a>
+              <form class="problematique-form hero-phone-form" id="heroPhoneForm" novalidate>
+                <div class="problematique-form__combo hero-phone-form__combo">
+                  <div class="problematique-form__input-wrap">
+                    <span class="problematique-form__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                      </svg>
+                    </span>
+                    <input type="tel" id="heroPhone" name="phone" class="problematique-form__input" inputmode="tel" autocomplete="tel" placeholder="Votre numéro" aria-label="Votre numéro de téléphone" required />
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg problematique-form__submit hero-phone-form__submit">Être rappelé</button>
+                </div>
+                <p class="problematique-form__error hero-phone-form__error is-hidden" id="heroPhoneError" role="alert"></p>
+                <div class="problematique-form__success hero-phone-form__success is-hidden" id="heroPhoneSuccess" role="status">
+                  <span class="problematique-form__success-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+                  </span>
+                  <p class="problematique-form__success-text">Nous vous contacterons sous 24h.</p>
+                </div>
+              </form>
 
             </div>
 
@@ -1335,7 +1354,7 @@
 
 
     <script src="scripts/lenis.min.js" defer></script>
-    <script src="scripts/main.min.js" defer></script>
+    <script src="scripts/main.min.js?v=20260922" defer></script>
 
   <!-- Anderson -->
   </body>
