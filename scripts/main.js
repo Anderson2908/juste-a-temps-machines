@@ -1037,9 +1037,11 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     const hero = document.querySelector(".main--home .hero");
     if (!popup || !toggle) return;
 
+    const desktopMq = window.matchMedia("(min-width: 769px)");
     let dismissed = false;
     let simulateurInView = false;
     let heroInView = Boolean(hero);
+    let introShown = false;
     try {
       dismissed = sessionStorage.getItem("cafePopupClosed") === "1";
     } catch (e) {}
@@ -1050,13 +1052,13 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     const VISIBLE_MS = 5000;
     let autoHideTimer = null;
 
-    function shouldBlockWidget() {
-      return simulateurInView || heroInView;
+    function isDesktop() {
+      return desktopMq.matches;
     }
 
-    function setWidgetSuppressed(suppressed) {
-      popup.classList.toggle("is-suppressed", suppressed);
-      toggle.classList.toggle("is-suppressed", suppressed);
+    function shouldBlockWidget() {
+      if (!isDesktop()) return true;
+      return simulateurInView || heroInView;
     }
 
     function hidePopupUi() {
@@ -1066,7 +1068,6 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       popup.hidden = true;
       toggle.hidden = true;
       toggle.setAttribute("aria-expanded", "false");
-      setWidgetSuppressed(shouldBlockWidget());
     }
 
     function showToggleIfAllowed() {
@@ -1074,15 +1075,13 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
         hidePopupUi();
         return;
       }
-      setWidgetSuppressed(false);
       toggle.hidden = false;
       toggle.removeAttribute("hidden");
     }
 
     function showPopup() {
-      if (shouldBlockWidget()) return;
+      if (shouldBlockWidget() || dismissed) return;
       window.clearTimeout(autoHideTimer);
-      setWidgetSuppressed(false);
       toggle.hidden = true;
       toggle.setAttribute("aria-expanded", "true");
       popup.hidden = false;
@@ -1113,24 +1112,36 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       autoHideTimer = window.setTimeout(collapsePopup, VISIBLE_MS);
     }
 
+    function onHeroVisibilityChange(isVisible) {
+      heroInView = isVisible;
+      if (heroInView) {
+        hidePopupUi();
+        return;
+      }
+      if (shouldBlockWidget() || dismissed) return;
+      if (!introShown) {
+        introShown = true;
+        showPopup();
+        scheduleAutoHide();
+        return;
+      }
+      showToggleIfAllowed();
+    }
+
     function syncHeroInView() {
       if (!hero) return;
       const rect = hero.getBoundingClientRect();
-      heroInView = rect.bottom > 0 && rect.top < window.innerHeight;
-      if (heroInView) hidePopupUi();
-      else showToggleIfAllowed();
+      onHeroVisibilityChange(rect.bottom > 0 && rect.top < window.innerHeight);
     }
 
     if (hero && "IntersectionObserver" in window) {
       const heroObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            heroInView = entry.isIntersecting;
-            if (heroInView) hidePopupUi();
-            else showToggleIfAllowed();
+            onHeroVisibilityChange(entry.isIntersecting);
           });
         },
-        { root: null, rootMargin: "0px", threshold: [0, 0.01, 0.1] }
+        { root: null, rootMargin: "0px", threshold: 0 }
       );
       heroObserver.observe(hero);
     } else if (hero) {
@@ -1149,7 +1160,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
               hidePopupUi();
             } else if (simulateurInView && ratio <= 0.04) {
               simulateurInView = false;
-              showToggleIfAllowed();
+              if (!heroInView) showToggleIfAllowed();
             }
           });
         },
@@ -1161,15 +1172,34 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     if (closeBtn) closeBtn.addEventListener("click", dismissPopup);
     toggle.addEventListener("click", showPopup);
 
-    if (hero) {
-      hidePopupUi();
+    const onDesktopChange = () => {
+      if (!isDesktop()) {
+        hidePopupUi();
+        return;
+      }
+      if (hero) {
+        syncHeroInView();
+        return;
+      }
+      if (!dismissed && !shouldBlockWidget()) showToggleIfAllowed();
+    };
+
+    if (typeof desktopMq.addEventListener === "function") {
+      desktopMq.addEventListener("change", onDesktopChange);
+    } else if (typeof desktopMq.addListener === "function") {
+      desktopMq.addListener(onDesktopChange);
     }
 
-    window.setTimeout(() => {
-      if (shouldBlockWidget()) return;
-      showPopup();
-      scheduleAutoHide();
-    }, SHOW_DELAY_MS);
+    hidePopupUi();
+
+    if (!hero) {
+      window.setTimeout(() => {
+        if (shouldBlockWidget()) return;
+        introShown = true;
+        showPopup();
+        scheduleAutoHide();
+      }, SHOW_DELAY_MS);
+    }
   }
 
   function setupMachineSubnav() {
