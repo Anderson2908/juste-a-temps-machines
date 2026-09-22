@@ -157,6 +157,57 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   }
 
   // Menu mobile
+  // En-tête : si les liens du menu ne tiennent pas entre le logo et le
+  // bouton « Parler à un expert » (police système plus large, zoom…), on
+  // bascule en menu burger plutôt que de laisser le bouton chevaucher.
+  // Sous 1100 px, le CSS le fait déjà : la mesure ne sert qu'au-dessus.
+  function setupHeaderFit() {
+    const header = document.querySelector(".site-header");
+    const inner = header?.querySelector(".header-inner");
+    const list = header?.querySelector(".nav-list");
+    const actions = header?.querySelector(".header-actions");
+    const logo = header?.querySelector(".logo");
+    if (!header || !inner || !list || !actions) return;
+
+    const cssBurger = window.matchMedia("(max-width: 1100px)");
+    const MARGE = 12;
+
+    function fit() {
+      header.classList.remove("is-nav-collapsed");
+      if (cssBurger.matches) return;
+
+      const cs = getComputedStyle(inner);
+      const gap = parseFloat(cs.columnGap) || 0;
+      const disponible =
+        inner.clientWidth -
+        (parseFloat(cs.paddingLeft) || 0) -
+        (parseFloat(cs.paddingRight) || 0) -
+        (logo ? logo.getBoundingClientRect().width : 0) -
+        actions.getBoundingClientRect().width -
+        2 * gap;
+
+      if (list.scrollWidth > disponible - MARGE) {
+        header.classList.add("is-nav-collapsed");
+      }
+    }
+
+    let prevu = 0;
+    const planifier = () => {
+      cancelAnimationFrame(prevu);
+      prevu = requestAnimationFrame(fit);
+    };
+
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(planifier).observe(inner);
+    } else {
+      window.addEventListener("resize", planifier);
+    }
+    document.fonts?.ready.then(planifier);
+    fit();
+  }
+
+  setupHeaderFit();
+
   const navToggle = document.querySelector(".nav-toggle");
   const navMain = document.querySelector(".nav-main");
 

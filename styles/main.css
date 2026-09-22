@@ -11318,3 +11318,48 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
     width: 100%;
   }
 }
+
+/* ------------------------------------------------------------------ *
+ * Menu burger déclenché par la mesure réelle (scripts/main.js,
+ * setupHeaderFit) : si les liens ne tiennent pas entre le logo et le
+ * bouton « Parler à un expert » — police plus large, zoom… — l'en-tête
+ * passe en menu burger au lieu de faire chevaucher le bouton.
+ * ------------------------------------------------------------------ */
+.site-header.is-nav-collapsed .nav-main {
+  position: fixed;
+  inset: var(--header-h) 0 auto 0;
+  background: var(--jat-white);
+  border-bottom: 1px solid var(--jat-cream-dark);
+  padding: 1rem;
+  transform: translateY(-120%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform var(--transition), opacity var(--transition), visibility var(--transition);
+}
+
+.site-header.is-nav-collapsed .nav-main.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.site-header.is-nav-collapsed .nav-list {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.site-header.is-nav-collapsed .nav-toggle {
+  display: flex;
+}
+
+.site-header.is-nav-collapsed .header-phone {
+  display: none;
+}
+
+.main--home .site-header.is-nav-collapsed:not(.is-scrolled) .nav-main.is-open {
+  background: var(--jat-white);
+}
+
+.main--home .site-header.is-nav-collapsed:not(.is-scrolled) .nav-main.is-open .nav-link {
+  color: var(--jat-text);
+}
