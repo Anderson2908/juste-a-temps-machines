@@ -1034,10 +1034,12 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     const popup = document.getElementById("cafePopup");
     const toggle = document.getElementById("cafePopupToggle");
     const simulateur = document.getElementById("simulateur");
+    const hero = document.querySelector(".main--home .hero");
     if (!popup || !toggle) return;
 
     let dismissed = false;
     let simulateurInView = false;
+    let heroInView = Boolean(hero);
     try {
       dismissed = sessionStorage.getItem("cafePopupClosed") === "1";
     } catch (e) {}
@@ -1048,6 +1050,15 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     const VISIBLE_MS = 5000;
     let autoHideTimer = null;
 
+    function shouldBlockWidget() {
+      return simulateurInView || heroInView;
+    }
+
+    function setWidgetSuppressed(suppressed) {
+      popup.classList.toggle("is-suppressed", suppressed);
+      toggle.classList.toggle("is-suppressed", suppressed);
+    }
+
     function hidePopupUi() {
       window.clearTimeout(autoHideTimer);
       popup.classList.remove("is-visible");
@@ -1055,11 +1066,23 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       popup.hidden = true;
       toggle.hidden = true;
       toggle.setAttribute("aria-expanded", "false");
+      setWidgetSuppressed(shouldBlockWidget());
+    }
+
+    function showToggleIfAllowed() {
+      if (shouldBlockWidget() || dismissed) {
+        hidePopupUi();
+        return;
+      }
+      setWidgetSuppressed(false);
+      toggle.hidden = false;
+      toggle.removeAttribute("hidden");
     }
 
     function showPopup() {
-      if (simulateurInView) return;
+      if (shouldBlockWidget()) return;
       window.clearTimeout(autoHideTimer);
+      setWidgetSuppressed(false);
       toggle.hidden = true;
       toggle.setAttribute("aria-expanded", "true");
       popup.hidden = false;
@@ -1070,13 +1093,10 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     function collapsePopup() {
       popup.classList.remove("is-visible");
       popup.setAttribute("aria-hidden", "true");
-      if (!simulateurInView) {
-        toggle.hidden = false;
-        toggle.removeAttribute("hidden");
-      }
       toggle.setAttribute("aria-expanded", "false");
       window.setTimeout(() => {
         popup.hidden = true;
+        showToggleIfAllowed();
       }, 450);
     }
 
@@ -1093,6 +1113,32 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       autoHideTimer = window.setTimeout(collapsePopup, VISIBLE_MS);
     }
 
+    function syncHeroInView() {
+      if (!hero) return;
+      const rect = hero.getBoundingClientRect();
+      heroInView = rect.bottom > 0 && rect.top < window.innerHeight;
+      if (heroInView) hidePopupUi();
+      else showToggleIfAllowed();
+    }
+
+    if (hero && "IntersectionObserver" in window) {
+      const heroObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            heroInView = entry.isIntersecting;
+            if (heroInView) hidePopupUi();
+            else showToggleIfAllowed();
+          });
+        },
+        { root: null, rootMargin: "0px", threshold: [0, 0.01, 0.1] }
+      );
+      heroObserver.observe(hero);
+    } else if (hero) {
+      window.addEventListener("scroll", syncHeroInView, { passive: true });
+      window.addEventListener("resize", syncHeroInView, { passive: true });
+      syncHeroInView();
+    }
+
     if (simulateur && "IntersectionObserver" in window) {
       const observer = new IntersectionObserver(
         (entries) => {
@@ -1103,10 +1149,7 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
               hidePopupUi();
             } else if (simulateurInView && ratio <= 0.04) {
               simulateurInView = false;
-              if (!dismissed) {
-                toggle.hidden = false;
-                toggle.removeAttribute("hidden");
-              }
+              showToggleIfAllowed();
             }
           });
         },
@@ -1118,8 +1161,12 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     if (closeBtn) closeBtn.addEventListener("click", dismissPopup);
     toggle.addEventListener("click", showPopup);
 
+    if (hero) {
+      hidePopupUi();
+    }
+
     window.setTimeout(() => {
-      if (simulateurInView) return;
+      if (shouldBlockWidget()) return;
       showPopup();
       scheduleAutoHide();
     }, SHOW_DELAY_MS);
