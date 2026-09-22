@@ -10,6 +10,7 @@ const {
   pushContact,
   checkList,
 } = require("../sarbacane");
+const { sendCallbackAlert, checkSmtp, callbackRecipients } = require("../mailer");
 
 function sanitizeString(value, maxLength = 500) {
   if (typeof value !== "string") return "";
@@ -35,9 +36,12 @@ function isValidFrenchPhone(phone) {
   return false;
 }
 
+function isCallbackRequest(payload) {
+  return payload.source === "problematique-rappel" || payload.source === "hero-rappel";
+}
+
 function validatePayload(payload) {
-  const isCallback =
-    payload.source === "problematique-rappel" || payload.source === "hero-rappel";
+  const isCallback = isCallbackRequest(payload);
 
   if (isCallback) {
     if (!payload.phone) {
@@ -190,6 +194,13 @@ async function handleContactSubmission(body) {
     return { status: 400, body: { ok: false, error: validationError } };
   }
 
+  // « Être rappelé » : l'équipe commerciale est prévenue tout de suite par
+  // e-mail. Envoi en arrière-plan : le visiteur n'attend pas le serveur SMTP,
+  // et un échec d'envoi n'empêche pas l'enregistrement du lead.
+  if (isCallbackRequest(payload)) {
+    sendCallbackAlert(payload).catch(() => {});
+  }
+
   const useSarbacane = Boolean(sarbacaneConfig());
   const hasWebhook = Boolean(process.env.CONTACT_WEBHOOK_URL);
 
@@ -264,6 +275,10 @@ async function checkContactHealth() {
     credentialsConfigured: Boolean(sarbacaneCredentials()),
     listId: config ? config.listId : null,
   };
+
+  // Alerte e-mail « être rappelé » : vérifie la connexion SMTP, sans envoi.
+  const smtp = await checkSmtp();
+  result.alerteRappel = { smtp: smtp.status, destinataires: callbackRecipients().length };
 
   if (!config) {
     result.sarbacane = "non-configuré";
