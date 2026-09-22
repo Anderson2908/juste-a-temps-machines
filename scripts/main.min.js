@@ -157,10 +157,11 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
   }
 
   // Menu mobile
-  // En-tête : si les liens du menu ne tiennent pas entre le logo et le
-  // bouton « Parler à un expert » (police système plus large, zoom…), on
-  // bascule en menu burger plutôt que de laisser le bouton chevaucher.
-  // Sous 1100 px, le CSS le fait déjà : la mesure ne sert qu'au-dessus.
+  // En-tête : les liens du menu doivent tenir entre le logo et le bouton
+  // « Parler à un expert ». Leur largeur dépend de la police installée
+  // (Futura sur Mac) et du zoom : on mesure la place réelle et on resserre
+  // par paliers (espacements, puis taille du texte) ; le menu burger n'est
+  // utilisé qu'en dernier recours. Sous 769 px, le CSS mobile s'en charge.
   function setupHeaderFit() {
     const header = document.querySelector(".site-header");
     const inner = header?.querySelector(".header-inner");
@@ -169,13 +170,12 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     const logo = header?.querySelector(".logo");
     if (!header || !inner || !list || !actions) return;
 
-    const cssBurger = window.matchMedia("(max-width: 1100px)");
-    const MARGE = 12;
+    const mobile = window.matchMedia("(max-width: 768px)");
+    const PALIERS = ["", "is-nav-tight", "is-nav-tight is-nav-tighter"];
+    const TOUTES = ["is-nav-tight", "is-nav-tighter", "is-nav-collapsed"];
+    const MARGE = 8;
 
-    function fit() {
-      header.classList.remove("is-nav-collapsed");
-      if (cssBurger.matches) return;
-
+    function tient() {
       const cs = getComputedStyle(inner);
       const gap = parseFloat(cs.columnGap) || 0;
       const disponible =
@@ -185,10 +185,19 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
         (logo ? logo.getBoundingClientRect().width : 0) -
         actions.getBoundingClientRect().width -
         2 * gap;
+      return list.scrollWidth <= disponible - MARGE;
+    }
 
-      if (list.scrollWidth > disponible - MARGE) {
-        header.classList.add("is-nav-collapsed");
+    function fit() {
+      header.classList.remove(...TOUTES);
+      if (mobile.matches) return;
+
+      for (const palier of PALIERS) {
+        header.classList.remove(...TOUTES);
+        if (palier) header.classList.add(...palier.split(" "));
+        if (tient()) return;
       }
+      header.classList.add("is-nav-collapsed");
     }
 
     let prevu = 0;
