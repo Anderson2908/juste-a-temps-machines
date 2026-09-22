@@ -3,13 +3,13 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
 (function () {
   "use strict";
 
-  const HEADER_OFFSET = 72;
-
-  // Scroll fluide : Lenis sur desktop, natif sur mobile
+  // Scroll fluide : Lenis sur desktop/tablette, offset header dynamique
   function setupScroll() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isDesktop = window.matchMedia("(pointer: fine) and (min-width: 1281px)").matches;
-    const useLenis = !reduceMotion && isDesktop && typeof Lenis !== "undefined";
+    const useLenis =
+      !reduceMotion &&
+      window.matchMedia("(min-width: 769px)").matches &&
+      typeof Lenis !== "undefined";
 
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
@@ -20,11 +20,17 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     if (useLenis) {
       lenis = new Lenis({
         autoRaf: true,
-        lerp: 0.16,
+        lerp: 0.14,
         smoothWheel: true,
         syncTouch: false,
         wheelMultiplier: 1,
       });
+    }
+
+    function getHeaderOffset() {
+      const raw = getComputedStyle(document.documentElement).getPropertyValue("--header-h").trim();
+      const parsed = parseInt(raw, 10);
+      return Number.isFinite(parsed) ? parsed : 72;
     }
 
     function scrollToTop(immediate) {
@@ -52,23 +58,33 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     function scrollToTarget(target, immediate) {
       if (!target) return;
 
+      const offset = -getHeaderOffset();
+      const anchor = target.id ? `#${target.id}` : target;
+
       if (lenis) {
-        lenis.scrollTo(target, {
-          offset: -HEADER_OFFSET,
+        lenis.scrollTo(anchor, {
+          offset,
           immediate: Boolean(immediate),
-          duration: immediate ? 0 : 1.1,
+          lock: true,
+          duration: immediate ? 0 : 1.15,
         });
         return;
       }
 
-      target.scrollIntoView({
+      const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY + offset);
+      window.scrollTo({
+        top,
+        left: 0,
         behavior: reduceMotion || immediate ? "auto" : "smooth",
-        block: "start",
       });
     }
 
-    document.querySelectorAll('a[href*="#"]').forEach((link) => {
-      link.addEventListener("click", (e) => {
+    document.addEventListener(
+      "click",
+      (e) => {
+        const link = e.target.closest('a[href*="#"]');
+        if (!link) return;
+
         const href = link.getAttribute("href");
         if (!href || href === "#") return;
         if (!isSamePageLink(href)) return;
@@ -93,8 +109,9 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
         navMain?.classList.remove("is-open");
         navToggle?.setAttribute("aria-expanded", "false");
         history.pushState(null, "", hash);
-      });
-    });
+      },
+      false
+    );
 
     // Bouton flottant « retour en haut »
     const toTopBtn = document.createElement("button");
@@ -116,7 +133,10 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     }
 
     if (lenis) {
-      lenis.on("scroll", ({ scroll }) => onPageScroll(scroll));
+      lenis.on("scroll", ({ scroll }) => {
+        onPageScroll(scroll);
+        document.dispatchEvent(new CustomEvent("jat:scroll"));
+      });
     } else {
       window.addEventListener("scroll", () => onPageScroll(window.scrollY), { passive: true });
     }
@@ -492,7 +512,22 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
       document.querySelectorAll(sel).forEach((el) => mark(el));
     });
 
-    const targets = [...document.querySelectorAll(".reveal")];
+    document.querySelectorAll(".hero-content > *").forEach((el) => {
+      if (el.classList.contains("reveal")) {
+        el.classList.add("is-visible");
+      }
+    });
+
+    function revealPassedElements() {
+      const triggerY = window.innerHeight * 0.92;
+      document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => {
+        if (el.getBoundingClientRect().top < triggerY) {
+          el.classList.add("is-visible");
+        }
+      });
+    }
+
+    const targets = [...document.querySelectorAll(".reveal:not(.is-visible)")];
     if (!targets.length) return;
 
     const observer = new IntersectionObserver(
@@ -503,10 +538,24 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
           observer.unobserve(entry.target);
         });
       },
-      { root: null, rootMargin: "0px 0px -6% 0px", threshold: 0.05 }
+      { root: null, rootMargin: "0px 0px -4% 0px", threshold: 0.01 }
     );
 
     targets.forEach((el) => observer.observe(el));
+
+    let revealTick = false;
+    const onRevealScroll = () => {
+      if (revealTick) return;
+      revealTick = true;
+      requestAnimationFrame(() => {
+        revealPassedElements();
+        revealTick = false;
+      });
+    };
+
+    window.addEventListener("scroll", onRevealScroll, { passive: true });
+    document.addEventListener("jat:scroll", onRevealScroll);
+    revealPassedElements();
   }
 
   function parseCountValue(text) {
