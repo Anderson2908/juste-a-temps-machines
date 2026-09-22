@@ -9,7 +9,6 @@ const LOCAL_SIMULATEUR = new Set([
   "fontaines-a-eau.html",
   "distributeurs-automatiques.html",
   "a-propos.html",
-  "qui-sommes-nous.html",
   "index.html",
   "contact.html",
 ]);

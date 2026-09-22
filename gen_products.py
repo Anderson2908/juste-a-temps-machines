@@ -45,7 +45,7 @@ FOOTER = '''    <footer class="site-footer">
             <h4 class="ft-group__title">l'entreprise</h4>
             <ul>
               <li><a href="a-propos.html">à propos</a></li>
-              <li><a href="a-propos.html">démarche RSE</a></li>
+              <li><a href="a-propos.html#consommation-responsable">démarche RSE</a></li>
               <li><a href="index.html#bcorp">certification B Corp</a></li>
               <li><a href="contact.html">Parler à un expert</a></li>
             </ul>
@@ -62,8 +62,8 @@ FOOTER = '''    <footer class="site-footer">
         </nav>
         <div class="ft-trust">
           <div class="ft-trust__badges">
-            <img src="assets/bcorp-logo.webp" alt="Certified B Corporation" width="64" height="64" loading="lazy" decoding="async" />
-            <img src="assets/ecovadis-bronze.webp" alt="EcoVadis Sustainability Rating, Bronze" width="72" height="72" loading="lazy" decoding="async" />
+            <img src="assets/bcorp-logo.webp" alt="Certification B Corp" width="64" height="64" loading="lazy" decoding="async" />
+            <img src="assets/ecovadis-bronze.webp" alt="Certification EcoVadis Bronze" width="72" height="72" loading="lazy" decoding="async" />
           </div>
           <div class="ft-score">
             <span class="ft-score__stars" aria-hidden="true">★★★★★</span>
@@ -512,3 +512,16 @@ for p in PRODUCTS:
     print("ecrit:", fn)
 
 print("total:", len(created))
+
+try:
+    import os
+    import subprocess
+    import sys
+
+    subprocess.run(
+        [sys.executable, "scripts/generate-sitemap.py"],
+        check=True,
+        cwd=os.path.dirname(os.path.abspath(__file__)),
+    )
+except Exception as error:
+    print("sitemap: regénération ignorée —", error)

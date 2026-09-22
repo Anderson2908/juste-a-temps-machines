@@ -41,6 +41,20 @@ app.use((req, res, next) => {
   next();
 });
 
+const LEGACY_REDIRECTS = {
+  "/qui-sommes-nous.html": "/a-propos.html",
+  "/qui-sommes-nous": "/a-propos.html",
+};
+
+app.use((req, res, next) => {
+  const target = LEGACY_REDIRECTS[req.path];
+  if (target && req.method === "GET") {
+    res.redirect(301, target);
+    return;
+  }
+  next();
+});
+
 // Sonde de vie pour le reverse proxy / Dokploy.
 app.get("/healthz", (req, res) => {
   res.json({ ok: true, uptime: process.uptime() });

@@ -181,7 +181,6 @@ function processContactPage() {
   "fontaines-a-eau.html",
   "distributeurs-automatiques.html",
   "a-propos.html",
-  "qui-sommes-nous.html",
 ].forEach(processCatalogPage);
 
 processContactPage();

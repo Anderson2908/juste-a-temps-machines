@@ -7,7 +7,9 @@
     "dev": "node server/index.js",
     "start": "node server/index.js",
     "dev:static": "npx --yes serve . -p 5173",
-    "sync:conversion": "node scripts/sync-conversion-sections.js"
+    "sync:conversion": "node scripts/sync-conversion-sections.js",
+    "sitemap": "node scripts/generate-sitemap.js",
+    "sitemap:py": "python scripts/generate-sitemap.py"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
