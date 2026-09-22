@@ -109,9 +109,32 @@ async function pushToSarbacane(payload) {
   if (!config) return { ok: false, reason: "not-configured" };
 
   const fieldMap = await resolveFieldMap(config, "SARBACANE_FIELDS");
-  const contact = buildSarbacaneContact(payload, fieldMap);
+  const contact = buildSarbacaneContact(withOrigin(payload, fieldMap), fieldMap);
 
   return pushContact(config, contact);
+}
+
+// Libellés lisibles des points d'entrée du site, repris dans Sarbacane.
+const SOURCE_LABELS = {
+  "hero-rappel": "Être rappelé (accueil, en-tête)",
+  "problematique-rappel": "Être rappelé (parcours « votre besoin »)",
+};
+
+function sourceLabel(source) {
+  if (SOURCE_LABELS[source]) return SOURCE_LABELS[source];
+  const page = String(source || "").replace(/^https?:\/\/[^/]+/, "").replace(/^\//, "");
+  return page ? `Formulaire de contact (${page})` : "Formulaire de contact";
+}
+
+/**
+ * La liste des leads n'a pas de champ « Source » : l'origine de la demande
+ * (formulaire de contact ou bouton « Être rappelé », et la page) est ajoutée
+ * au champ Message pour que l'équipe sache comment rappeler.
+ */
+function withOrigin(payload, fieldMap) {
+  if (fieldMap.source || !fieldMap.message) return payload;
+  const origine = `Origine : ${sourceLabel(payload.source)}`;
+  return { ...payload, message: payload.message ? `${payload.message}\n\n${origine}` : origine };
 }
 
 /* ------------------------------------------------------------------ *

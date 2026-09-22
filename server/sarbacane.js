@@ -39,6 +39,7 @@ const FIELD_ALIASES = {
   company: ["societe", "société", "company", "entreprise", "organisation", "organization"],
   name: ["nom", "name", "lastname", "nom complet", "fullname", "contact"],
   message: ["message", "commentaire", "demande", "besoin", "comment"],
+  phone: ["telephone", "téléphone", "tel", "numero", "numéro"],
   source: ["source", "origine", "provenance", "page"],
 };
 
@@ -101,7 +102,10 @@ async function resolveFieldMap(config, envVar) {
 
     for (const [key, aliases] of Object.entries(FIELD_ALIASES)) {
       const match = fields.find((field) => {
-        const label = normalizeLabel(field.name || field.label || field.title);
+        // Sarbacane expose le libellé d'un champ personnalisé dans `caption`
+        // (les champs système ont une caption vide et ne sont jamais visés).
+        const label = normalizeLabel(field.caption || field.name || field.label || field.title);
+        if (!label) return false;
         return aliases.some((alias) => label === normalizeLabel(alias));
       });
       if (match && match.id) map[key] = match.id;
@@ -119,7 +123,7 @@ async function resolveFieldMap(config, envVar) {
  * Traduit notre payload en contact Sarbacane : email/phone en clair,
  * le reste sous l'ID du champ personnalisé correspondant.
  */
-function buildSarbacaneContact(payload, fieldMap, keys = ["company", "name", "message", "source"]) {
+function buildSarbacaneContact(payload, fieldMap, keys = ["company", "name", "phone", "message", "source"]) {
   const contact = {};
   if (payload.email) contact.email = payload.email;
   if (payload.phone) contact.phone = payload.phone;
