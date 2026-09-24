@@ -74,10 +74,17 @@ app.post("/api/contact", async (req, res) => {
   // Express 4 ne rattrape pas les rejets asynchrones : sans ce try/catch la
   // requête resterait pendante et le reverse proxy renverrait un 502.
   try {
-    const result = await handleContactSubmission({
-      ...req.body,
-      source: req.body?.source || req.get("referer") || "site-web",
-    });
+    const result = await handleContactSubmission(
+      {
+        ...req.body,
+        source: req.body?.source || req.get("referer") || "site-web",
+      },
+      {
+        // Derrière Cloudflare : l'IP réelle du visiteur (anti-rafale du portail).
+        ip: req.get("cf-connecting-ip") || String(req.get("x-forwarded-for") || "").split(",")[0].trim() || req.ip,
+        userAgent: req.get("user-agent"),
+      }
+    );
     res.status(result.status).json(result.body);
   } catch (error) {
     console.error("[contact] Erreur inattendue :", error);

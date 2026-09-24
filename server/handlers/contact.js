@@ -11,6 +11,7 @@ const {
   checkList,
 } = require("../sarbacane");
 const { sendCallbackAlert, checkSmtp, callbackRecipients } = require("../mailer");
+const { envoyerAuPortailSdr } = require("../portail-sdr");
 
 function sanitizeString(value, maxLength = 500) {
   if (typeof value !== "string") return "";
@@ -187,12 +188,15 @@ async function forwardToWebhook(payload) {
 const SUCCESS_MESSAGE =
   "Votre demande a bien été envoyée. Nous vous recontacterons rapidement.";
 
-async function handleContactSubmission(body) {
+async function handleContactSubmission(body, meta = {}) {
   const payload = buildPayload(body, body.source);
   const validationError = validatePayload(payload);
   if (validationError) {
     return { status: 400, body: { ok: false, error: validationError } };
   }
+
+  // File « Leads entrants » du Portail SDR, en arrière-plan (voir ../portail-sdr.js).
+  envoyerAuPortailSdr(payload, meta).catch(() => {});
 
   // « Être rappelé » : l'équipe commerciale est prévenue tout de suite par
   // e-mail. Envoi en arrière-plan : le visiteur n'attend pas le serveur SMTP,
