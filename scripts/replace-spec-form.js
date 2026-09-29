@@ -13,7 +13,7 @@ const PDF_BY_PREFIX = {
     category: "machines",
   },
   "fontaine-": {
-    url: "https://www.justeatemps.com/fontaines.pdf",
+    url: "https://site-vente-eaux.s3.eu-west-3.amazonaws.com/documents/fontaine-a-eau.pdf",
     category: "fontaines",
   },
   "distributeur-": {
