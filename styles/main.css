@@ -11469,3 +11469,42 @@ html.has-site-banner { scroll-padding-top: calc(var(--header-h) + var(--site-ban
 .main--home .site-header.is-nav-collapsed:not(.is-scrolled) .nav-main.is-open .nav-link {
   color: var(--jat-text);
 }
+
+/* Logo Octobre rose : affiché par scripts/main.js jusqu'au 29/10/2026 */
+html.is-logo-octobre-rose {
+  --header-h: 96px;
+}
+
+html.is-logo-octobre-rose .logo img,
+html.is-logo-octobre-rose .site-header.is-nav-tighter .logo img {
+  height: 80px;
+  max-width: min(280px, 46vw);
+}
+
+html.is-logo-octobre-rose .ft-logo img {
+  height: 72px;
+  width: auto;
+}
+
+.main--home .site-header:not(.is-scrolled) .logo img.is-octobre-rose {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 12px;
+  padding: 4px 8px;
+  box-shadow: 0 8px 24px rgba(10, 10, 10, 0.12);
+}
+
+@media (max-width: 768px) {
+  html.is-logo-octobre-rose {
+    --header-h: 84px;
+  }
+
+  html.is-logo-octobre-rose .logo img,
+  html.is-logo-octobre-rose .site-header.is-nav-tighter .logo img {
+    height: 64px;
+    max-width: min(220px, 56vw);
+  }
+
+  html.is-logo-octobre-rose .ft-logo img {
+    height: 56px;
+  }
+}

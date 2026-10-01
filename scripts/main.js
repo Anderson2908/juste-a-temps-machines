@@ -1424,6 +1424,43 @@ console.log("%c Anderson ","background:#c36043;color:#fff;padding:3px 10px;borde
     });
   }
 
+  function setupSeasonalLogo() {
+    var today = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Europe/Paris",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(new Date());
+    // Logo Octobre rose jusqu'au 29/10/2026 inclus. L'original revient le 30/10.
+    if (today >= "2026-10-30") return;
+
+    document.documentElement.classList.add("is-logo-octobre-rose");
+    var pending = 0;
+
+    function relayout() {
+      window.dispatchEvent(new Event("resize"));
+    }
+
+    document.querySelectorAll("img").forEach(function (img) {
+      var src = img.getAttribute("src") || "";
+      if (!/(^|\/)logo\.webp(?:\?.*)?$/.test(src)) return;
+      pending += 1;
+      img.addEventListener(
+        "load",
+        function () {
+          pending -= 1;
+          if (pending <= 0) relayout();
+        },
+        { once: true }
+      );
+      img.classList.add("is-octobre-rose");
+      img.setAttribute("width", "944");
+      img.setAttribute("height", "314");
+      img.src = src.replace(/logo\.webp(\?.*)?$/, "logo-octobre-rose.png");
+    });
+  }
+
+  setupSeasonalLogo();
   setupSiteBanner();
   setupSpecSheetDownloads();
   setupScrollReveal();
